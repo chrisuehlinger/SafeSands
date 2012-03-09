@@ -10,6 +10,7 @@
 
 @implementation MainViewController
 @synthesize locationDisplay;
+@synthesize theLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,13 +38,14 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [locationDisplay setText:theLocation];
 }
-*/
+
 
 - (void)viewDidUnload
 {

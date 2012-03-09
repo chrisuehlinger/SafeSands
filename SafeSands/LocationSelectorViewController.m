@@ -13,6 +13,8 @@
 @synthesize enterButton;
 @synthesize useCurrentLocationButton;
 
+NSString *locationWords;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,6 +63,23 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    MainViewController *dest = [segue destinationViewController];
+    [dest setTheLocation:locationWords];
+    
+}
+
+-(IBAction)clickEnterButton:(id)sender
+{
+    locationWords = locationField.text;
+}
+
+-(IBAction)clickUseCurrentLocationButton:(id)sender
+{
+    locationWords = @"Current Location";
 }
 
 @end

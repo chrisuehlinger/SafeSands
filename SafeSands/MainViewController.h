@@ -11,4 +11,5 @@
 @interface MainViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *locationDisplay;
+@property (weak, nonatomic) NSString *theLocation;
 @end

@@ -54,6 +54,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="clickUseCurrentLocationButton:" destination="pdO-Sp-yNI" eventType="touchUpInside" id="0FX-fa-HiV"/>
                                     <segue destination="Z6h-Qu-Bu2" kind="push" id="ZPM-vM-A4O"/>
                                 </connections>
                             </button>
