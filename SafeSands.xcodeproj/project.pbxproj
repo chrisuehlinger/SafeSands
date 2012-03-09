@@ -14,12 +14,15 @@
 		83E4090B1509EE0100F9222C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4090A1509EE0100F9222C /* main.m */; };
 		83E4090F1509EE0200F9222C /* SandsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4090E1509EE0200F9222C /* SandsAppDelegate.m */; };
 		83E409121509EE0300F9222C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E409101509EE0300F9222C /* MainStoryboard.storyboard */; };
-		83E409151509EE0400F9222C /* SandsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409141509EE0400F9222C /* SandsViewController.m */; };
 		83E4091D1509EE0600F9222C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E4091C1509EE0600F9222C /* SenTestingKit.framework */; };
 		83E4091E1509EE0600F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
 		83E4091F1509EE0600F9222C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409001509EE0100F9222C /* Foundation.framework */; };
 		83E409271509EE0600F9222C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83E409251509EE0600F9222C /* InfoPlist.strings */; };
 		83E4092A1509EE0600F9222C /* SafeSandsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409291509EE0600F9222C /* SafeSandsTests.m */; };
+		83E409351509EF2D00F9222C /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409341509EF2D00F9222C /* LocationSelectorViewController.m */; };
+		83E409361509EF2D00F9222C /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409341509EF2D00F9222C /* LocationSelectorViewController.m */; };
+		83E409391509F1DD00F9222C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409381509F1DD00F9222C /* MainViewController.m */; };
+		83E4093A1509F1DD00F9222C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409381509F1DD00F9222C /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,21 +40,23 @@
 		83E408FE1509EE0100F9222C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83E409001509EE0100F9222C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83E409021509EE0100F9222C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		83E409061509EE0100F9222C /* SafeSands-Info.plist */ = {isa = PBXFileReference; path = "SafeSands-Info.plist"; sourceTree = "<group>"; };
+		83E409061509EE0100F9222C /* SafeSands-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeSands-Info.plist"; sourceTree = "<group>"; };
 		83E409081509EE0100F9222C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83E4090A1509EE0100F9222C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		83E4090C1509EE0100F9222C /* SafeSands-Prefix.pch */ = {isa = PBXFileReference; path = "SafeSands-Prefix.pch"; sourceTree = "<group>"; };
-		83E4090D1509EE0200F9222C /* SandsAppDelegate.h */ = {isa = PBXFileReference; path = SandsAppDelegate.h; sourceTree = "<group>"; };
+		83E4090C1509EE0100F9222C /* SafeSands-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SafeSands-Prefix.pch"; sourceTree = "<group>"; };
+		83E4090D1509EE0200F9222C /* SandsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandsAppDelegate.h; sourceTree = "<group>"; };
 		83E4090E1509EE0200F9222C /* SandsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandsAppDelegate.m; sourceTree = "<group>"; };
 		83E409111509EE0300F9222C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		83E409131509EE0400F9222C /* SandsViewController.h */ = {isa = PBXFileReference; path = SandsViewController.h; sourceTree = "<group>"; };
-		83E409141509EE0400F9222C /* SandsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandsViewController.m; sourceTree = "<group>"; };
 		83E4091B1509EE0600F9222C /* SafeSandsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeSandsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E4091C1509EE0600F9222C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		83E409241509EE0600F9222C /* SafeSandsTests-Info.plist */ = {isa = PBXFileReference; path = "SafeSandsTests-Info.plist"; sourceTree = "<group>"; };
+		83E409241509EE0600F9222C /* SafeSandsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeSandsTests-Info.plist"; sourceTree = "<group>"; };
 		83E409261509EE0600F9222C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		83E409281509EE0600F9222C /* SafeSandsTests.h */ = {isa = PBXFileReference; path = SafeSandsTests.h; sourceTree = "<group>"; };
+		83E409281509EE0600F9222C /* SafeSandsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeSandsTests.h; sourceTree = "<group>"; };
 		83E409291509EE0600F9222C /* SafeSandsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeSandsTests.m; sourceTree = "<group>"; };
+		83E409331509EF2D00F9222C /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
+		83E409341509EF2D00F9222C /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
+		83E409371509F1DD00F9222C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		83E409381509F1DD00F9222C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +119,10 @@
 				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
 				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
 				83E409101509EE0300F9222C /* MainStoryboard.storyboard */,
-				83E409131509EE0400F9222C /* SandsViewController.h */,
-				83E409141509EE0400F9222C /* SandsViewController.m */,
+				83E409371509F1DD00F9222C /* MainViewController.h */,
+				83E409381509F1DD00F9222C /* MainViewController.m */,
+				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
+				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
 				83E409051509EE0100F9222C /* Supporting Files */,
 			);
 			path = SafeSands;
@@ -260,7 +267,8 @@
 			files = (
 				83E4090B1509EE0100F9222C /* main.m in Sources */,
 				83E4090F1509EE0200F9222C /* SandsAppDelegate.m in Sources */,
-				83E409151509EE0400F9222C /* SandsViewController.m in Sources */,
+				83E409351509EF2D00F9222C /* LocationSelectorViewController.m in Sources */,
+				83E409391509F1DD00F9222C /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				83E4092A1509EE0600F9222C /* SafeSandsTests.m in Sources */,
+				83E409361509EF2D00F9222C /* LocationSelectorViewController.m in Sources */,
+				83E4093A1509F1DD00F9222C /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
