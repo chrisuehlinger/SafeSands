@@ -79,7 +79,7 @@ NSString *location;
 
 -(IBAction)clickUseCurrentLocationButton:(id)sender
 {
-    location = nil;
+    location = @"CurrentLocation";
 }
 
 @end
