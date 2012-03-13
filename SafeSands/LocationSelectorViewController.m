@@ -13,7 +13,7 @@
 @synthesize enterButton;
 @synthesize useCurrentLocationButton;
 
-NSString *locationWords;
+NSString *location;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -68,18 +68,18 @@ NSString *locationWords;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     MainViewController *dest = [segue destinationViewController];
-    [dest setTheLocation:locationWords];
+    [dest setLocationText:location];
     
 }
 
 -(IBAction)clickEnterButton:(id)sender
 {
-    locationWords = locationField.text;
+    location = locationField.text;
 }
 
 -(IBAction)clickUseCurrentLocationButton:(id)sender
 {
-    locationWords = @"Current Location";
+    location = nil;
 }
 
 @end

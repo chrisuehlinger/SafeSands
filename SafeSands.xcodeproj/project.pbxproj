@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
 		83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
 		83E409011509EE0100F9222C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409001509EE0100F9222C /* Foundation.framework */; };
 		83E409031509EE0100F9222C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409021509EE0100F9222C /* CoreGraphics.framework */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		83E408FA1509EDFF00F9222C /* SafeSands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeSands.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E408FE1509EE0100F9222C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83E409001509EE0100F9222C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */,
 				83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */,
 				83E409011509EE0100F9222C /* Foundation.framework in Frameworks */,
 				83E409031509EE0100F9222C /* CoreGraphics.framework in Frameworks */,
@@ -105,6 +108,7 @@
 		83E408FD1509EE0000F9222C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83DB94F2150A8C0B005014BC /* CoreLocation.framework */,
 				83E408FE1509EE0100F9222C /* UIKit.framework */,
 				83E409001509EE0100F9222C /* Foundation.framework */,
 				83E409021509EE0100F9222C /* CoreGraphics.framework */,
@@ -440,6 +444,7 @@
 				83E4092F1509EE0600F9222C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		83E409301509EE0600F9222C /* Build configuration list for PBXNativeTarget "SafeSandsTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +453,7 @@
 				83E409321509EE0600F9222C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
