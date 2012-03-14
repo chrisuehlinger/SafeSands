@@ -35,17 +35,9 @@
 }
 
 -(void)parseWeatherData:(NSData *)data {
-    
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
     [parser setDelegate:self];
     [parser parse];
-    
-    // depending on the total number of items parsed, the last batch might not have been a "full" batch, and thus
-    // not been part of the regular batch transfer. So, we check the count of the array and, if necessary, send it to the main thread.
-    /*if ([self.currentParseBatch count] > 0) {
-     [self performSelectorOnMainThread:@selector(updateDBWithItems:) withObject:self.currentParseBatch waitUntilDone:NO];
-     }*/
-    self.currentItemObject = nil;
 }
 
 #pragma mark -
@@ -92,19 +84,13 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI
  qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     //NSLog(@"%s %@", __FUNCTION__, elementName);
-    
-    // If the number of parsed items is greater than kMaximumNumberOfItemsToParse, abort the parse.
-    /*if (parsedItemsCounter >= kMaximumNumberOfItemsToParse) {
-        // Use didAbortParsing flag to distinguish between this real parser errors.
-        didAbortParsing = YES;
-        [parser abortParsing];
-    }*/
+
     if ([containerElements containsObject:elementName]) {
-        NSMutableDictionary *forecast_section = [[NSMutableDictionary alloc] init];
-        self.currentItemObject = forecast_section;   // shortcut so parser can treat it the same
+        self.currentItemObject = [[NSMutableDictionary alloc] init]; 
     }
+    
     if ([fieldElements containsObject:elementName]) {
-        NSLog(@"%@: %@", elementName, [attributeDict objectForKey:@"data"]);
+        //NSLog(@"%@: %@", elementName, [attributeDict objectForKey:@"data"]);
         [[self currentItemObject] setObject:[attributeDict objectForKey:@"data"] forKey:elementName];
     }
 }

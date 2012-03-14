@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MainViewController.h"
+#import "TidalStationDB.h"
 
 @interface LocationSelectorViewController : UIViewController
 

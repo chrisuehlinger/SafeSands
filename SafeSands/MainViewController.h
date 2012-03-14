@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "Beach.h"
+#import "Weather.h"
+#import "TidalReading.h"
 
 @interface MainViewController : UIViewController<beachDelegate>
 

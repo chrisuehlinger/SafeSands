@@ -12,7 +12,10 @@
 
 @synthesize placemark;
 @synthesize weather;
+@synthesize reading;
 @synthesize delegate;
+
+TidalStationDB *tidalDB;
 
 - (id)initWithString:(NSString *)locationString
 {
@@ -26,7 +29,7 @@
          {
              dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]]; });
          }];
-    
+    tidalDB = [[TidalStationDB alloc] initWithDelegate:self];
     return self;
 }
 
@@ -48,6 +51,11 @@
      }];
 }
 
+-(void)databaseBuilt
+{
+    reading = [tidalDB retrieveTidalData:placemark];
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -67,5 +75,6 @@
 -(void)upDateText:(NSString *)newText
 {
     [delegate upDateText:newText];
+    
 }
 @end
