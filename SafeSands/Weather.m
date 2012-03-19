@@ -22,7 +22,6 @@
 
 -(id)initWithPlacemark:(CLPlacemark *)placemark
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     forecastConditions = [[NSMutableArray alloc] init];
     containerElements = [NSArray arrayWithObjects: @"forecast_information", @"current_conditions", @"forecast_conditions", nil];
     fieldElements = [NSArray arrayWithObjects: @"city", @"postal_code", @"current_date_time", 
@@ -45,7 +44,6 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     if(!weatherData) weatherData = [[NSMutableData alloc] init];
     
 }
@@ -57,10 +55,9 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self setWeatherConnection:nil];
     
-    NSLog(@"Have data, %d bytes", weatherData.length);
+    NSLog(@"Have weather data, %d bytes", weatherData.length);
     [NSThread detachNewThreadSelector:@selector(parseWeatherData:) toTarget:self withObject:weatherData];
     
     
@@ -69,7 +66,6 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self setWeatherConnection:nil];
     
     NSLog(@"Uh oh! Error!");
@@ -123,7 +119,7 @@
         }
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{[delegate upDateText:outText];});
+    dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {

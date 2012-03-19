@@ -10,21 +10,40 @@
 
 @implementation TidalStation
 
-
-
-@synthesize name;
-@synthesize location;
-@synthesize stationID;
+@dynamic latitude;
+@dynamic location;
+@dynamic longtitude;
+@dynamic name;
+@dynamic orderingValue;
+@dynamic stationID;
 
 -(id)initWithName:(NSString *)theName coordinates:(NSString *)coords stationID:(NSString *)stnID
 {
     name = theName;
     NSArray *transCoords = [coords componentsSeparatedByString:@","];
-    location = [[CLLocation alloc] initWithLatitude:[[transCoords objectAtIndex:1] doubleValue] longitude:[[transCoords objectAtIndex:0] doubleValue]];
+    latitude = [NSNumber numberWithDouble:[[transCoords objectAtIndex:1] doubleValue]];
+    longtitude = [NSNumber numberWithDouble:[[transCoords objectAtIndex:0] doubleValue]];
+    location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longtitude doubleValue]];
     stationID = stnID;
     
     //NSLog(@"nametag: %@ coordinates: %f,%f ID: %@",name, location.coordinate.latitude, location.coordinate.longitude, stationID);
     return self;
+}
+
+-(void)setName:(NSString *)theName coordinates:(NSString *)coords stationID:(NSString *)stnID
+{
+    name = theName;
+    NSArray *transCoords = [coords componentsSeparatedByString:@","];
+    latitude = [NSNumber numberWithDouble:[[transCoords objectAtIndex:1] doubleValue]];
+    longtitude = [NSNumber numberWithDouble:[[transCoords objectAtIndex:0] doubleValue]];
+    location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longtitude doubleValue]];
+    stationID = stnID;
+}
+
+-(void)awakeFromFetch
+{
+    [super awakeFromFetch];
+    location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longtitude doubleValue]];
 }
 
 @end

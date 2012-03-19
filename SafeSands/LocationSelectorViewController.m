@@ -9,11 +9,12 @@
 #import "LocationSelectorViewController.h"
 
 @implementation LocationSelectorViewController
-@synthesize locationField;
-@synthesize enterButton;
 @synthesize useCurrentLocationButton;
+@synthesize locationSearchBar;
+@synthesize locationSearchController;
 
-NSString *location;
+CGRect searchBarFrame;
+TidalStationDB *tidalDB;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,14 +47,18 @@ NSString *location;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //tidalDB = [[TidalStationDB alloc] init];
+    locationSearchController = [[UISearchDisplayController alloc] initWithSearchBar:locationSearchBar contentsController:self];
+    locationSearchBar.delegate = self;
+    
 }
 
 
 - (void)viewDidUnload
 {
-    [self setLocationField:nil];
-    [self setEnterButton:nil];
     [self setUseCurrentLocationButton:nil];
+    [self setLocationSearchBar:nil];
+    [self setLocationSearchController:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -65,21 +70,46 @@ NSString *location;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    MainViewController *dest = [segue destinationViewController];
-    [dest setLocationText:location];
-    
-}
-
--(IBAction)clickEnterButton:(id)sender
-{
-    location = locationField.text;
-}
 
 -(IBAction)clickUseCurrentLocationButton:(id)sender
 {
-    location = @"CurrentLocation";
+    MainViewController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainViewController"];
+    [dest setBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:dest]];
+    [self.navigationController pushViewController:dest animated:YES];
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    searchBarFrame = searchBar.frame;
+    [UIView animateWithDuration:0.5 animations:^{
+        searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, searchBar.frame.size.height);
+        [locationSearchController setActive:YES animated:NO];
+    }];
+    
+    return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [locationSearchController setActive:NO animated:NO];
+    [UIView animateWithDuration:0.5 animations:^{
+        searchBar.frame = searchBarFrame;
+    }];
+    [searchBar resignFirstResponder];
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    [self searchBarCancelButtonClicked:searchBar];
+    return YES;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    MainViewController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainViewController"];
+    [dest setBeach:[[Beach alloc] initWithString:[searchBar text] andDelegate:dest]];
+    [self.navigationController pushViewController:dest animated:YES];
+    [self searchBarCancelButtonClicked:searchBar];
 }
 
 @end

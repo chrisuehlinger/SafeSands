@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MainViewController.h"
-#import "TidalStationDB.h"
+#import "Beach.h"
 
-@interface LocationSelectorViewController : UIViewController
+@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *locationField;
-@property (weak, nonatomic) IBOutlet UIButton *enterButton;
 @property (weak, nonatomic) IBOutlet UIButton *useCurrentLocationButton;
+@property (weak, nonatomic) IBOutlet UISearchBar *locationSearchBar;
+@property (strong, nonatomic) IBOutlet UISearchDisplayController *locationSearchController;
 
--(IBAction)clickEnterButton:(id)sender;
 -(IBAction)clickUseCurrentLocationButton:(id)sender;
 
 @end

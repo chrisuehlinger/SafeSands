@@ -10,13 +10,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Weather.h"
 #import "TidalReading.h"
-#import "TidalStationDB.h"
 
 @protocol beachDelegate
--(void)upDateText:(NSString *)newText;
+-(void)foundPlacemark:(NSString *)newText;
+-(void)foundWeather:(NSString *)newText;
+-(void)foundTides:(NSString *)newText;
+//-(void)foundWarningst;
 @end
 
-@interface Beach : NSObject<CLLocationManagerDelegate, weatherDelegate, tidalStationDBDelegate>
+@interface Beach : NSObject<CLLocationManagerDelegate, weatherDelegate, tidalDelegate> 
 {
     id<beachDelegate> delegate;
     CLPlacemark *placemark;
@@ -32,6 +34,6 @@
 @property (strong, nonatomic) Weather *weather;
 @property (strong, nonatomic) TidalReading *reading;
 
-- (id)initWithString:(NSString *)locationString;
+- (id)initWithString:(NSString *)locationString andDelegate:(id<beachDelegate>)del;
 
 @end

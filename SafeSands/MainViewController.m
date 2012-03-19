@@ -9,10 +9,14 @@
 #import "MainViewController.h"
 
 @implementation MainViewController
+@synthesize weatherImageView;
 
+@synthesize placemarkDisplay, placemarkButton, placemarkActivityIndicator;
+@synthesize weatherDisplay, weatherButton, weatherActivityIndicator;
+@synthesize tidalDisplay, tidalButton, tidalActivityIndicator;
+@synthesize ripTideDisplay, ripTideButton, ripTideActivityIndicator;
 @synthesize beach;
-@synthesize beachDisplay;
-@synthesize locationText;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,15 +49,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[self beachDisplay] setText:@"Finding Location...\n"];
-    beach = [[Beach alloc] initWithString:locationText];
-    [beach setDelegate:self];
+    
+    [[self placemarkDisplay] setText:@"Finding Location..."];
+    [[self placemarkActivityIndicator] startAnimating];
+    
+    [[self weatherDisplay] setText:@"Finding Weather..."];
+    [[self weatherActivityIndicator] startAnimating];
+    
+    [[self tidalDisplay] setText:@"Finding Tides..."];
+    [[self tidalActivityIndicator] startAnimating];
+    
+    [[self ripTideDisplay] setText:@"Finding Alerts...\n(not yet implemented)"];
+    [[self ripTideActivityIndicator] startAnimating];
 }
 
 - (void)viewDidUnload
 {
     [self setBeach:nil]; 
-    [self setBeachDisplay:nil];
+    [self setPlacemarkDisplay:nil];
+    [self setPlacemarkActivityIndicator:nil];
+    [self setPlacemarkButton:nil];
+    [self setWeatherDisplay:nil];
+    [self setWeatherButton:nil];
+    [self setWeatherActivityIndicator:nil];
+    [self setTidalDisplay:nil];
+    [self setTidalButton:nil];
+    [self setTidalActivityIndicator:nil];
+    [self setRipTideDisplay:nil];
+    [self setRipTideButton:nil];
+    [self setRipTideActivityIndicator:nil];
+    [self setWeatherImageView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -65,10 +90,27 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)upDateText:(NSString *)newText
+- (IBAction)clickPlacemarkButton:(id)sender {
+}
+
+#pragma mark - beachDelegate methods
+
+-(void)foundPlacemark:(NSString *)newText
 {
-    NSString *theText = [[beachDisplay text] stringByAppendingString:newText];
-    [beachDisplay setText:theText];
+    [[self placemarkDisplay] setText:newText];
+    [[self placemarkActivityIndicator] stopAnimating];
+}
+
+-(void)foundWeather:(NSString *)newText
+{
+    [[self weatherDisplay] setText:newText];
+    [[self weatherActivityIndicator] stopAnimating];
+}
+
+-(void)foundTides:(NSString *)newText
+{
+    [[self tidalDisplay] setText:newText];
+    [[self tidalActivityIndicator] stopAnimating];
 }
 
 @end

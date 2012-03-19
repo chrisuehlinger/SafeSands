@@ -17,19 +17,16 @@
 
 TidalStationDB *tidalDB;
 
-- (id)initWithString:(NSString *)locationString
+- (id)initWithString:(NSString *)locationString andDelegate:(id<beachDelegate>)del
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    delegate = del;
     geocoder = [[CLGeocoder alloc] init];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     
     if([locationString isEqualToString:@"CurrentLocation"]) [locationManager startMonitoringSignificantLocationChanges];
     else [geocoder geocodeAddressString:locationString completionHandler:^(NSArray *placemarks, NSError *error)
-         {
-             dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]]; });
-         }];
-    tidalDB = [[TidalStationDB alloc] initWithDelegate:self];
+         {dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]]; });}];
     return self;
 }
 
@@ -39,21 +36,14 @@ TidalStationDB *tidalDB;
      {
          [self setPlacemark:[placemarks objectAtIndex:0]];
          dispatch_async(dispatch_get_main_queue(), ^{
-             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-             [delegate upDateText: [NSString stringWithFormat: @"CLPlacemark\tplacemark\n\tcoord.lat\t%f\n\tcoord.long\t%f\n\tlocality\t%@\n\tpostalCode\t%@\n",
-                                    placemark.location.coordinate.latitude,
-                                    placemark.location.coordinate.longitude,
-                                    placemark.locality,
-                                    placemark.postalCode]];
+             [delegate foundPlacemark:[NSString stringWithFormat:@"%@, %@",placemark.locality, placemark.administrativeArea]];
              weather = [[Weather alloc] initWithPlacemark:placemark];
              [weather setDelegate:self];
+             reading = [[TidalReading alloc] initWithPlacemark:placemark];
+             [reading setDelegate:self];
+
          });
      }];
-}
-
--(void)databaseBuilt
-{
-    reading = [tidalDB retrieveTidalData:placemark];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -72,9 +62,22 @@ TidalStationDB *tidalDB;
     // FIX ME
 }
 
--(void)upDateText:(NSString *)newText
+#pragma mark - other delegate methods
+
+-(void)foundWeather
 {
-    [delegate upDateText:newText];
-    
+    NSString *outText = [[NSString alloc] init];
+    outText = [outText stringByAppendingFormat:@"%@\n", [[weather currentConditions] objectForKey:@"condition"]];
+    outText = [outText stringByAppendingFormat:@"%@oF\n", [[weather currentConditions] objectForKey:@"temp_f"]];
+    [delegate foundWeather:outText];
 }
+
+-(void)foundTides
+{
+    NSString *outText = [[NSString alloc] init];
+    outText = [outText stringByAppendingFormat:@"%@ at %@\n", [[[reading readings] objectAtIndex:0] objectForKey:@"highlow"], [[[reading readings] objectAtIndex:0] objectForKey:@"time"]];
+    outText = [outText stringByAppendingFormat:@"%@ at %@\n", [[[reading readings] objectAtIndex:1] objectForKey:@"highlow"], [[[reading readings] objectAtIndex:1] objectForKey:@"time"]];
+    [delegate foundTides:outText];
+}
+
 @end

@@ -16,6 +16,23 @@
 
 @property (strong, nonatomic) Beach *beach;
 
-@property (weak, nonatomic) IBOutlet UITextView *beachDisplay;
-@property (strong, nonatomic) NSString *locationText;
+@property (weak, nonatomic) IBOutlet UITextView *placemarkDisplay;
+@property (weak, nonatomic) IBOutlet UIButton *placemarkButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *placemarkActivityIndicator;
+- (IBAction)clickPlacemarkButton:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UITextView *weatherDisplay;
+@property (weak, nonatomic) IBOutlet UIButton *weatherButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *weatherActivityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
+
+
+@property (weak, nonatomic) IBOutlet UITextView *tidalDisplay;
+@property (weak, nonatomic) IBOutlet UIButton *tidalButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *tidalActivityIndicator;
+
+@property (weak, nonatomic) IBOutlet UITextView *ripTideDisplay;
+@property (weak, nonatomic) IBOutlet UIButton *ripTideButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *ripTideActivityIndicator;
+
 @end

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreData/CoreData.h>
 #import "TidalStation.h"
-#import "TidalReading.h"
 
 @protocol tidalStationDBDelegate <NSObject>
 
@@ -21,8 +21,10 @@
     
     id<tidalStationDBDelegate> delegate;
     
+    int count;
     NSArray *fieldElements;
-    NSMutableArray *stations;
+    NSManagedObjectContext *context;
+    NSManagedObjectModel *model;
     
     // parser properties
     NSMutableString *currentParsedCharacterData;
@@ -33,10 +35,15 @@
 
 @property (strong, nonatomic) id<tidalStationDBDelegate> delegate;
 
+@property (strong, nonatomic) NSURLConnection *kmzConnection;
+@property (strong, nonatomic) NSMutableData *kmzData;
+
 @property (strong, nonatomic) NSMutableString *currentParsedCharacterData;
 @property (strong, nonatomic) NSMutableDictionary *currentItemObject;
 
--(id)initWithDelegate:(id)del;
--(TidalReading *)retrieveTidalData:(CLPlacemark *)placemark;
+-(id)initWithDelegate:(id<tidalStationDBDelegate>)del;
+-(NSArray *)fetchStationsIfNecessary;
+-(TidalStation *)closestStationTo:(CLPlacemark *)placemark;
+-(TidalStation *)fetchStation:(int)orderingValue;
 
 @end

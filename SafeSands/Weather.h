@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @protocol weatherDelegate
--(void)upDateText:(NSString *)newText;
+-(void)foundWeather;
 @end
 
 @interface Weather : NSObject<NSXMLParserDelegate>{

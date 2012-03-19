@@ -7,10 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import "TidalStation.h"
+#import "TidalStationDB.h"
 
-@interface TidalReading : NSObject<NSURLConnectionDelegate, NSXMLParserDelegate>{
+@protocol tidalDelegate
+-(void)foundTides;
+@end
+
+@interface TidalReading : NSObject<tidalStationDBDelegate, NSURLConnectionDelegate, NSXMLParserDelegate>{
     
+    id<tidalDelegate> delegate;
     NSMutableArray *readings;
+    
+    TidalStationDB *tidalDB;
+    TidalStation *station;
     
     NSURLConnection *tideConnection;
     NSMutableData *tideData;
@@ -23,13 +34,16 @@
     BOOL accumulatingParsedCharacterData;
 }
 
+@property (strong, nonatomic) id<tidalDelegate> delegate;
 @property (strong, nonatomic) NSMutableArray *readings;
 @property (strong, nonatomic) NSURLConnection *tideConnection;
 @property (strong, nonatomic) NSMutableData *tideData;
+@property (strong, nonatomic) TidalStationDB *tidalDB;
 
 @property (nonatomic, retain) NSMutableString *currentParsedCharacterData;
 @property (nonatomic, retain) NSMutableDictionary *currentItemObject;
 
--(id)initWithStationID:(NSString *)stnID;
+-(id)initWithPlacemark:(CLPlacemark *)placemark;// andTidalDB:(TidalStationDB *)database;
+-(void)databaseBuilt;
 
 @end
