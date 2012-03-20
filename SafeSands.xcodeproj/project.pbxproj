@@ -17,6 +17,8 @@
 		83B1E857150FF1A900B1664F /* TidalStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E855150FF1A900B1664F /* TidalStationDB.m */; };
 		83B1E859150FF3D400B1664F /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = 83B1E858150FF3D400B1664F /* pred.kml */; };
 		83B1E85A150FF3D400B1664F /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = 83B1E858150FF3D400B1664F /* pred.kml */; };
+		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
+		83C8B4661517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
 		83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
 		83E409011509EE0100F9222C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409001509EE0100F9222C /* Foundation.framework */; };
@@ -61,6 +63,8 @@
 		83B1E854150FF1A900B1664F /* TidalStationDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalStationDB.h; sourceTree = "<group>"; };
 		83B1E855150FF1A900B1664F /* TidalStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalStationDB.m; sourceTree = "<group>"; };
 		83B1E858150FF3D400B1664F /* pred.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pred.kml; path = ../../../Downloads/pred.kml; sourceTree = "<group>"; };
+		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
+		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
 		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		83E408FA1509EDFF00F9222C /* SafeSands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeSands.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E408FE1509EE0100F9222C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -150,24 +154,26 @@
 		83E409041509EE0100F9222C /* SafeSands */ = {
 			isa = PBXGroup;
 			children = (
-				83B1E854150FF1A900B1664F /* TidalStationDB.h */,
-				83B1E855150FF1A900B1664F /* TidalStationDB.m */,
-				83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */,
-				83B1E850150FEE5800B1664F /* TidalStation.h */,
-				83B1E851150FEE5800B1664F /* TidalStation.m */,
-				83ED625D15101FF600368777 /* TidalReading.h */,
-				83ED625E15101FF600368777 /* TidalReading.m */,
 				83B1E847150FC4A300B1664F /* Beach.h */,
 				83B1E848150FC4A300B1664F /* Beach.m */,
-				83B1E84C150FC4D500B1664F /* Weather.h */,
-				83B1E84D150FC4D500B1664F /* Weather.m */,
-				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
-				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
+				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
+				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
 				83E409101509EE0300F9222C /* MainStoryboard.storyboard */,
 				83E409371509F1DD00F9222C /* MainViewController.h */,
 				83E409381509F1DD00F9222C /* MainViewController.m */,
-				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
-				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
+				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
+				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
+				83C8B4631517F69C000C8F3F /* SandsParser.h */,
+				83C8B4641517F69C000C8F3F /* SandsParser.m */,
+				83ED625D15101FF600368777 /* TidalReading.h */,
+				83ED625E15101FF600368777 /* TidalReading.m */,
+				83B1E850150FEE5800B1664F /* TidalStation.h */,
+				83B1E851150FEE5800B1664F /* TidalStation.m */,
+				83B1E854150FF1A900B1664F /* TidalStationDB.h */,
+				83B1E855150FF1A900B1664F /* TidalStationDB.m */,
+				83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */,
+				83B1E84C150FC4D500B1664F /* Weather.h */,
+				83B1E84D150FC4D500B1664F /* Weather.m */,
 				83E409051509EE0100F9222C /* Supporting Files */,
 			);
 			path = SafeSands;
@@ -323,6 +329,7 @@
 				83B1E856150FF1A900B1664F /* TidalStationDB.m in Sources */,
 				83ED625F15101FF600368777 /* TidalReading.m in Sources */,
 				83ED626D1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */,
+				83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +346,7 @@
 				83B1E857150FF1A900B1664F /* TidalStationDB.m in Sources */,
 				83ED626015101FF600368777 /* TidalReading.m in Sources */,
 				83ED626E1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */,
+				83C8B4661517F69C000C8F3F /* SandsParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

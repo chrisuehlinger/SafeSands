@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "SandsParser.h"
 
 @protocol weatherDelegate
 -(void)foundWeather;
 @end
 
-@interface Weather : NSObject<NSXMLParserDelegate>{
+@interface Weather : NSObject<SandsParserDelegate>{
     id<weatherDelegate> delegate;
-    
-    NSMutableDictionary *currentItemObject;
     
     NSArray * containerElements;
     NSArray * fieldElements;
@@ -24,13 +23,13 @@
     NSMutableDictionary *forecastInfo;
     NSMutableDictionary *currentConditions;
     NSMutableArray *forecastConditions;
+    
+    SandsParser *weatherParser;
 }
 
 @property (strong, nonatomic) id<weatherDelegate> delegate;
 
-@property (strong, nonatomic) NSURLConnection *weatherConnection;
-@property (strong, nonatomic) NSMutableData *weatherData;
-@property (strong, nonatomic) NSMutableDictionary *currentItemObject;
+@property (strong, nonatomic) SandsParser *weatherParser;
 
 @property (strong, nonatomic) NSMutableDictionary *forecastInfo;
 @property (strong, nonatomic) NSMutableDictionary *currentConditions;

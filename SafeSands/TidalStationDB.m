@@ -11,7 +11,7 @@
 @implementation TidalStationDB
 
 @synthesize kmzConnection, kmzData;
-@synthesize delegate, currentParsedCharacterData, currentItemObject;
+@synthesize delegate;
 
 static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/StationListFormat?type=Current%20Data&filter=active&format=kml";
 BOOL databaseBuilt;
@@ -58,15 +58,15 @@ BOOL databaseBuilt;
     
     if (!databaseBuilt) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"pred" ofType:@"kml"];  
-        NSData *stationData = [NSData dataWithContentsOfFile:filePath];
-        NSLog(@"have station data: %d bytes", [stationData length]);
-    
-        [NSThread detachNewThreadSelector:@selector(parseStationData:) toTarget:self withObject:stationData];
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"pred" ofType:@"kml"];
+        stationParser = [[SandsParser alloc] initWithFilePath:filePath
+                                                  andDelegate:self
+                                                    andFields:fieldElements
+                                                andContainers:[NSArray arrayWithObject:@"Placemark"]];
     }else{
         NSLog(@"Moving on!");
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:[NSEntityDescription entityForName:@"Tidal Station" inManagedObjectContext:context]];
+        [request setEntity:[NSEntityDescription entityForName:@"TidalStation" inManagedObjectContext:context]];
         
         [request setIncludesSubentities:NO]; //Omit subentities. Default is YES (i.e. include subentities)
         
@@ -87,15 +87,6 @@ BOOL databaseBuilt;
     });
 }
 
--(void)parseStationData:(NSData *)data {
-    // NSLog(@"%s", __FUNCTION__);
-    self.currentParsedCharacterData = [NSMutableString string];
-    
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    [parser setDelegate:self];
-    [parser parse];
-}
-
 -(TidalStation *)closestStationTo:(CLPlacemark *)placemark
 {
     NSInteger minDist = INFINITY;
@@ -109,19 +100,25 @@ BOOL databaseBuilt;
     for (i=1; i<count; i++) {
         TidalStation *thisStation = [self fetchStation:i];
         NSInteger thisDist = [placemark.location distanceFromLocation:thisStation.location];
-        if ([thisStation isFault]) {
-            NSLog(@"THATS WHY! %@", thisStation.stationID);
-        }
         if( thisDist < minDist && thisDist > -1) {
             closestStation = thisStation;
             minDist = thisDist;
-            NSLog(@"%d %@ %d", i, [closestStation name], minDist);
+            //NSLog(@"%d %@ %d", i, [closestStation name], minDist);
         }
     }
     return closestStation;
 }
 
--(void)databaseBuilt
+#pragma mark - SandsParserDelegate methods
+
+-(void)elementParsed:(NSMutableDictionary *)element
+{
+    [[self createStation] setName:[element objectForKey:@"nametag"]
+                      coordinates:[element objectForKey:@"coordinates"]
+                        stationID:[element objectForKey:@"stnid"]];
+}
+
+-(void)parseComplete
 {
     [self saveChanges];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -207,99 +204,7 @@ BOOL databaseBuilt;
 - (void)removeStation:(TidalStation *)theStation
 {
     [context deleteObject:theStation];
-    //[stations removeObjectIdenticalTo:theStation];
     count--;
-}
-
-
-
-#pragma mark - NSXMLParser delegate methods
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    //NSLog(@"%s %@", __FUNCTION__, elementName);
-    
-    if ([elementName isEqualToString:@"Placemark"]) self.currentItemObject = [[NSMutableDictionary alloc] init];
-    else if ([fieldElements containsObject:elementName]) {
-        accumulatingParsedCharacterData = YES;
-        // reset character accumulator
-        [currentParsedCharacterData setString:@""];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {     
-    //NSLog(@"%s (%@) data: %@", __FUNCTION__, elementName, currentParsedCharacterData);
-    
-    if ([fieldElements containsObject:elementName]){
-        //NSLog(@"%@ %@", elementName, self.currentParsedCharacterData);
-        [self.currentItemObject setValue:self.currentParsedCharacterData forKey:elementName];
-        currentParsedCharacterData = [[NSMutableString alloc] init];
-    }else if ([elementName isEqualToString:@"Placemark"]) {
-
-        [[self createStation] setName:[self.currentItemObject objectForKey:[fieldElements objectAtIndex:0]]coordinates:[self.currentItemObject objectForKey:[fieldElements objectAtIndex:1]] stationID:[self.currentItemObject objectForKey:[fieldElements objectAtIndex:2]]];
-        //NSLog(@"%d nametag: %@ coordinates: %@ ID: %@",count, [self.currentItemObject objectForKey:@"nametag"],[self.currentItemObject objectForKey:@"coordinates"],[self.currentItemObject objectForKey:@"stnid"]);
-        //[self fetchStation:count];
-        
-        
-    }
-        
-    // Stop accumulating parsed character data. We won't start again until specific elements begin.
-    accumulatingParsedCharacterData = NO;
-}
-
--(void)parserDidEndDocument:(NSXMLParser *)parser
-{
-    [self saveChanges];
-    dispatch_async(dispatch_get_main_queue(), ^{[self databaseBuilt];});
-}
-
-// The parser delivers parsed character data (PCDATA) in chunks, not necessarily all at once. 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    //NSLog(@"%s (%@)", __FUNCTION__, string);
-    if (accumulatingParsedCharacterData) {
-        [self.currentParsedCharacterData appendString:string];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    // We abort parsing if we get more than kMaximumNumberOfItemsToParse. 
-    // We use the didAbortParsing flag to avoid treating this as an error. 
-    if (didAbortParsing == NO) {
-        // Pass the error to the main thread for handling.
-        [self performSelectorOnMainThread:@selector(handleError:) withObject:parseError waitUntilDone:NO];
-    }
-}
-
-#pragma mark - NSURLConnectionDelegate methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    if(!kmzData) kmzData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.kmzData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    [self setKmzConnection:nil];
-    
-    NSLog(@"Have tide data, %d bytes", kmzData.length);
-    [NSThread detachNewThreadSelector:@selector(parseTideData:) toTarget:self withObject:kmzData];
-    
-    
-    [self setKmzData:nil];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [self setKmzConnection:nil];
-    
-    NSLog(@"Uh oh! Error!");
-    
-    [self setKmzData:nil];
-    
 }
 
 @end
