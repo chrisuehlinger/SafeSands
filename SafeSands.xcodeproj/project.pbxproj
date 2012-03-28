@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */; };
+		83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A41519075900E44C2C /* PlacemarkViewController.m */; };
+		83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AA151908CB00E44C2C /* iAd.framework */; };
+		83AFF4AD151908E600E44C2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AC151908E600E44C2C /* MapKit.framework */; };
 		83B1E849150FC4A300B1664F /* Beach.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E848150FC4A300B1664F /* Beach.m */; };
 		83B1E84A150FC4A300B1664F /* Beach.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E848150FC4A300B1664F /* Beach.m */; };
 		83B1E84E150FC4D500B1664F /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E84D150FC4D500B1664F /* Weather.m */; };
@@ -20,6 +24,8 @@
 		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83C8B4661517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
+		83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1741522EB0B005422D9 /* TidalClockView.m */; };
+		83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1771522EE0D005422D9 /* TidalClockViewController.m */; };
 		83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
 		83E409011509EE0100F9222C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409001509EE0100F9222C /* Foundation.framework */; };
 		83E409031509EE0100F9222C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409021509EE0100F9222C /* CoreGraphics.framework */; };
@@ -54,6 +60,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
+		83AFF4A31519075900E44C2C /* PlacemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacemarkViewController.h; sourceTree = "<group>"; };
+		83AFF4A41519075900E44C2C /* PlacemarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacemarkViewController.m; sourceTree = "<group>"; };
+		83AFF4AA151908CB00E44C2C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		83AFF4AC151908E600E44C2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		83B1E847150FC4A300B1664F /* Beach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Beach.h; path = ../Beach.h; sourceTree = "<group>"; };
 		83B1E848150FC4A300B1664F /* Beach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Beach.m; path = ../Beach.m; sourceTree = "<group>"; };
 		83B1E84C150FC4D500B1664F /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
@@ -66,6 +78,10 @@
 		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
 		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
 		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		83E3F1731522EB0B005422D9 /* TidalClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockView.h; sourceTree = "<group>"; };
+		83E3F1741522EB0B005422D9 /* TidalClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockView.m; sourceTree = "<group>"; };
+		83E3F1761522EE0D005422D9 /* TidalClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockViewController.h; sourceTree = "<group>"; };
+		83E3F1771522EE0D005422D9 /* TidalClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockViewController.m; sourceTree = "<group>"; };
 		83E408FA1509EDFF00F9222C /* SafeSands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeSands.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E408FE1509EE0100F9222C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83E409001509EE0100F9222C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -98,6 +114,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AFF4AD151908E600E44C2C /* MapKit.framework in Frameworks */,
+				83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */,
 				83ED62701512A59600368777 /* CoreData.framework in Frameworks */,
 				83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */,
 				83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */,
@@ -122,6 +140,8 @@
 		83E408EF1509EDEA00F9222C = {
 			isa = PBXGroup;
 			children = (
+				83AFF4AC151908E600E44C2C /* MapKit.framework */,
+				83AFF4AA151908CB00E44C2C /* iAd.framework */,
 				83E409041509EE0100F9222C /* SafeSands */,
 				83E409221509EE0600F9222C /* SafeSandsTests */,
 				83E408FD1509EE0000F9222C /* Frameworks */,
@@ -156,11 +176,19 @@
 			children = (
 				83B1E847150FC4A300B1664F /* Beach.h */,
 				83B1E848150FC4A300B1664F /* Beach.m */,
+				83E3F1761522EE0D005422D9 /* TidalClockViewController.h */,
+				83E3F1771522EE0D005422D9 /* TidalClockViewController.m */,
 				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
 				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
 				83E409101509EE0300F9222C /* MainStoryboard.storyboard */,
+				83E3F1731522EB0B005422D9 /* TidalClockView.h */,
+				83E3F1741522EB0B005422D9 /* TidalClockView.m */,
+				83AFF4A31519075900E44C2C /* PlacemarkViewController.h */,
+				83AFF4A41519075900E44C2C /* PlacemarkViewController.m */,
 				83E409371509F1DD00F9222C /* MainViewController.h */,
 				83E409381509F1DD00F9222C /* MainViewController.m */,
+				83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */,
+				83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */,
 				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
 				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
 				83C8B4631517F69C000C8F3F /* SandsParser.h */,
@@ -330,6 +358,10 @@
 				83ED625F15101FF600368777 /* TidalReading.m in Sources */,
 				83ED626D1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */,
 				83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */,
+				83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */,
+				83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */,
+				83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */,
+				83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

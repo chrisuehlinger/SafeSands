@@ -19,8 +19,8 @@ BOOL databaseBuilt;
 -(id)initWithDelegate:(id<tidalStationDBDelegate>)del
 {
     delegate = del;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareToDie) name:@"aboutToEnterBackground" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareToDie) name:@"aboutToTerminate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveChanges) name:@"aboutToEnterBackground" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveChanges) name:@"aboutToTerminate" object:nil];
     
     model = [NSManagedObjectModel mergedModelFromBundles:nil];
     
@@ -28,17 +28,7 @@ BOOL databaseBuilt;
     NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                              NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"/tidalStations.data"];
     NSURL *dbURL = [NSURL fileURLWithPath: dbPath];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
-    
-    if ([fileManager fileExistsAtPath:dbPath]) {
-        NSLog(@"Opening database.");
-        databaseBuilt = YES;
-    }else {
-        NSLog(@"Creating new database.");
-        databaseBuilt = NO;
-    }
-    
     if(![psc addPersistentStoreWithType:NSSQLiteStoreType
                           configuration:nil
                                     URL:dbURL
@@ -46,11 +36,35 @@ BOOL databaseBuilt;
                                   error:&error])
     {[NSException raise:@"Create Failed" format:@"Reason: %@", [error localizedDescription]];}
     
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:[psc metadataForPersistentStore:[[psc persistentStores] objectAtIndex:0]]];
+    
+    NSDate *dateCompleted = [metadata objectForKey:@"dateCompleted"];
+    
+    if (dateCompleted && [dateCompleted timeIntervalSinceNow] > -2592000) {
+        NSLog(@"Opening database.");
+        databaseBuilt = YES;
+        count = [[metadata objectForKey:@"count"] intValue];
+    }else {
+        NSLog(@"Creating new database.");
+        databaseBuilt = NO;
+        if ([metadata objectForKey:@"dateStarted"]) {
+            NSLog(@"Old Database was corrupt.");
+            if(![psc removePersistentStore:[[psc persistentStores] objectAtIndex:0] 
+                                    error:&error])
+                [NSException raise:@"Removal Failed" format:@"Reason: %@", [error localizedDescription]];
+            if(![psc addPersistentStoreWithType:NSSQLiteStoreType
+                                  configuration:nil
+                                            URL:dbURL
+                                        options:nil
+                                          error:&error])
+                [NSException raise:@"Create Failed" format:@"Reason: %@", [error localizedDescription]];
+            metadata = [[NSMutableDictionary alloc] initWithDictionary:[psc metadataForPersistentStore:[[psc persistentStores] objectAtIndex:0]]];
+        }
+    }
+    
     context = [[NSManagedObjectContext alloc] init];
     [context setPersistentStoreCoordinator:psc];
     [context setUndoManager:nil];
-    
-    fieldElements = [NSArray arrayWithObjects:@"nametag", @"coordinates", @"stnid", nil];
     
     /*NSURLRequest *kmzRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: coopsURL]];
     kmzConnection = [[NSURLConnection alloc] initWithRequest:kmzRequest delegate:self];
@@ -58,33 +72,25 @@ BOOL databaseBuilt;
     
     if (!databaseBuilt) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [metadata setObject:[[NSDate alloc] initWithTimeIntervalSinceNow:0] forKey:@"dateStarted"];
+        [[context persistentStoreCoordinator] setMetadata:metadata forPersistentStore:[[[context persistentStoreCoordinator] persistentStores] objectAtIndex:0]];
+        [self saveChanges];
+        fieldElements = [NSArray arrayWithObjects:@"nametag", @"coordinates", @"stnid", nil];
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"pred" ofType:@"kml"];
         stationParser = [[SandsParser alloc] initWithFilePath:filePath
                                                   andDelegate:self
                                                     andFields:fieldElements
                                                 andContainers:[NSArray arrayWithObject:@"Placemark"]];
-    }else{
-        NSLog(@"Moving on!");
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:[NSEntityDescription entityForName:@"TidalStation" inManagedObjectContext:context]];
-        
-        [request setIncludesSubentities:NO]; //Omit subentities. Default is YES (i.e. include subentities)
-        
-        NSError *err;
-        count = [context countForFetchRequest:request error:&err];
-        NSLog(@"count = %d", count);
+    }else
         [NSThread detachNewThreadSelector:@selector(databaseAlreadyBuilt) toTarget:self withObject:nil];
-    }
     
     return self;
 }
 
 -(void)databaseAlreadyBuilt
 {
-    [NSThread sleepForTimeInterval:1.0];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [delegate databaseBuilt];
-    });
+    dispatch_async(dispatch_get_main_queue(),
+                   ^{[delegate databaseBuilt];});
 }
 
 -(TidalStation *)closestStationTo:(CLPlacemark *)placemark
@@ -120,6 +126,11 @@ BOOL databaseBuilt;
 
 -(void)parseComplete
 {
+    
+    NSMutableDictionary *newMetadata = [[NSMutableDictionary alloc] initWithDictionary:[[context persistentStoreCoordinator] metadataForPersistentStore:[[[context persistentStoreCoordinator] persistentStores] objectAtIndex:0]]];
+    [newMetadata setObject:[[NSDate alloc] initWithTimeIntervalSinceNow:0] forKey:@"dateCompleted"];
+    [newMetadata setObject:[NSNumber numberWithInt:count] forKey:@"count"];
+    [[context persistentStoreCoordinator] setMetadata:newMetadata forPersistentStore:[[[context persistentStoreCoordinator] persistentStores] objectAtIndex:0]];
     [self saveChanges];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     databaseBuilt=YES;
@@ -127,18 +138,12 @@ BOOL databaseBuilt;
     [delegate databaseBuilt];
 }
 
-#pragma mark - CoreData methods
-
--(void)prepareToDie;
+-(void)retrievedImageData:(NSData *)data
 {
-    NSLog(@"Saving changes before termination.");
-    [self saveChanges];
-    /*
-     Called when the application is about to terminate.
-     Save data if appropriate.
-     See also applicationDidEnterBackground:.
-     */
+    NSLog(@"This shouldn't happen: TidalStationDB");
 }
+
+#pragma mark - CoreData methods
 
 -(BOOL)saveChanges
 {
@@ -183,8 +188,8 @@ BOOL databaseBuilt;
     NSError *error;
     NSArray *result = [context executeFetchRequest:request error:&error];
     if (!result) {
-    [NSException raise:@"Fetch failed"
-                format:@"Reason: %@", [error localizedDescription]];
+        [NSException raise:@"Fetch failed"
+                    format:@"Reason: %@", [error localizedDescription]];
     }
     NSArray *stations = [[NSMutableArray alloc] initWithArray:result];
     count = [stations count];

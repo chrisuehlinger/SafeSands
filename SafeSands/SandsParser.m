@@ -14,10 +14,9 @@
 @synthesize delegate, xmlConnection, xmlData;
 @synthesize currentParsedCharacterData, currentItemObject;
 
-NSString *thePath;
-
 -(id)initWithPath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del andFields:(NSArray *)fields andContainers:(NSArray *)containers
 {
+    isImage = NO;
     currentParsedCharacterData = [[NSMutableString alloc] init];
     thePath = path;
     delegate = del;
@@ -31,17 +30,29 @@ NSString *thePath;
 
 -(id)initWithFilePath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del andFields:(NSArray *)fields andContainers:(NSArray *)containers
 {
+    isImage = NO;
     currentParsedCharacterData = [[NSMutableString alloc] init];
     thePath = path;
     delegate = del;
     fieldItems = [[NSArray alloc] initWithArray:fields];
     containerItems = [[NSArray alloc] initWithArray:containers];
     xmlData = [NSData dataWithContentsOfFile:path];
-    NSLog(@"Have data: %d bytes", [xmlData length]);
+    NSLog(@"Have file data: %d bytes", [xmlData length]);
     
     [NSThread detachNewThreadSelector:@selector(parseData:)
                              toTarget:self
                            withObject:xmlData];
+    return self;
+}
+
+-(id)initWithImagePath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del{
+    isImage = YES;
+    currentParsedCharacterData = [[NSMutableString alloc] init];
+    thePath = path;
+    delegate = del;
+    NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: path]];
+    xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
+    NSAssert(xmlConnection != nil, @"Could not establish connection");
     return self;
 }
 
@@ -58,8 +69,7 @@ NSString *thePath;
     [parser parse];
 }
 
-#pragma mark -
-#pragma mark NSURLConnectionDelegate
+#pragma mark - NSURLConnectionDelegate methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
@@ -76,8 +86,13 @@ NSString *thePath;
 {
     [self setXmlConnection:nil];
     
-    NSLog(@"Have data, %d bytes", xmlData.length);
-    [NSThread detachNewThreadSelector:@selector(parseData:) toTarget:self withObject:xmlData];
+    if (isImage){
+        [delegate retrievedImageData:xmlData];
+        NSLog(@"Have image data, %d bytes", xmlData.length);
+    }else{
+        [NSThread detachNewThreadSelector:@selector(parseData:) toTarget:self withObject:xmlData];
+        NSLog(@"Have xml data, %d bytes", xmlData.length);
+    }
     
     [self setXmlData:nil];
 }

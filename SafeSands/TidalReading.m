@@ -38,10 +38,6 @@ CLPlacemark *thePlacemark;
                                        andDelegate:self
                                          andFields:fieldElements
                                      andContainers:[NSArray arrayWithObject:@"item"]];
-    
-    /*NSURLRequest *tideRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: tidalPath]];
-    tideConnection = [[NSURLConnection alloc] initWithRequest:tideRequest delegate:self];
-    NSAssert(tideConnection != nil, @"Could not establish connection");*/
 }
 
 #pragma mark SandsParserDelegate methods
@@ -64,6 +60,11 @@ CLPlacemark *thePlacemark;
 -(void)parseComplete
 {
     dispatch_async(dispatch_get_main_queue(), ^{[delegate foundTides];});
+}
+
+-(void)retrievedImageData:(NSData *)data
+{
+    NSLog(@"This shouldn't happen: TidalReading");
 }
 
 @end

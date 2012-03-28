@@ -14,6 +14,8 @@
 @synthesize weatherParser;
 @synthesize forecastInfo, currentConditions, forecastConditions;
 
+SandsParser *imageParser;
+
 -(id)initWithPlacemark:(CLPlacemark *)placemark
 {
     forecastConditions = [[NSMutableArray alloc] init];
@@ -79,6 +81,28 @@
     if (corrupt) {
         [weatherParser repeatOperations];
     }else
+        imageParser = [[SandsParser alloc] initWithImagePath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
+        
+}
+
+-(void)retrievedImageData:(NSData *)data
+{
+    bool imageUsed = NO;
+    if(![currentConditions objectForKey:@"image"]){
+        [currentConditions setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
+        imageUsed = YES;
+    }
+    for (NSMutableDictionary *foreCond in forecastConditions)
+        if (![foreCond objectForKey:@"image"])
+            if (!imageUsed) {
+                [foreCond setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
+                imageUsed = YES;
+            }else {
+                imageParser = [[SandsParser alloc] initWithImagePath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
+                break;
+            }
+    
+    if ([[forecastConditions lastObject] objectForKey:@"image"])
         dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
 }
 

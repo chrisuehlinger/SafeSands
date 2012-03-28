@@ -17,6 +17,4 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *locationSearchController;
 
--(IBAction)clickUseCurrentLocationButton:(id)sender;
-
 @end

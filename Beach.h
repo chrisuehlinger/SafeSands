@@ -13,7 +13,7 @@
 
 @protocol beachDelegate
 -(void)foundPlacemark:(NSString *)newText;
--(void)foundWeather:(NSString *)newText;
+-(void)foundWeather:(NSString *)newText andImage:(UIImage *)theImage;
 -(void)foundTides:(NSString *)newText;
 //-(void)foundWarningst;
 @end

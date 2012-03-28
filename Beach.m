@@ -26,7 +26,7 @@ TidalStationDB *tidalDB;
     
     if([locationString isEqualToString:@"CurrentLocation"]) [locationManager startMonitoringSignificantLocationChanges];
     else [geocoder geocodeAddressString:locationString completionHandler:^(NSArray *placemarks, NSError *error)
-         {dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]]; });}];
+          {dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]]; });}];
     return self;
 }
 
@@ -41,7 +41,7 @@ TidalStationDB *tidalDB;
              [weather setDelegate:self];
              reading = [[TidalReading alloc] initWithPlacemark:placemark];
              [reading setDelegate:self];
-
+             
          });
      }];
 }
@@ -69,7 +69,7 @@ TidalStationDB *tidalDB;
     NSString *outText = [[NSString alloc] init];
     outText = [outText stringByAppendingFormat:@"%@\n", [[weather currentConditions] objectForKey:@"condition"]];
     outText = [outText stringByAppendingFormat:@"%@oF\n", [[weather currentConditions] objectForKey:@"temp_f"]];
-    [delegate foundWeather:outText];
+    [delegate foundWeather:outText andImage:[weather.currentConditions objectForKey:@"image"]];
 }
 
 -(void)foundTides
@@ -81,3 +81,4 @@ TidalStationDB *tidalDB;
 }
 
 @end
+

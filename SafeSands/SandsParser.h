@@ -12,7 +12,7 @@
 
 -(void)elementParsed:(NSMutableDictionary *)element;
 -(void)parseComplete;
-
+-(void)retrievedImageData:(NSData *)data;
 @end
 
 @interface SandsParser : NSObject <NSURLConnectionDelegate, NSXMLParserDelegate>
@@ -20,6 +20,8 @@
     id<SandsParserDelegate> delegate;
     NSArray *containerItems;
     NSArray *fieldItems;
+    bool isImage;
+    NSString *thePath;
     
     // parser properties
     NSMutableString *currentParsedCharacterData;
@@ -38,7 +40,7 @@
 @property (strong, nonatomic) NSMutableString *currentParsedCharacterData;
 @property (strong, nonatomic) NSMutableDictionary *currentItemObject;
 
-
+-(id)initWithImagePath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del;
 -(id)initWithPath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del andFields:(NSArray *)fields andContainers:(NSArray *)containers;
 -(id)initWithFilePath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del andFields:(NSArray *)fields andContainers:(NSArray *)containers;
 -(void)repeatOperations;

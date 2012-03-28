@@ -47,6 +47,13 @@ TidalStationDB *tidalDB;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"SearchBarFrame = %f,%f,%f,%f",
+          locationSearchBar.frame.origin.x,
+          locationSearchBar.frame.origin.y,
+          locationSearchBar.frame.size.width,
+          locationSearchBar.frame.size.height);
+    locationSearchBar.autoresizingMask = 0;
+    searchBarFrame = locationSearchBar.frame;
     //tidalDB = [[TidalStationDB alloc] init];
     locationSearchController = [[UISearchDisplayController alloc] initWithSearchBar:locationSearchBar contentsController:self];
     locationSearchBar.delegate = self;
@@ -67,20 +74,37 @@ TidalStationDB *tidalDB;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
--(IBAction)clickUseCurrentLocationButton:(id)sender
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    MainViewController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainViewController"];
-    [dest setBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:dest]];
-    [self.navigationController pushViewController:dest animated:YES];
+    //if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
+      //  locationSearchBar.frame = CGRectMake(110, 92, 260, 44);
 }
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    //NSLog(@"Rotation from %@", [fromInterfaceOrientation] );
+    NSLog(@"SearchBarFrame = %f,%f,%f,%f",
+          locationSearchBar.frame.origin.x,
+          locationSearchBar.frame.origin.y,
+          locationSearchBar.frame.size.width,
+          locationSearchBar.frame.size.height);
+}
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"currentLocationSegue"])
+    {
+        MainViewController *dest = [segue destinationViewController];
+        [dest setBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:dest]];
+    }
+}
+
+#pragma mark - SearchBarControllerDelegate methods
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    searchBarFrame = searchBar.frame;
     [UIView animateWithDuration:0.5 animations:^{
         searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, searchBar.frame.size.height);
         [locationSearchController setActive:YES animated:NO];

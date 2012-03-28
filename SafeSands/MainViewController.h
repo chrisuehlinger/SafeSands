@@ -11,6 +11,9 @@
 #import "Beach.h"
 #import "Weather.h"
 #import "TidalReading.h"
+#import "PlacemarkViewController.h"
+#import "WeatherViewController.h"
+#import "TidalClockViewController.h"
 
 @interface MainViewController : UIViewController<beachDelegate>
 
