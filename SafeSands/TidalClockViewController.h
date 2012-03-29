@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "TidalReading.h"
+#import "TidalClockView.h"
 
-@interface TidalClockViewController : UIViewController
+@interface TidalClockViewController : UIViewController{
+    bool hasReading;
+}
 
 @property (strong,nonatomic) TidalReading *reading;
+@property (weak, nonatomic) IBOutlet TidalClockView *clock;
+
+-(void)createClockWithReading:(TidalReading *)r;
 
 @end

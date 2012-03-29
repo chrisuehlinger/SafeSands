@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TidalClockView : UIView
+@interface TidalClockView : UIView{
+    bool hasTide;
+}
+
+@property (strong, nonatomic) NSMutableDictionary *lastTide;
+@property (strong, nonatomic) NSMutableDictionary *nextTide;
+
+-(void)drawClockWithLastTide:(NSMutableDictionary *)last andNextTide:(NSMutableDictionary *)next;
 
 @end

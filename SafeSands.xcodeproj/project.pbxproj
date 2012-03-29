@@ -23,6 +23,7 @@
 		83B1E85A150FF3D400B1664F /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = 83B1E858150FF3D400B1664F /* pred.kml */; };
 		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83C8B4661517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
+		83CB24801523731900514100 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CB247F1523731900514100 /* QuartzCore.framework */; };
 		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
 		83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1741522EB0B005422D9 /* TidalClockView.m */; };
 		83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1771522EE0D005422D9 /* TidalClockViewController.m */; };
@@ -77,6 +78,7 @@
 		83B1E858150FF3D400B1664F /* pred.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pred.kml; path = ../../../Downloads/pred.kml; sourceTree = "<group>"; };
 		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
 		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
+		83CB247F1523731900514100 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		83E3F1731522EB0B005422D9 /* TidalClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockView.h; sourceTree = "<group>"; };
 		83E3F1741522EB0B005422D9 /* TidalClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockView.m; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CB24801523731900514100 /* QuartzCore.framework in Frameworks */,
 				83AFF4AD151908E600E44C2C /* MapKit.framework in Frameworks */,
 				83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */,
 				83ED62701512A59600368777 /* CoreData.framework in Frameworks */,
@@ -140,6 +143,7 @@
 		83E408EF1509EDEA00F9222C = {
 			isa = PBXGroup;
 			children = (
+				83CB247F1523731900514100 /* QuartzCore.framework */,
 				83AFF4AC151908E600E44C2C /* MapKit.framework */,
 				83AFF4AA151908CB00E44C2C /* iAd.framework */,
 				83E409041509EE0100F9222C /* SafeSands */,

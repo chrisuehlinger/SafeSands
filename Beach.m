@@ -75,8 +75,11 @@ TidalStationDB *tidalDB;
 -(void)foundTides
 {
     NSString *outText = [[NSString alloc] init];
-    outText = [outText stringByAppendingFormat:@"%@ at %@\n", [[[reading readings] objectAtIndex:0] objectForKey:@"highlow"], [[[reading readings] objectAtIndex:0] objectForKey:@"time"]];
-    outText = [outText stringByAppendingFormat:@"%@ at %@\n", [[[reading readings] objectAtIndex:1] objectForKey:@"highlow"], [[[reading readings] objectAtIndex:1] objectForKey:@"time"]];
+    NSMutableDictionary *nextTide = [reading nextTide];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh':'mm' 'a"];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    outText = [outText stringByAppendingFormat:@"%@ at %@\n", [nextTide objectForKey:@"highlow"], [dateFormatter stringFromDate:[nextTide objectForKey:@"formattedDate"]]];
     [delegate foundTides:outText];
 }
 

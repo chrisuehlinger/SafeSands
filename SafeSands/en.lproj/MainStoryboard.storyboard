@@ -284,12 +284,22 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EpO-Ci-amm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="ap2-wf-vY9" customClass="TidalClockViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="79v-tE-14C" customClass="TidalClockView">
+                    <view key="view" contentMode="scaleToFill" id="79v-tE-14C">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="BKD-b7-Lwr" customClass="TidalClockView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tidal Clock" id="1ib-Ti-j3Q"/>
+                    <connections>
+                        <outlet property="clock" destination="BKD-b7-Lwr" id="4Eb-5u-sKk"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1682" y="294"/>

@@ -15,7 +15,7 @@
 @synthesize tidalDB;
 
 //timeZone?
-static NSString * const noaaURL = @"http://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual%20XML&timeZone=2&datum=MLLW&Stationid=";
+static NSString * const noaaURL = @"http://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual%20XML&timeZone=0&datum=MLLW&Stationid=";
 
 CLPlacemark *thePlacemark;
 
@@ -46,25 +46,56 @@ CLPlacemark *thePlacemark;
 {
     //for (NSString *key in element) NSLog(@"%@ %@", key, [element objectForKey:key]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat: @"yyyy'/'MM'/'dd' 'HH':'mm' 'a"];
+    [dateFormatter setDateFormat: @"yyyy'/'MM'/'dd' 'HH':'mm"];
     NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@", [element objectForKey:@"date"],[element objectForKey:@"time"]]];
     
-    
-    if (date && [date timeIntervalSinceNow] >= 0) {
-        //NSLog(@"%@ %@", [self.currentItemObject objectForKey:@"date"],[self.currentItemObject objectForKey:@"time"]);
-        [element setObject:date forKey:@"formattedDate"];
-        [readings addObject: element];
-    }
+    [element setObject:date forKey:@"formattedDate"];
+    [readings addObject: element];
 }
 
 -(void)parseComplete
 {
+    NSSortDescriptor *dateDescriptor =
+    [[NSSortDescriptor alloc] initWithKey:@"formattedDate"
+                                ascending:YES
+                                 selector:@selector(timeIntervalSinceNow)];
+    NSArray *temp = [[NSArray alloc] initWithArray:readings];
+    readings = [[NSMutableArray alloc] initWithArray:[temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dateDescriptor, nil]]];
     dispatch_async(dispatch_get_main_queue(), ^{[delegate foundTides];});
 }
 
 -(void)retrievedImageData:(NSData *)data
 {
     NSLog(@"This shouldn't happen: TidalReading");
+}
+
+-(NSMutableDictionary *)lastTide
+{
+    NSMutableDictionary *last;
+    
+    for (NSMutableDictionary *read in readings) {
+        if ([[read objectForKey:@"formattedDate"] timeIntervalSinceNow] > 0) {
+            break;
+        }else {
+            last=read;
+        }
+    }
+    
+    return last;
+}
+
+-(NSMutableDictionary *)nextTide
+{
+    NSMutableDictionary *next;
+    
+    for (NSMutableDictionary *read in readings) {
+        if ([[read objectForKey:@"formattedDate"] timeIntervalSinceNow] > 0) {
+            next=read;
+            break;
+        }
+    }
+    
+    return next;
 }
 
 @end

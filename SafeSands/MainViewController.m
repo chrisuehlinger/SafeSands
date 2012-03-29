@@ -114,7 +114,7 @@
         [dest setWeather:[beach weather]];
     }else if ([theID isEqualToString:@"tidalSegue"]) {
         TidalClockViewController *dest = [segue destinationViewController];
-        [dest setReading:[beach reading]];
+        [dest createClockWithReading:[beach reading]];
     }
 }
 
@@ -130,10 +130,9 @@
 -(void)foundWeather:(NSString *)newText andImage:(UIImage *)theImage
 {
     [[self weatherDisplay] setText:newText];
-    //[[self weatherImageView] setImage:theImage];
+    [[self weatherImageView] setImage:theImage];
     [[self weatherActivityIndicator] stopAnimating];
     [[self weatherButton] setEnabled:YES];
-    [[self weatherButton] setImage:theImage forState:UIControlStateNormal];
 }
 
 -(void)foundTides:(NSString *)newText

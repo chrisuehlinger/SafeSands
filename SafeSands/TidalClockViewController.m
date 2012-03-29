@@ -11,12 +11,13 @@
 @implementation TidalClockViewController
 
 @synthesize reading;
+@synthesize clock;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        hasReading=NO;
     }
     return self;
 }
@@ -24,18 +25,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    if(hasReading){
+        [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
+    }
 }
 
 - (void)viewDidUnload
 {
+    [self setClock:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [clock setNeedsDisplay];
+}
+
+-(void)createClockWithReading:(TidalReading *)r
+{
+    reading=r;
+    hasReading=YES;
 }
 
 @end

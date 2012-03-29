@@ -35,4 +35,7 @@
 -(id)initWithPlacemark:(CLPlacemark *)placemark;// andTidalDB:(TidalStationDB *)database;
 -(void)databaseBuilt;
 
+-(NSMutableDictionary *)lastTide;
+-(NSMutableDictionary *)nextTide;
+
 @end
