@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8318443B15251964005FF862 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318443A15251964005FF862 /* Alerts.m */; };
 		83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */; };
 		83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A41519075900E44C2C /* PlacemarkViewController.m */; };
 		83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AA151908CB00E44C2C /* iAd.framework */; };
@@ -24,6 +25,7 @@
 		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83C8B4661517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83CB24801523731900514100 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CB247F1523731900514100 /* QuartzCore.framework */; };
+		83CB248415241ACF00514100 /* WaterTemperature.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB248315241ACF00514100 /* WaterTemperature.m */; };
 		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
 		83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1741522EB0B005422D9 /* TidalClockView.m */; };
 		83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1771522EE0D005422D9 /* TidalClockViewController.m */; };
@@ -48,6 +50,10 @@
 		83ED626D1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */; };
 		83ED626E1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */; };
 		83ED62701512A59600368777 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83ED626F1512A59600368777 /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		83F290A6152457160030FC09 /* SandsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290A5152457160030FC09 /* SandsDataStore.m */; };
+		83F290AC152457BF0030FC09 /* WaterTempStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */; };
+		83F290AF1524590E0030FC09 /* WaterTempStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290AE1524590D0030FC09 /* WaterTempStation.m */; };
+		83F290B21524700B0030FC09 /* WaterTempStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290B11524700A0030FC09 /* WaterTempStationDB.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8318443915251964005FF862 /* Alerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alerts.h; sourceTree = "<group>"; };
+		8318443A15251964005FF862 /* Alerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alerts.m; sourceTree = "<group>"; };
 		83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
 		83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
 		83AFF4A31519075900E44C2C /* PlacemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacemarkViewController.h; sourceTree = "<group>"; };
@@ -79,6 +87,8 @@
 		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
 		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
 		83CB247F1523731900514100 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		83CB248215241ACF00514100 /* WaterTemperature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTemperature.h; sourceTree = "<group>"; };
+		83CB248315241ACF00514100 /* WaterTemperature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTemperature.m; sourceTree = "<group>"; };
 		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		83E3F1731522EB0B005422D9 /* TidalClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockView.h; sourceTree = "<group>"; };
 		83E3F1741522EB0B005422D9 /* TidalClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockView.m; sourceTree = "<group>"; };
@@ -109,6 +119,13 @@
 		83ED625E15101FF600368777 /* TidalReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalReading.m; sourceTree = "<group>"; };
 		83ED626C1512A43700368777 /* TidalStationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TidalStationModel.xcdatamodel; sourceTree = "<group>"; };
 		83ED626F1512A59600368777 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		83F290A4152457160030FC09 /* SandsDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsDataStore.h; sourceTree = "<group>"; };
+		83F290A5152457160030FC09 /* SandsDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsDataStore.m; sourceTree = "<group>"; };
+		83F290AB152457BE0030FC09 /* WaterTempStationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WaterTempStationModel.xcdatamodel; sourceTree = "<group>"; };
+		83F290AD1524590D0030FC09 /* WaterTempStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTempStation.h; sourceTree = "<group>"; };
+		83F290AE1524590D0030FC09 /* WaterTempStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempStation.m; sourceTree = "<group>"; };
+		83F290B0152470090030FC09 /* WaterTempStationDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTempStationDB.h; sourceTree = "<group>"; };
+		83F290B11524700A0030FC09 /* WaterTempStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempStationDB.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,9 +160,6 @@
 		83E408EF1509EDEA00F9222C = {
 			isa = PBXGroup;
 			children = (
-				83CB247F1523731900514100 /* QuartzCore.framework */,
-				83AFF4AC151908E600E44C2C /* MapKit.framework */,
-				83AFF4AA151908CB00E44C2C /* iAd.framework */,
 				83E409041509EE0100F9222C /* SafeSands */,
 				83E409221509EE0600F9222C /* SafeSandsTests */,
 				83E408FD1509EE0000F9222C /* Frameworks */,
@@ -165,6 +179,9 @@
 		83E408FD1509EE0000F9222C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83CB247F1523731900514100 /* QuartzCore.framework */,
+				83AFF4AC151908E600E44C2C /* MapKit.framework */,
+				83AFF4AA151908CB00E44C2C /* iAd.framework */,
 				83ED626F1512A59600368777 /* CoreData.framework */,
 				83DB94F2150A8C0B005014BC /* CoreLocation.framework */,
 				83E408FE1509EE0100F9222C /* UIKit.framework */,
@@ -178,34 +195,23 @@
 		83E409041509EE0100F9222C /* SafeSands */ = {
 			isa = PBXGroup;
 			children = (
+				8318443915251964005FF862 /* Alerts.h */,
+				8318443A15251964005FF862 /* Alerts.m */,
 				83B1E847150FC4A300B1664F /* Beach.h */,
 				83B1E848150FC4A300B1664F /* Beach.m */,
-				83E3F1761522EE0D005422D9 /* TidalClockViewController.h */,
-				83E3F1771522EE0D005422D9 /* TidalClockViewController.m */,
-				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
-				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
 				83E409101509EE0300F9222C /* MainStoryboard.storyboard */,
 				83E3F1731522EB0B005422D9 /* TidalClockView.h */,
 				83E3F1741522EB0B005422D9 /* TidalClockView.m */,
-				83AFF4A31519075900E44C2C /* PlacemarkViewController.h */,
-				83AFF4A41519075900E44C2C /* PlacemarkViewController.m */,
-				83E409371509F1DD00F9222C /* MainViewController.h */,
-				83E409381509F1DD00F9222C /* MainViewController.m */,
-				83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */,
-				83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */,
+				83CB248215241ACF00514100 /* WaterTemperature.h */,
+				83CB248315241ACF00514100 /* WaterTemperature.m */,
 				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
 				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
-				83C8B4631517F69C000C8F3F /* SandsParser.h */,
-				83C8B4641517F69C000C8F3F /* SandsParser.m */,
 				83ED625D15101FF600368777 /* TidalReading.h */,
 				83ED625E15101FF600368777 /* TidalReading.m */,
-				83B1E850150FEE5800B1664F /* TidalStation.h */,
-				83B1E851150FEE5800B1664F /* TidalStation.m */,
-				83B1E854150FF1A900B1664F /* TidalStationDB.h */,
-				83B1E855150FF1A900B1664F /* TidalStationDB.m */,
-				83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */,
 				83B1E84C150FC4D500B1664F /* Weather.h */,
 				83B1E84D150FC4D500B1664F /* Weather.m */,
+				83F290A91524576C0030FC09 /* Data Related */,
+				83F290A81524573C0030FC09 /* ViewControllers */,
 				83E409051509EE0100F9222C /* Supporting Files */,
 			);
 			path = SafeSands;
@@ -240,6 +246,44 @@
 				83E409251509EE0600F9222C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83F290A81524573C0030FC09 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				83E3F1761522EE0D005422D9 /* TidalClockViewController.h */,
+				83E3F1771522EE0D005422D9 /* TidalClockViewController.m */,
+				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
+				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
+				83AFF4A31519075900E44C2C /* PlacemarkViewController.h */,
+				83AFF4A41519075900E44C2C /* PlacemarkViewController.m */,
+				83E409371509F1DD00F9222C /* MainViewController.h */,
+				83E409381509F1DD00F9222C /* MainViewController.m */,
+				83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */,
+				83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		83F290A91524576C0030FC09 /* Data Related */ = {
+			isa = PBXGroup;
+			children = (
+				83C8B4631517F69C000C8F3F /* SandsParser.h */,
+				83C8B4641517F69C000C8F3F /* SandsParser.m */,
+				83F290A4152457160030FC09 /* SandsDataStore.h */,
+				83F290A5152457160030FC09 /* SandsDataStore.m */,
+				83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */,
+				83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */,
+				83F290AD1524590D0030FC09 /* WaterTempStation.h */,
+				83F290AE1524590D0030FC09 /* WaterTempStation.m */,
+				83F290B0152470090030FC09 /* WaterTempStationDB.h */,
+				83F290B11524700A0030FC09 /* WaterTempStationDB.m */,
+				83B1E850150FEE5800B1664F /* TidalStation.h */,
+				83B1E851150FEE5800B1664F /* TidalStation.m */,
+				83B1E854150FF1A900B1664F /* TidalStationDB.h */,
+				83B1E855150FF1A900B1664F /* TidalStationDB.m */,
+			);
+			name = "Data Related";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +410,12 @@
 				83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */,
 				83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */,
 				83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */,
+				83CB248415241ACF00514100 /* WaterTemperature.m in Sources */,
+				83F290A6152457160030FC09 /* SandsDataStore.m in Sources */,
+				83F290AC152457BF0030FC09 /* WaterTempStationModel.xcdatamodeld in Sources */,
+				83F290AF1524590E0030FC09 /* WaterTempStation.m in Sources */,
+				83F290B21524700B0030FC09 /* WaterTempStationDB.m in Sources */,
+				8318443B15251964005FF862 /* Alerts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +615,17 @@
 			);
 			currentVersion = 83ED626C1512A43700368777 /* TidalStationModel.xcdatamodel */;
 			path = TidalStationModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83F290AB152457BE0030FC09 /* WaterTempStationModel.xcdatamodel */,
+			);
+			currentVersion = 83F290AB152457BE0030FC09 /* WaterTempStationModel.xcdatamodel */;
+			name = WaterTempStationModel.xcdatamodeld;
+			path = ../WaterTempStationModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

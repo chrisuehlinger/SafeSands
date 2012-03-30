@@ -14,9 +14,12 @@
 @synthesize delegate, xmlConnection, xmlData;
 @synthesize currentParsedCharacterData, currentItemObject;
 
+NSString *thePath;
+
 -(id)initWithPath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del andFields:(NSArray *)fields andContainers:(NSArray *)containers
 {
-    isImage = NO;
+    thePath=path;
+    justGetData = NO;
     currentParsedCharacterData = [[NSMutableString alloc] init];
     thePath = path;
     delegate = del;
@@ -30,7 +33,8 @@
 
 -(id)initWithFilePath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del andFields:(NSArray *)fields andContainers:(NSArray *)containers
 {
-    isImage = NO;
+    thePath=path;
+    justGetData = NO;
     currentParsedCharacterData = [[NSMutableString alloc] init];
     thePath = path;
     delegate = del;
@@ -45,9 +49,9 @@
     return self;
 }
 
--(id)initWithImagePath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del{
-    isImage = YES;
-    currentParsedCharacterData = [[NSMutableString alloc] init];
+-(id)initWithDataPath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del{
+    thePath=path;
+    justGetData = YES;
     thePath = path;
     delegate = del;
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: path]];
@@ -64,9 +68,12 @@
 }
 
 -(void)parseData:(NSData *)data {
+    depth=-1;
+    currentItemObject = [[NSMutableArray alloc] init];
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
     [parser setDelegate:self];
     [parser parse];
+    //NSLog(@"Parsing: %@", thePath);
 }
 
 #pragma mark - NSURLConnectionDelegate methods
@@ -86,8 +93,8 @@
 {
     [self setXmlConnection:nil];
     
-    if (isImage){
-        [delegate retrievedImageData:xmlData];
+    if (justGetData){
+        [delegate retrievedData:xmlData];
         NSLog(@"Have image data, %d bytes", xmlData.length);
     }else{
         [NSThread detachNewThreadSelector:@selector(parseData:) toTarget:self withObject:xmlData];
@@ -109,11 +116,13 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     //NSLog(@"%s %@", __FUNCTION__, elementName);
     
-    if ([containerItems containsObject:elementName])
-         self.currentItemObject = [[NSMutableDictionary alloc] init];
+    if ([containerItems containsObject:elementName]){
+        [self.currentItemObject addObject:[[NSMutableDictionary alloc] init]];
+        depth++;
+    }
     else if ([fieldItems containsObject:elementName]) {
         if ([attributeDict objectForKey:@"data"]) {
-            [[self currentItemObject] setObject:[NSString stringWithFormat:[attributeDict objectForKey:@"data"]] forKey:elementName];
+            [[[self currentItemObject] lastObject] setObject:[NSString stringWithFormat:[attributeDict objectForKey:@"data"]] forKey:elementName];
             //NSLog(@"%@: %@", elementName, [attributeDict objectForKey:@"data"]);
         }
         accumulatingParsedCharacterData = YES;
@@ -125,18 +134,29 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {     
     //NSLog(@"%s (%@) data: %@", __FUNCTION__, elementName, currentParsedCharacterData);
     
-    if ([fieldItems containsObject:elementName]
-        && ![currentItemObject objectForKey:elementName]
-        && self.currentParsedCharacterData){
-        [self.currentItemObject setObject:self.currentParsedCharacterData forKey:elementName];
+    if ([fieldItems containsObject:elementName] && self.currentParsedCharacterData){
+        if([[currentItemObject lastObject] objectForKey:elementName]){
+            int i=1;
+            NSString *newName = [NSString stringWithFormat:@"%@-%d", elementName, i];
+            while ([[currentItemObject lastObject] objectForKey:newName]) {
+                newName = [NSString stringWithFormat:@"%@-%d", elementName, ++i];
+            }
+            [[self.currentItemObject lastObject] setObject:self.currentParsedCharacterData forKey:newName];
+        }else
+            [[self.currentItemObject lastObject] setObject:self.currentParsedCharacterData forKey:elementName];
         currentParsedCharacterData = [[NSMutableString alloc] init];
     }else if ([containerItems containsObject:elementName]){
-        [currentItemObject setObject:elementName forKey:@"containerName"];
-        //NSLog(@"%@ %@", @"name:", [currentItemObject objectForKey:@"containerName"]);
-        NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithDictionary: currentItemObject];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [delegate elementParsed:result];
-        });
+        [[currentItemObject lastObject] setObject:elementName forKey:@"containerName"];
+        if (depth==0){
+            NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithDictionary: [currentItemObject objectAtIndex:0]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate elementParsed:result];
+            });
+        }else 
+            [[currentItemObject objectAtIndex:depth-1] setObject:[currentItemObject objectAtIndex:depth] forKey:elementName];
+        
+        [currentItemObject removeObjectAtIndex:depth];
+        depth--;
     }
     // Stop accumulating parsed character data. We won't start again until specific elements begin.
     accumulatingParsedCharacterData = NO;

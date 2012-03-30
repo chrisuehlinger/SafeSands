@@ -12,12 +12,18 @@
 
 @synthesize delegate;
 @synthesize weatherParser;
+@synthesize waterTemp;
 @synthesize forecastInfo, currentConditions, forecastConditions;
 
 SandsParser *imageParser;
+bool waterTempFound;
+bool imagesLoaded;
 
 -(id)initWithPlacemark:(CLPlacemark *)placemark
 {
+    waterTempFound = NO;
+    imagesLoaded = NO;
+    waterTemp = [[WaterTemperature alloc] initWithPlacemark:placemark andDelegate:self];
     forecastConditions = [[NSMutableArray alloc] init];
     containerElements = [NSArray arrayWithObjects: @"forecast_information", @"current_conditions", @"forecast_conditions", nil];
     fieldElements = [NSArray arrayWithObjects: @"city", @"postal_code", @"current_date_time", 
@@ -81,11 +87,11 @@ SandsParser *imageParser;
     if (corrupt) {
         [weatherParser repeatOperations];
     }else
-        imageParser = [[SandsParser alloc] initWithImagePath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
+        imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
         
 }
 
--(void)retrievedImageData:(NSData *)data
+-(void)retrievedData:(NSData *)data
 {
     bool imageUsed = NO;
     if(![currentConditions objectForKey:@"image"]){
@@ -98,11 +104,21 @@ SandsParser *imageParser;
                 [foreCond setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
                 imageUsed = YES;
             }else {
-                imageParser = [[SandsParser alloc] initWithImagePath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
+                imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
                 break;
             }
     
     if ([[forecastConditions lastObject] objectForKey:@"image"])
+        imagesLoaded = YES;
+    
+    if(imagesLoaded && waterTempFound)
+        dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
+}
+
+-(void)foundWaterTemperature
+{
+    waterTempFound = YES;
+    if(imagesLoaded && waterTempFound)
         dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
 }
 

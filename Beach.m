@@ -10,8 +10,10 @@
 
 @implementation Beach
 
+@synthesize alerts;
 @synthesize placemark;
 @synthesize weather;
+@synthesize waterTemp;
 @synthesize reading;
 @synthesize delegate;
 
@@ -41,7 +43,8 @@ TidalStationDB *tidalDB;
              [weather setDelegate:self];
              reading = [[TidalReading alloc] initWithPlacemark:placemark];
              [reading setDelegate:self];
-             
+             alerts = [[Alerts alloc] initWithPlacemark:placemark
+                                            andDelegate:self];
          });
      }];
 }
@@ -66,9 +69,10 @@ TidalStationDB *tidalDB;
 
 -(void)foundWeather
 {
-    NSString *outText = [[NSString alloc] init];
+    NSString *outText = [[NSString alloc] initWithString:@"Current Conditions:\n"];
     outText = [outText stringByAppendingFormat:@"%@\n", [[weather currentConditions] objectForKey:@"condition"]];
-    outText = [outText stringByAppendingFormat:@"%@oF\n", [[weather currentConditions] objectForKey:@"temp_f"]];
+    outText = [outText stringByAppendingFormat:@"Air: %@°F\n", [[weather currentConditions] objectForKey:@"temp_f"]];
+    outText = [outText stringByAppendingFormat:@"Water: %@°F\n", [[weather waterTemp] tempF]];
     [delegate foundWeather:outText andImage:[weather.currentConditions objectForKey:@"image"]];
 }
 
@@ -78,9 +82,31 @@ TidalStationDB *tidalDB;
     NSMutableDictionary *nextTide = [reading nextTide];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh':'mm' 'a"];
-    [dateFormatter setLocale:[NSLocale currentLocale]];
-    outText = [outText stringByAppendingFormat:@"%@ at %@\n", [nextTide objectForKey:@"highlow"], [dateFormatter stringFromDate:[nextTide objectForKey:@"formattedDate"]]];
+    [dateFormatter setLocale:[NSLocale systemLocale]];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    
+    NSString *tideString;
+    if([[nextTide objectForKey:@"highlow"] isEqualToString:@"H"])
+        tideString = @"High";
+    else
+        tideString = @"Low";
+    
+    outText = [outText stringByAppendingFormat:@"Next Tide:\n%@ Tide at %@\n", tideString, [dateFormatter stringFromDate:[nextTide objectForKey:@"formattedDate"]]];
     [delegate foundTides:outText];
+}
+
+-(void)foundAlerts
+{
+    NSString *outText = [[NSString alloc] init];
+    int numAlerts = [[alerts alerts] count];
+    if(numAlerts==0)
+        outText = [outText stringByAppendingString:@"No Alerts Found."];
+    else if (numAlerts==1)
+        outText = [outText stringByAppendingString:@"1 Alert Found!"];
+    else
+        outText = [outText stringByAppendingFormat:@"%d Alerts Found.", numAlerts];
+    
+    NSLog(@"outtext = %@", outText);
 }
 
 @end

@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "TidalStation.h"
 #import "SandsParser.h"
+#import "SandsDataStore.h"
 
 @protocol tidalStationDBDelegate <NSObject>
 
@@ -18,25 +19,18 @@
 
 @end
 
-@interface TidalStationDB : NSObject<SandsParserDelegate>{
-    
+@interface TidalStationDB : NSObject<SandsParserDelegate, SandsDataStoreDelegate>{
     id<tidalStationDBDelegate> delegate;
     SandsParser *stationParser;
-    
-    int count;
     NSArray *fieldElements;
-    NSManagedObjectContext *context;
-    NSManagedObjectModel *model;
+    
+    SandsDataStore *dataStore;
 }
 
 @property (strong, nonatomic) id<tidalStationDBDelegate> delegate;
 
-@property (strong, nonatomic) NSURLConnection *kmzConnection;
-@property (strong, nonatomic) NSMutableData *kmzData;
-
 -(id)initWithDelegate:(id<tidalStationDBDelegate>)del;
--(NSArray *)fetchStationsIfNecessary;
 -(TidalStation *)closestStationTo:(CLPlacemark *)placemark;
--(TidalStation *)fetchStation:(int)orderingValue;
+
 
 @end

@@ -68,7 +68,7 @@ static double pi = 3.14159268;
     
     if (hasTide) {
         //NSString *displayFont = @"Helvetica";
-        CGFloat fontSize = 26.0;
+        CGFloat fontSize = 24.0;
     
         NSString *marks[] = {@"H", @"5", @"4", @"3", @"2", @"1", @"L", @"5", @"4", @"3", @"2", @"1", nil};
         int i;
@@ -89,6 +89,7 @@ static double pi = 3.14159268;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"h:mm' 'a"];
         [dateFormatter setLocale:[NSLocale currentLocale]];
+        [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
         
         NSString *timeString;
         fontSize = 30.0;
@@ -129,7 +130,7 @@ static double pi = 3.14159268;
         double angle = [self angleFromDate];
         CGMutablePathRef path = CGPathCreateMutable();
         CGPathMoveToPoint(path, NULL, center.x, center.y);
-        CGPathAddLineToPoint(path, NULL, center.x+sin(angle)*radius, center.y-cos(angle)*radius);
+        CGPathAddLineToPoint(path, NULL, center.x+sin(angle)*(radius-5), center.y-cos(angle)*(radius-5));
         CGPathCloseSubpath(path);
         
         CAShapeLayer *hand = [CAShapeLayer layer];
@@ -138,7 +139,7 @@ static double pi = 3.14159268;
         [hand setLineWidth:4.0];
         [hand setLineCap:kCALineCapRound];
         [hand setPosition:center];
-        CGFloat handFloats[] = {cos(angle), 0, -cos(angle), 1};
+        CGFloat handFloats[] = {cos(angle), 0, -cos(angle), .4};
         [hand setStrokeColor:CGColorCreate(CGColorSpaceCreateDeviceRGB(), handFloats)];
         [self.layer addSublayer:hand];
     }

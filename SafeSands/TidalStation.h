@@ -14,7 +14,6 @@
     
     NSString *name;
     CLLocation *location;
-    NSData *locationData;
     NSString *stationID;
     NSNumber *orderingValue;
     NSNumber *latitude;

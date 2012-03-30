@@ -65,7 +65,7 @@
     [[self tidalButton] setEnabled:NO];
     [[self tidalDisplay] setUserInteractionEnabled: NO];
     
-    [[self ripTideDisplay] setText:@"Finding Alerts...\n(not yet implemented)"];
+    [[self ripTideDisplay] setText:@"Finding Alerts..."];
     [[self ripTideActivityIndicator] startAnimating];
     [[self ripTideButton] setEnabled:NO];
     [[self ripTideDisplay] setUserInteractionEnabled: NO];
@@ -140,6 +140,13 @@
     [[self tidalDisplay] setText:newText];
     [[self tidalActivityIndicator] stopAnimating];
     [[self tidalButton] setEnabled:YES];
+}
+
+-(void)foundAlerts:(NSString *)newText
+{
+    [[self ripTideDisplay] setText:newText];
+    [[self ripTideActivityIndicator] stopAnimating];
+    [[self ripTideButton] setEnabled:YES];
 }
 
 @end
