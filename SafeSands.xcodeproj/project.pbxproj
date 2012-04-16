@@ -20,8 +20,6 @@
 		83B1E84E150FC4D500B1664F /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E84D150FC4D500B1664F /* Weather.m */; };
 		83B1E852150FEE5800B1664F /* TidalStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E851150FEE5800B1664F /* TidalStation.m */; };
 		83B1E856150FF1A900B1664F /* TidalStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E855150FF1A900B1664F /* TidalStationDB.m */; };
-		83B1E859150FF3D400B1664F /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = 83B1E858150FF3D400B1664F /* pred.kml */; };
-		83B1E85A150FF3D400B1664F /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = 83B1E858150FF3D400B1664F /* pred.kml */; };
 		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
 		83CB24801523731900514100 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CB247F1523731900514100 /* QuartzCore.framework */; };
 		83CB248415241ACF00514100 /* WaterTemperature.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB248315241ACF00514100 /* WaterTemperature.m */; };
@@ -49,6 +47,7 @@
 		83F290AC152457BF0030FC09 /* WaterTempStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */; };
 		83F290AF1524590E0030FC09 /* WaterTempStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290AE1524590D0030FC09 /* WaterTempStation.m */; };
 		83F290B21524700B0030FC09 /* WaterTempStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290B11524700A0030FC09 /* WaterTempStationDB.m */; };
+		C0F0FA6A153CE65500C967C0 /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = C0F0FA69153CE65500C967C0 /* pred.kml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +84,6 @@
 		83B1E851150FEE5800B1664F /* TidalStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalStation.m; sourceTree = "<group>"; };
 		83B1E854150FF1A900B1664F /* TidalStationDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalStationDB.h; sourceTree = "<group>"; };
 		83B1E855150FF1A900B1664F /* TidalStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalStationDB.m; sourceTree = "<group>"; };
-		83B1E858150FF3D400B1664F /* pred.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pred.kml; path = ../../../Downloads/pred.kml; sourceTree = "<group>"; };
 		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
 		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
 		83CB247F1523731900514100 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -128,6 +126,7 @@
 		83F290AE1524590D0030FC09 /* WaterTempStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempStation.m; sourceTree = "<group>"; };
 		83F290B0152470090030FC09 /* WaterTempStationDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTempStationDB.h; sourceTree = "<group>"; };
 		83F290B11524700A0030FC09 /* WaterTempStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempStationDB.m; sourceTree = "<group>"; };
+		C0F0FA69153CE65500C967C0 /* pred.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pred.kml; path = ../../pred.kml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,7 +223,7 @@
 		83E409051509EE0100F9222C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				83B1E858150FF3D400B1664F /* pred.kml */,
+				C0F0FA69153CE65500C967C0 /* pred.kml */,
 				83E409061509EE0100F9222C /* SafeSands-Info.plist */,
 				83E409071509EE0100F9222C /* InfoPlist.strings */,
 				83E4090A1509EE0100F9222C /* main.m */,
@@ -368,8 +367,8 @@
 			files = (
 				83E409091509EE0100F9222C /* InfoPlist.strings in Resources */,
 				83E409121509EE0300F9222C /* MainStoryboard.storyboard in Resources */,
-				83B1E859150FF3D400B1664F /* pred.kml in Resources */,
 				837304F8153C0763006B33E6 /* sandBackground.jpg in Resources */,
+				C0F0FA6A153CE65500C967C0 /* pred.kml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +377,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83E409271509EE0600F9222C /* InfoPlist.strings in Resources */,
-				83B1E85A150FF3D400B1664F /* pred.kml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
