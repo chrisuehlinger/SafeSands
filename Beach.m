@@ -16,6 +16,7 @@
 @synthesize waterTemp;
 @synthesize reading;
 @synthesize delegate;
+@synthesize uvIndex;
 
 TidalStationDB *tidalDB;
 
@@ -45,6 +46,8 @@ TidalStationDB *tidalDB;
              [reading setDelegate:self];
              alerts = [[Alerts alloc] initWithPlacemark:placemark
                                             andDelegate:self];
+             uvIndex = [[UVIndex alloc] initWithPlacemark:placemark
+                                              andDelegate:self];
          });
      }];
 }
@@ -62,7 +65,8 @@ TidalStationDB *tidalDB;
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    // FIX ME
+    [NSException raise:@"Find Location failed"
+                format:@"Reason: %@", [error localizedDescription]];
 }
 
 #pragma mark - other delegate methods
@@ -100,13 +104,29 @@ TidalStationDB *tidalDB;
     NSString *outText = [[NSString alloc] init];
     int numAlerts = [[alerts alerts] count];
     if(numAlerts==0)
-        outText = [outText stringByAppendingString:@"No Alerts Found."];
-    else if (numAlerts==1)
-        outText = [outText stringByAppendingString:@"1 Alert Found!"];
+        outText = [outText stringByAppendingString:@"No Alerts Found.\n"];
     else
-        outText = [outText stringByAppendingFormat:@"%d Alerts Found.", numAlerts];
+    {
+        if (numAlerts==1)
+            outText = [outText stringByAppendingString:@"1 Alert Found!\n"];
+        else
+            outText = [outText stringByAppendingFormat:@"%d Alerts Found.\n", numAlerts];
+        
+        outText = [outText stringByAppendingString:[alerts headlines]];
+    }
     
     NSLog(@"outtext = %@", outText);
+    [delegate foundAlerts:outText];
+}
+
+-(void)foundUVIndex
+{
+    NSString *outText = [[NSString alloc] init];
+    if([uvIndex uvAlert])
+        outText = [outText stringByAppendingFormat:@"WARNING: High UV Rating!\n"];
+    
+    outText = [outText stringByAppendingFormat:@"UV Index: %d\n", [[uvIndex index] intValue]];
+    [delegate foundUVIndex:outText];
 }
 
 @end

@@ -23,12 +23,14 @@
     
     SandsParser *alertParser;
     NSArray *fieldElements;
+    NSString *headlines;
 }
 
 @property (strong, nonatomic) id<AlertsDelegate> delegate;
 
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) NSMutableArray *alerts;
+@property (strong, nonatomic) NSString *headlines;
 
 -(id)initWithPlacemark:(CLPlacemark *)p andDelegate:(id<AlertsDelegate>)del;
 

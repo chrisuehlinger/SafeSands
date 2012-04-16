@@ -179,7 +179,7 @@ NSString *thePath;
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
     // We abort parsing if we get more than kMaximumNumberOfItemsToParse. 
     // We use the didAbortParsing flag to avoid treating this as an error. 
-    [NSException raise:@"Parse Failed" format:@"Reason: %@", [parseError localizedDescription]];
+    [NSException raise:@"XML Parse Failed" format:@"Reason: %@", [parseError localizedDescription]];
 }
 
 

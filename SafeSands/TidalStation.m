@@ -43,7 +43,7 @@
 -(void)awakeFromFetch
 {
     [super awakeFromFetch];
-    location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longtitude doubleValue]];
+    //location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longtitude doubleValue]];
 }
 
 @end

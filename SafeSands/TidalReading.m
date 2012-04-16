@@ -63,7 +63,7 @@ CLPlacemark *thePlacemark;
     station = [tidalDB closestStationTo:thePlacemark];
     
     NSString *tidalPath = [NSString stringWithFormat: @"%@%@", noaaURL, station.stationID];
-    NSLog(@"%@", tidalPath);
+    //NSLog(@"%@", tidalPath);
     
     tideParser = [[SandsParser alloc] initWithPath:tidalPath
                                        andDelegate:self

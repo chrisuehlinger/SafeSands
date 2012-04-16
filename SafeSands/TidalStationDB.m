@@ -49,10 +49,14 @@ static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/Stat
     }
     
     int i;
+    float lat = placemark.location.coordinate.latitude;
+    float lon = placemark.location.coordinate.longitude;
     for (i=1; i<[dataStore count]; i++) {
         TidalStation *thisStation = (TidalStation *)[dataStore fetchItem:i];
         //NSLog(@"%f %@, %@", [thisStation orderingValue], [thisStation name], [thisStation stationID]);
-        NSInteger thisDist = [placemark.location distanceFromLocation:thisStation.location];
+        float dist = 1000*sqrtf(powf((lat - [thisStation.latitude floatValue]), 2) + powf((lon - [thisStation.longtitude floatValue]), 2));
+        NSInteger thisDist = dist;
+        //NSInteger thisDist = [placemark.location distanceFromLocation:thisStation.location];
         if( thisDist < minDist && thisDist > -1) {
             closestStation = thisStation;
             minDist = thisDist;

@@ -115,6 +115,9 @@
     }else if ([theID isEqualToString:@"tidalSegue"]) {
         TidalClockViewController *dest = [segue destinationViewController];
         [dest createClockWithReading:[beach reading]];
+    }else if ([theID isEqualToString:@"alertsSegue"]) {
+        AlertViewController *dest = [segue destinationViewController];
+        [dest setUpScrollView:[beach alerts]];
     }
 }
 
@@ -144,7 +147,16 @@
 
 -(void)foundAlerts:(NSString *)newText
 {
-    [[self ripTideDisplay] setText:newText];
+    NSString *oldText = [[self ripTideDisplay] text];
+    [[self ripTideDisplay] setText:[oldText stringByAppendingString:newText]];
+    [[self ripTideActivityIndicator] stopAnimating];
+    [[self ripTideButton] setEnabled:YES];
+}
+
+-(void)foundUVIndex:(NSString *)newText
+{
+    NSString *oldText = [[self ripTideDisplay] text];
+    [[self ripTideDisplay] setText:[oldText stringByAppendingString:newText]];
     [[self ripTideActivityIndicator] stopAnimating];
     [[self ripTideButton] setEnabled:YES];
 }
