@@ -69,42 +69,14 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jRW-iH-QhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="mainViewController" id="Z6h-Qu-Bu2" customClass="MainViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ia2-wg-0BQ">
+                    <view key="view" contentMode="scaleToFill" id="ia2-wg-0BQ" customClass="MainView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Placemark" id="fGJ-QM-iY1">
-                                <rect key="frame" x="20" y="10" width="280" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" button="YES"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" calendarEvent="YES"/>
-                            </textView>
-                            <button opaque="NO" alpha="0.60000000000000009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hVT-0j-xIl">
-                                <rect key="frame" x="20" y="10" width="280" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="clickPlacemarkButton:" destination="Z6h-Qu-Bu2" eventType="touchUpInside" id="DaJ-L7-qYD"/>
-                                    <segue destination="68I-I2-Ejv" kind="push" identifier="placemarkSegue" id="IfK-Qd-gPq"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Weather" id="Uxt-kJ-Cgf">
                                 <rect key="frame" x="20" y="55" width="280" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -132,6 +104,7 @@
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -160,6 +133,7 @@
                                     <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textView>
@@ -201,28 +175,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Paf-9z-CJo">
-                                <rect key="frame" x="226" y="61" width="64" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Summary" id="86V-lQ-RPo"/>
                     <connections>
                         <outlet property="placemarkActivityIndicator" destination="oni-a3-3JS" id="vXc-mf-qry"/>
-                        <outlet property="placemarkButton" destination="hVT-0j-xIl" id="TOm-U3-9AP"/>
-                        <outlet property="placemarkDisplay" destination="fGJ-QM-iY1" id="wsh-eU-gqd"/>
                         <outlet property="ripTideActivityIndicator" destination="VBA-nN-xWe" id="TXn-c0-PN0"/>
                         <outlet property="ripTideButton" destination="gPb-da-79W" id="vir-rf-JVH"/>
                         <outlet property="ripTideDisplay" destination="7te-Gu-iBA" id="Pad-QC-Ij0"/>
+                        <outlet property="theView" destination="ia2-wg-0BQ" id="6Zk-Ma-Sbk"/>
                         <outlet property="tidalActivityIndicator" destination="uoe-SE-LP2" id="SIJ-GJ-GiF"/>
                         <outlet property="tidalButton" destination="AM3-dl-TlG" id="bgE-8d-DeQ"/>
                         <outlet property="tidalDisplay" destination="vXq-R6-yYI" id="UHN-pT-V0u"/>
                         <outlet property="weatherActivityIndicator" destination="yOY-p9-ZLD" id="Nqx-zA-6EK"/>
                         <outlet property="weatherButton" destination="o91-ab-X3K" id="daf-Ji-v3I"/>
                         <outlet property="weatherDisplay" destination="Uxt-kJ-Cgf" id="eWO-go-DFY"/>
-                        <outlet property="weatherImageView" destination="Paf-9z-CJo" id="sgf-qc-btq"/>
                     </connections>
                 </viewController>
             </objects>
@@ -234,11 +202,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNq-bl-Lx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="placeMarkViewController" id="68I-I2-Ejv" customClass="PlacemarkViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HLF-dN-VUx">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="HJq-6D-JLW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -347,6 +315,9 @@
                 <relationship kind="outlet" name="useCurrentLocationButton" candidateClass="UIButton"/>
             </relationships>
         </class>
+        <class className="MainView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainView.h"/>
+        </class>
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
@@ -357,13 +328,13 @@
                 <relationship kind="outlet" name="ripTideActivityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="ripTideButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="ripTideDisplay" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="theView" candidateClass="MainView"/>
                 <relationship kind="outlet" name="tidalActivityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="tidalButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tidalDisplay" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="weatherActivityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="weatherButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="weatherDisplay" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="weatherImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="PlacemarkViewController" superclassName="UIViewController">

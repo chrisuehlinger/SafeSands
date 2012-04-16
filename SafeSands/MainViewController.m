@@ -9,14 +9,15 @@
 #import "MainViewController.h"
 
 @implementation MainViewController
+@synthesize theView;
 
-@synthesize weatherImageView;
 @synthesize placemarkDisplay, placemarkButton, placemarkActivityIndicator;
 @synthesize weatherDisplay, weatherButton, weatherActivityIndicator;
 @synthesize tidalDisplay, tidalButton, tidalActivityIndicator;
 @synthesize ripTideDisplay, ripTideButton, ripTideActivityIndicator;
 @synthesize beach;
 
+CALayer *mainLayer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,12 +38,14 @@
 
 #pragma mark - View lifecycle
 
-/*
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
+/*- (void)loadView
 {
-}
-*/
+    self.view = [[UIView alloc] init];
+    [self viewDidLoad];
+}*/
+
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -52,10 +55,24 @@
     
     [[self placemarkDisplay] setText:@"Finding Location..."];
     [[self placemarkActivityIndicator] startAnimating];
-    [[self placemarkButton] setEnabled:NO];
+    [[self placemarkButton] setHidden:YES];
     [[self placemarkDisplay] setUserInteractionEnabled: NO];
+    [[self theView] drawPlacemark];
     
-    [[self weatherDisplay] setText:@"Finding Weather..."];
+    
+    [[self weatherDisplay] setText:@""];
+    [[self weatherButton] setHidden:YES];
+    [[self weatherDisplay] setUserInteractionEnabled: NO];
+    
+    [[self tidalDisplay] setText:@""];
+    [[self tidalButton] setHidden:YES];
+    [[self tidalDisplay] setUserInteractionEnabled: NO];
+    
+    [[self ripTideDisplay] setText:@""];
+    [[self ripTideButton] setHidden:YES];
+    [[self ripTideDisplay] setUserInteractionEnabled: NO];
+    
+    /*[[self weatherDisplay] setText:@"Finding Weather..."];
     [[self weatherActivityIndicator] startAnimating];
     [[self weatherButton] setEnabled:NO];
     [[self weatherDisplay] setUserInteractionEnabled: NO];
@@ -68,7 +85,7 @@
     [[self ripTideDisplay] setText:@"Finding Alerts..."];
     [[self ripTideActivityIndicator] startAnimating];
     [[self ripTideButton] setEnabled:NO];
-    [[self ripTideDisplay] setUserInteractionEnabled: NO];
+    [[self ripTideDisplay] setUserInteractionEnabled: NO];*/
 }
 
 - (void)viewDidUnload
@@ -86,7 +103,7 @@
     [self setRipTideDisplay:nil];
     [self setRipTideButton:nil];
     [self setRipTideActivityIndicator:nil];
-    [self setWeatherImageView:nil];
+    [self setTheView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -133,9 +150,27 @@
 -(void)foundWeather:(NSString *)newText andImage:(UIImage *)theImage
 {
     [[self weatherDisplay] setText:newText];
-    [[self weatherImageView] setImage:theImage];
     [[self weatherActivityIndicator] stopAnimating];
     [[self weatherButton] setEnabled:YES];
+    
+    CALayer *sublayer = [CALayer layer];
+    sublayer.backgroundColor = [UIColor blueColor].CGColor;
+    sublayer.shadowOffset = CGSizeMake(0, 3);
+    sublayer.shadowRadius = 5.0;
+    sublayer.shadowColor = [UIColor blackColor].CGColor;
+    sublayer.shadowOpacity = 0.8;
+    sublayer.frame = CGRectMake(210, 80, 60, 60);
+    sublayer.borderColor = [UIColor blackColor].CGColor;
+    sublayer.borderWidth = 2.0;
+    sublayer.cornerRadius = 10.0;
+    [self.view.layer addSublayer:sublayer];
+    
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = sublayer.bounds;
+    imageLayer.cornerRadius = 10.0;
+    imageLayer.contents = (id) theImage.CGImage;
+    imageLayer.masksToBounds = YES;
+    [sublayer addSublayer:imageLayer];
 }
 
 -(void)foundTides:(NSString *)newText
@@ -143,6 +178,7 @@
     [[self tidalDisplay] setText:newText];
     [[self tidalActivityIndicator] stopAnimating];
     [[self tidalButton] setEnabled:YES];
+    [theView animateChange];
 }
 
 -(void)foundAlerts:(NSString *)newText

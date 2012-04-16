@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "Beach.h"
 #import "Weather.h"
 #import "TidalReading.h"
@@ -16,6 +17,7 @@
 #import "WeatherViewController.h"
 #import "TidalClockViewController.h"
 #import "AlertViewController.h"
+#import "MainView.h"
 
 @interface MainViewController : UIViewController<beachDelegate>
 
@@ -29,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *weatherDisplay;
 @property (weak, nonatomic) IBOutlet UIButton *weatherButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *weatherActivityIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
 
 
 @property (weak, nonatomic) IBOutlet UITextView *tidalDisplay;
@@ -39,5 +40,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *ripTideDisplay;
 @property (weak, nonatomic) IBOutlet UIButton *ripTideButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *ripTideActivityIndicator;
+@property (weak, nonatomic) IBOutlet MainView *theView;
 
 @end

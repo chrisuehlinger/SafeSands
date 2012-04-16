@@ -10,6 +10,8 @@
 		8318443B15251964005FF862 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318443A15251964005FF862 /* Alerts.m */; };
 		8359FC4515263F4D00B243F3 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8359FC4415263F4B00B243F3 /* AlertViewController.m */; };
 		837304F5153BDBDF006B33E6 /* UVIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 837304F4153BDBDF006B33E6 /* UVIndex.m */; };
+		837304F8153C0763006B33E6 /* sandBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 837304F7153C0763006B33E6 /* sandBackground.jpg */; };
+		837304FB153C0F47006B33E6 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837304FA153C0F46006B33E6 /* MainView.m */; };
 		83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */; };
 		83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A41519075900E44C2C /* PlacemarkViewController.m */; };
 		83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AA151908CB00E44C2C /* iAd.framework */; };
@@ -66,6 +68,9 @@
 		8359FC4415263F4B00B243F3 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
 		837304F3153BDBDF006B33E6 /* UVIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVIndex.h; sourceTree = "<group>"; };
 		837304F4153BDBDF006B33E6 /* UVIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UVIndex.m; sourceTree = "<group>"; };
+		837304F7153C0763006B33E6 /* sandBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sandBackground.jpg; sourceTree = "<group>"; };
+		837304F9153C0F46006B33E6 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
+		837304FA153C0F46006B33E6 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
 		83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
 		83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
 		83AFF4A31519075900E44C2C /* PlacemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacemarkViewController.h; sourceTree = "<group>"; };
@@ -260,6 +265,9 @@
 				83AFF4A41519075900E44C2C /* PlacemarkViewController.m */,
 				83E409371509F1DD00F9222C /* MainViewController.h */,
 				83E409381509F1DD00F9222C /* MainViewController.m */,
+				837304F9153C0F46006B33E6 /* MainView.h */,
+				837304FA153C0F46006B33E6 /* MainView.m */,
+				837304F7153C0763006B33E6 /* sandBackground.jpg */,
 				83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */,
 				83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */,
 			);
@@ -361,6 +369,7 @@
 				83E409091509EE0100F9222C /* InfoPlist.strings in Resources */,
 				83E409121509EE0300F9222C /* MainStoryboard.storyboard in Resources */,
 				83B1E859150FF3D400B1664F /* pred.kml in Resources */,
+				837304F8153C0763006B33E6 /* sandBackground.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +428,7 @@
 				8318443B15251964005FF862 /* Alerts.m in Sources */,
 				8359FC4515263F4D00B243F3 /* AlertViewController.m in Sources */,
 				837304F5153BDBDF006B33E6 /* UVIndex.m in Sources */,
+				837304FB153C0F47006B33E6 /* MainView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
