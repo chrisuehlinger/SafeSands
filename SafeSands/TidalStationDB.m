@@ -11,14 +11,15 @@
 @implementation TidalStationDB
 
 @synthesize delegate;
+@synthesize databaseBuilt;
 
 static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/StationListFormat?type=Current%20Data&filter=active&format=kml";
 
--(id)initWithDelegate:(id<tidalStationDBDelegate>)del
+-(id)initWithDelegate:(id<TidalStationDBDelegate>)del
 {
     delegate = del;
-    
-    dataStore = [[SandsDataStore alloc] initWithDelegate:self andStoreName:@"/tidalStations.data" andDataType:@"TidalStation"];
+    databaseBuilt = NO;
+    dataStore = [[SandsDataStore alloc] initWithDelegate:self andStoreName:@"tidalStations" andDataType:@"TidalStation"];
     if([dataStore databaseBuilt])
         [NSThread detachNewThreadSelector:@selector(databaseAlreadyBuilt) toTarget:self withObject:nil];
     else{
@@ -35,6 +36,8 @@ static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/Stat
 
 -(void)databaseAlreadyBuilt
 {
+    [dataStore fetchItemsIfNecessary];
+    databaseBuilt=YES;
     dispatch_async(dispatch_get_main_queue(),
                    ^{[delegate databaseBuilt];});
 }
@@ -75,13 +78,14 @@ static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/Stat
                       coordinates:[element objectForKey:@"coordinates"]
                         stationID:[element objectForKey:@"stnid"]];
     [newStation setOrderingValue:[NSNumber numberWithInt:[dataStore count]]];
+    //NSLog(@"%@", [element objectForKey:@"nametag"]);
 }
 
 -(void)parseComplete
 {
     [dataStore databaseComplete];
     NSLog(@"TidalStationDB built.");
-    [delegate databaseBuilt];
+    [self databaseAlreadyBuilt];
 }
 
 -(void)retrievedData:(NSData *)data

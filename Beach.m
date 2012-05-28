@@ -20,16 +20,38 @@
 
 TidalStationDB *tidalDB;
 
-- (id)initWithString:(NSString *)locationString andDelegate:(id<beachDelegate>)del
+- (id)initWithString:(NSString *)locationString andDelegate:(id<BeachDelegate>)del
 {
+    haveWeather = NO;
+    haveWaterTemp = NO;
+    haveTidalReading = NO;
+    haveAlerts = NO;
+    haveUVIndex = NO;
     delegate = del;
     geocoder = [[CLGeocoder alloc] init];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
+    NSLog(@"%@", locationString);
     
-    if([locationString isEqualToString:@"CurrentLocation"]) [locationManager startMonitoringSignificantLocationChanges];
-    else [geocoder geocodeAddressString:locationString completionHandler:^(NSArray *placemarks, NSError *error)
-          {dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]]; });}];
+    if([locationString isEqualToString:@"CurrentLocation"])
+        [locationManager startMonitoringSignificantLocationChanges];
+    else
+        [geocoder geocodeAddressString:locationString
+                     completionHandler:^(NSArray *placemarks, NSError *error)
+          {
+              if (placemarks)
+                  dispatch_async(dispatch_get_main_queue(),
+                                 ^{
+                                     [self haveLocation:[placemarks objectAtIndex:0]];
+                                 });
+              else
+              {
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+                  //[NSException raise:@"Geocode failed"
+                  //            format:@"Reason: %@", [error localizedDescription]];
+              }
+          }];
+    
     return self;
 }
 
@@ -37,18 +59,31 @@ TidalStationDB *tidalDB;
 {
     [geocoder reverseGeocodeLocation:[thePlacemark location] completionHandler:^(NSArray *placemarks, NSError *error)
      {
-         [self setPlacemark:[placemarks objectAtIndex:0]];
-         dispatch_async(dispatch_get_main_queue(), ^{
-             [delegate foundPlacemark:[NSString stringWithFormat:@"%@, %@",placemark.locality, placemark.administrativeArea]];
-             weather = [[Weather alloc] initWithPlacemark:placemark];
-             [weather setDelegate:self];
-             reading = [[TidalReading alloc] initWithPlacemark:placemark];
-             [reading setDelegate:self];
-             alerts = [[Alerts alloc] initWithPlacemark:placemark
-                                            andDelegate:self];
-             uvIndex = [[UVIndex alloc] initWithPlacemark:placemark
-                                              andDelegate:self];
-         });
+         if (placemarks){
+             if([[[placemarks objectAtIndex:0] ISOcountryCode] isEqualToString:@"USA"])
+             {
+                 [self setPlacemark:[placemarks objectAtIndex:0]];
+                 dispatch_async(dispatch_get_main_queue(),
+                                ^{
+                                    weather = [[Weather alloc] initWithPlacemark:placemark];
+                                    [weather setDelegate:self];
+                                    reading = [[TidalReading alloc] initWithPlacemark:placemark];
+                                    [reading setDelegate:self];
+                                    alerts = [[Alerts alloc] initWithPlacemark:placemark
+                                                                   andDelegate:self];
+                                    uvIndex = [[UVIndex alloc] initWithPlacemark:placemark
+                                                                     andDelegate:self];
+                                });
+             }else
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Non-USA Country"
+                                                                     object:nil];
+         }else
+         {
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error"
+                                                                 object:nil];
+             //[NSException raise:@"Geocode failed"
+             //           format:@"Reason: %@", [error localizedDescription]];
+         }
      }];
 }
 
@@ -59,30 +94,44 @@ TidalStationDB *tidalDB;
     [manager stopMonitoringSignificantLocationChanges];
     [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{ [self haveLocation:[placemarks objectAtIndex:0]];});
+         if (placemarks)
+             dispatch_async(dispatch_get_main_queue(),
+                            ^{
+                                [self haveLocation:[placemarks objectAtIndex:0]];
+                            });
+         else {
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+             //[NSException raise:@"Geocode failed"
+             //            format:@"Reason: %@", [error localizedDescription]];
+         }
+         
      }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [NSException raise:@"Find Location failed"
-                format:@"Reason: %@", [error localizedDescription]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    //[NSException raise:@"Find Location failed"
+    //            format:@"Reason: %@", [error localizedDescription]];
 }
 
 #pragma mark - other delegate methods
 
 -(void)foundWeather
 {
-    NSString *outText = [[NSString alloc] initWithString:@"Current Conditions:\n"];
+    /*NSString *outText = [[NSString alloc] initWithString:@"Current Conditions:\n"];
     outText = [outText stringByAppendingFormat:@"%@\n", [[weather currentConditions] objectForKey:@"condition"]];
     outText = [outText stringByAppendingFormat:@"Air: %@°F\n", [[weather currentConditions] objectForKey:@"temp_f"]];
     outText = [outText stringByAppendingFormat:@"Water: %@°F\n", [[weather waterTemp] tempF]];
-    [delegate foundWeather:outText andImage:[weather.currentConditions objectForKey:@"image"]];
+    [delegate foundWeather:outText andImage:[weather.currentConditions objectForKey:@"image"]];*/
+    haveWeather=YES;
+    haveWaterTemp=YES;
+    if (haveWeather && haveWaterTemp && haveTidalReading && haveAlerts && haveUVIndex) [delegate foundData];
 }
 
 -(void)foundTides
 {
-    NSString *outText = [[NSString alloc] init];
+    /*NSString *outText = [[NSString alloc] init];
     NSMutableDictionary *nextTide = [reading nextTide];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh':'mm' 'a"];
@@ -95,13 +144,14 @@ TidalStationDB *tidalDB;
     else
         tideString = @"Low";
     
-    outText = [outText stringByAppendingFormat:@"Next Tide:\n%@ Tide at %@\n", tideString, [dateFormatter stringFromDate:[nextTide objectForKey:@"formattedDate"]]];
-    [delegate foundTides:outText];
+    outText = [outText stringByAppendingFormat:@"Next Tide:\n%@ Tide at %@\n", tideString, [dateFormatter stringFromDate:[nextTide objectForKey:@"formattedDate"]]];*/
+    haveTidalReading=YES;
+    if (haveWeather && haveWaterTemp && haveTidalReading && haveAlerts && haveUVIndex) [delegate foundData];
 }
 
 -(void)foundAlerts
 {
-    NSString *outText = [[NSString alloc] init];
+    /*NSString *outText = [[NSString alloc] init];
     int numAlerts = [[alerts alerts] count];
     if(numAlerts==0)
         outText = [outText stringByAppendingString:@"No Alerts Found.\n"];
@@ -115,18 +165,21 @@ TidalStationDB *tidalDB;
         outText = [outText stringByAppendingString:[alerts headlines]];
     }
     
-    NSLog(@"outtext = %@", outText);
-    [delegate foundAlerts:outText];
+    NSLog(@"outtext = %@", outText);*/
+    haveAlerts=YES;
+    if (haveWeather && haveWaterTemp && haveTidalReading && haveAlerts && haveUVIndex) [delegate foundData];
 }
 
 -(void)foundUVIndex
 {
-    NSString *outText = [[NSString alloc] init];
+    /*NSString *outText = [[NSString alloc] init];
     if([uvIndex uvAlert])
         outText = [outText stringByAppendingFormat:@"WARNING: High UV Rating!\n"];
     
     outText = [outText stringByAppendingFormat:@"UV Index: %d\n", [[uvIndex index] intValue]];
-    [delegate foundUVIndex:outText];
+    [delegate foundUVIndex:outText];*/
+    haveUVIndex=YES;
+    if (haveWeather && haveWaterTemp && haveTidalReading && haveAlerts && haveUVIndex) [delegate foundData];
 }
 
 @end

@@ -19,7 +19,7 @@
 #import "AlertViewController.h"
 #import "MainView.h"
 
-@interface MainViewController : UIViewController<beachDelegate>
+@interface MainViewController : UIViewController<BeachDelegate>
 
 @property (strong, nonatomic) Beach *beach;
 

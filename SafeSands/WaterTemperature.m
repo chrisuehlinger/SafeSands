@@ -7,6 +7,7 @@
 //
 
 #import "WaterTemperature.h"
+#import "SandsAppDelegate.h"
 
 @implementation WaterTemperature
 
@@ -21,7 +22,17 @@ CLPlacemark *thePlacemark;
 {
     thePlacemark = p;
     delegate = del;
-    stationDB =[[WaterTempStationDB alloc] initWithDelegate:self];
+    //stationDB =[[WaterTempStationDB alloc] initWithDelegate:self];
+    stationDB  = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] tempStationDB];
+    
+    station = [stationDB closestStationTo:thePlacemark];
+    waterTempParser = 
+    [[SandsParser alloc] initWithPath:ndocURL
+                          andDelegate:self
+                            andFields:[NSArray arrayWithObjects:@"link", @"description", nil]
+                        andContainers:[NSArray arrayWithObjects:@"item", nil]];
+    //NSLog(@"Station ID: %@", station.stationID);
+    
     return self;
 }
 

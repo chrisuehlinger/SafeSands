@@ -11,11 +11,19 @@
 @implementation SandsAppDelegate
 
 @synthesize window = _window;
+@synthesize currentBeach;
+@synthesize stationDB;
+@synthesize tempStationDB;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     // Override point for customization after application launch.
+    stationDB = [[TidalStationDB alloc] initWithDelegate:self];
+    //while (![stationDB databaseBuilt]) {[NSThread sleepForTimeInterval:1.0];}
+    
+    tempStationDB = [[WaterTempStationDB alloc] initWithDelegate:self];
+    //while (![tempStationDB databaseBuilt]) { [NSThread sleepForTimeInterval:1.0]; }
+    
     return YES;
 }
 							
@@ -60,6 +68,21 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+#pragma mark BeachDelegate methods
+
+-(void)foundData
+{
+    NSLog(@"Posting Notification: foundData.");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"foundData" object:nil];
+}
+
+#pragma mark TidalStationDBDelegate methods
+
+-(void)databaseBuilt
+{
+    
 }
 
 @end

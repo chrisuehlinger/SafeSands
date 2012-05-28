@@ -7,6 +7,8 @@
 //
 
 #import "LocationSelectorViewController.h"
+#import "SandsAppDelegate.h"
+#import "SpinnerView.h"
 
 @implementation LocationSelectorViewController
 @synthesize useCurrentLocationButton;
@@ -15,12 +17,14 @@
 
 CGRect searchBarFrame;
 TidalStationDB *tidalDB;
+SpinnerView *spinner;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -35,6 +39,7 @@ TidalStationDB *tidalDB;
 
 #pragma mark - View lifecycle
 
+
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
@@ -47,6 +52,23 @@ TidalStationDB *tidalDB;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(foundData)
+                                                 name:@"foundData"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleConnectionError)
+                                                 name:@"Connection Error"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNonUSACountryError)
+                                                 name:@"Non-USA Country"
+                                               object:nil];
+    
     NSLog(@"SearchBarFrame = %f,%f,%f,%f",
           locationSearchBar.frame.origin.x,
           locationSearchBar.frame.origin.y,
@@ -92,14 +114,6 @@ TidalStationDB *tidalDB;
           locationSearchBar.frame.size.width,
           locationSearchBar.frame.size.height);
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"currentLocationSegue"])
-    {
-        MainViewController *dest = [segue destinationViewController];
-        [dest setBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:dest]];
-    }
-}
 
 #pragma mark - SearchBarControllerDelegate methods
 
@@ -130,10 +144,69 @@ TidalStationDB *tidalDB;
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    MainViewController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainViewController"];
-    [dest setBeach:[[Beach alloc] initWithString:[searchBar text] andDelegate:dest]];
-    [self.navigationController pushViewController:dest animated:YES];
+    
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del setCurrentBeach:[[Beach alloc] initWithString:[searchBar text] andDelegate:del]];
+    spinner = [SpinnerView loadSpinnerIntoView:self.view];
     [self searchBarCancelButtonClicked:searchBar];
+}
+
+- (IBAction)useCurrentLocation:(id)sender {
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del setCurrentBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:del]];
+    spinner = [SpinnerView loadSpinnerIntoView:self.view];
+}
+
+-(void)foundData
+{
+    [spinner removeSpinner];
+    
+    UITabBarController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainTabController"];
+    [self.navigationController pushViewController:dest animated:YES];
+}
+
+-(void)handleConnectionError
+{
+    if(spinner)
+    {
+        NSLog(@"Connection Error");
+        
+        SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+        del.currentBeach.delegate = nil;
+        del.currentBeach = nil;
+        
+        [spinner removeSpinner];
+        spinner = nil;
+        
+        UIAlertView *noConnectionAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:@"Connection Error. Please ensure that you have an internet connection."
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+        [noConnectionAlert show];
+    }
+}
+
+-(void)handleNonUSACountryError
+{
+    if(spinner)
+    {
+        NSLog(@"Non-USA Country Error");
+        
+        SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+        del.currentBeach.delegate = nil;
+        del.currentBeach = nil;
+        
+        [spinner removeSpinner];
+        spinner = nil;
+        
+        UIAlertView *nonUSAAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:@"SafeSands can only report on conditions within the USA."
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+        [nonUSAAlert show];
+    }
 }
 
 @end

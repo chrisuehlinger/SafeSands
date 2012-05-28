@@ -13,23 +13,25 @@
 #import "SandsParser.h"
 #import "SandsDataStore.h"
 
-@protocol tidalStationDBDelegate <NSObject>
+@protocol TidalStationDBDelegate <NSObject>
 
 -(void)databaseBuilt;
 
 @end
 
 @interface TidalStationDB : NSObject<SandsParserDelegate, SandsDataStoreDelegate>{
-    id<tidalStationDBDelegate> delegate;
+    id<TidalStationDBDelegate> delegate;
     SandsParser *stationParser;
     NSArray *fieldElements;
+    bool databaseBuilt;
     
     SandsDataStore *dataStore;
 }
 
-@property (strong, nonatomic) id<tidalStationDBDelegate> delegate;
+@property (strong, nonatomic) id<TidalStationDBDelegate> delegate;
+@property bool databaseBuilt;
 
--(id)initWithDelegate:(id<tidalStationDBDelegate>)del;
+-(id)initWithDelegate:(id<TidalStationDBDelegate>)del;
 -(TidalStation *)closestStationTo:(CLPlacemark *)placemark;
 
 

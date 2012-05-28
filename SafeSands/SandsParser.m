@@ -27,7 +27,9 @@ NSString *thePath;
     containerItems = [[NSArray alloc] initWithArray:containers];
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: path]];
     xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
-    NSAssert(xmlConnection != nil, @"Could not establish connection");
+    if (xmlConnection == nil)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    //NSAssert(xmlConnection != nil, @"Could not establish connection");
     return self;
 }
 
@@ -49,14 +51,17 @@ NSString *thePath;
     return self;
 }
 
--(id)initWithDataPath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del{
+-(id)initWithDataPath:(NSString *)path andDelegate:(id<SandsParserDelegate>)del
+{
     thePath=path;
     justGetData = YES;
     thePath = path;
     delegate = del;
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: path]];
     xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
-    NSAssert(xmlConnection != nil, @"Could not establish connection");
+    if (xmlConnection == nil)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    //NSAssert(xmlConnection != nil, @"Could not establish connection");
     return self;
 }
 
@@ -64,7 +69,9 @@ NSString *thePath;
 {
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: thePath]];
     xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
-    NSAssert(xmlConnection != nil, @"Could not establish connection");
+    if (xmlConnection == nil)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    //NSAssert(xmlConnection != nil, @"Could not establish connection");
 }
 
 -(void)parseData:(NSData *)data {
@@ -108,7 +115,8 @@ NSString *thePath;
 {
     [self setXmlConnection:nil];
     [self setXmlData:nil];
-    [NSException raise:@"Connection Failed" format:@"Reason: %@", [error localizedDescription]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    //[NSException raise:@"Connection Failed" format:@"Reason: %@", [error localizedDescription]];
 }
 
 #pragma mark - NSXMLParser delegate methods
@@ -145,6 +153,7 @@ NSString *thePath;
         }else
             [[self.currentItemObject lastObject] setObject:self.currentParsedCharacterData forKey:elementName];
         currentParsedCharacterData = [[NSMutableString alloc] init];
+        //NSLog(@"%s (%@) data: %@", __FUNCTION__, elementName, currentParsedCharacterData);
     }else if ([containerItems containsObject:elementName]){
         [[currentItemObject lastObject] setObject:elementName forKey:@"containerName"];
         if (depth==0){
@@ -164,6 +173,7 @@ NSString *thePath;
 
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
+    //NSLog(@"%s", __FUNCTION__);
     dispatch_async(dispatch_get_main_queue(), ^{[delegate parseComplete];});
 }
 
@@ -179,7 +189,9 @@ NSString *thePath;
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
     // We abort parsing if we get more than kMaximumNumberOfItemsToParse. 
     // We use the didAbortParsing flag to avoid treating this as an error. 
-    [NSException raise:@"XML Parse Failed" format:@"Reason: %@", [parseError localizedDescription]];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    //[NSException raise:@"XML Parse Failed" format:@"Reason: %@", [parseError localizedDescription]];
 }
 
 

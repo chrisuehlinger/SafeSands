@@ -25,7 +25,8 @@
     model = [NSManagedObjectModel mergedModelFromBundles:nil];
 
     NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:name];
+    //NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"/%@", name];
+    NSString *dbPath = [[NSBundle mainBundle] pathForResource:name ofType:@"data"];
     NSURL *dbURL = [NSURL fileURLWithPath: dbPath];
     NSError *error = nil;
     if(![psc addPersistentStoreWithType:NSSQLiteStoreType

@@ -53,10 +53,6 @@ static double pi = 3.14159268;
     CGFloat radius = 100.0;
     CGPoint center = CGPointMake(rect.origin.x + .5*rect.size.width,
                                  rect.origin.y + .5*rect.size.height);
-    // Get the graphics context and clear it
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetRGBFillColor(ctx, 0.9, 0.9, 0.9, 1);
-    CGContextFillRect(ctx, rect);
     
     CAGradientLayer *clockFace = [CALayer layer];
     [clockFace setMasksToBounds:YES];
@@ -83,6 +79,7 @@ static double pi = 3.14159268;
             [mark setFontSize:fontSize];
             [mark setString:marks[i]];
             [mark setPosition:CGPointMake(center.x+sin(angle)*(radius-.5*fontSize), center.y-cos(angle)*(radius-.6*fontSize))];
+            [mark setContentsScale:[[UIScreen mainScreen] scale]];
             [self.layer addSublayer:mark];
         }
         
@@ -102,13 +99,12 @@ static double pi = 3.14159268;
         CGFloat highColor[] = {1, 0, 0, 1};
         [highTimeDisplay setBounds:CGRectMake(0, 0, 150, fontSize)];
         [highTimeDisplay setForegroundColor:CGColorCreate(CGColorSpaceCreateDeviceRGB(), highColor)];
-        //CGFloat backColor[] = {1, 0, 0, .5};
-        //[highTimeDisplay setBackgroundColor:CGColorCreate(CGColorSpaceCreateDeviceRGB(), backColor)];
         [highTimeDisplay setAlignmentMode:kCAAlignmentCenter];
         [highTimeDisplay setFont:@"Helvetica"];
         [highTimeDisplay setFontSize:fontSize];
         [highTimeDisplay setString:timeString];
         [highTimeDisplay setPosition:CGPointMake(center.x, center.y-(radius+.6*fontSize))];
+        [highTimeDisplay setContentsScale:[[UIScreen mainScreen] scale]];
         [self.layer addSublayer:highTimeDisplay];
         
         if([[nextTide objectForKey:@"highlow"] isEqualToString:@"L"])
@@ -125,6 +121,7 @@ static double pi = 3.14159268;
         [lowTimeDisplay setFontSize:fontSize];
         [lowTimeDisplay setString:timeString];
         [lowTimeDisplay setPosition:CGPointMake(center.x, center.y+(radius+.6*fontSize))];
+        [lowTimeDisplay setContentsScale:[[UIScreen mainScreen] scale]];
         [self.layer addSublayer:lowTimeDisplay];
         
         double angle = [self angleFromDate];

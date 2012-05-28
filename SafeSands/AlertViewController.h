@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Alerts.h"
 
-@interface AlertViewController : UIViewController{
+@interface AlertViewController : UIViewController <UIScrollViewDelegate> {
     Alerts *alerts;
+    BOOL pageControlUsed;
 }
 
 @property (strong, nonatomic) Alerts *alerts;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UIPageControl *pageControl;
 
 -(void)setUpScrollView:(Alerts *)a;
 

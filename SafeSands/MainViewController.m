@@ -140,14 +140,12 @@ CALayer *mainLayer;
 
 #pragma mark - beachDelegate methods
 
--(void)foundPlacemark:(NSString *)newText
+-(void)foundData
 {
-    [[self placemarkDisplay] setText:newText];
-    [[self placemarkActivityIndicator] stopAnimating];
-    [[self placemarkButton] setEnabled:YES];
+    NSLog(@"Got it!");
 }
 
--(void)foundWeather:(NSString *)newText andImage:(UIImage *)theImage
+/*-(void)foundWeather:(NSString *)newText andImage:(UIImage *)theImage
 {
     [[self weatherDisplay] setText:newText];
     [[self weatherActivityIndicator] stopAnimating];
@@ -171,30 +169,8 @@ CALayer *mainLayer;
     imageLayer.contents = (id) theImage.CGImage;
     imageLayer.masksToBounds = YES;
     [sublayer addSublayer:imageLayer];
-}
+}*/
 
--(void)foundTides:(NSString *)newText
-{
-    [[self tidalDisplay] setText:newText];
-    [[self tidalActivityIndicator] stopAnimating];
-    [[self tidalButton] setEnabled:YES];
-    [theView animateChange];
-}
 
--(void)foundAlerts:(NSString *)newText
-{
-    NSString *oldText = [[self ripTideDisplay] text];
-    [[self ripTideDisplay] setText:[oldText stringByAppendingString:newText]];
-    [[self ripTideActivityIndicator] stopAnimating];
-    [[self ripTideButton] setEnabled:YES];
-}
-
--(void)foundUVIndex:(NSString *)newText
-{
-    NSString *oldText = [[self ripTideDisplay] text];
-    [[self ripTideDisplay] setText:[oldText stringByAppendingString:newText]];
-    [[self ripTideActivityIndicator] stopAnimating];
-    [[self ripTideButton] setEnabled:YES];
-}
 
 @end

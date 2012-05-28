@@ -30,10 +30,10 @@ bool imagesLoaded;
                                @"condition", @"temp_f", @"temp_c", @"humidity", @"icon", @"wind_condition", 
                                @"day_of_week", @"low", @"high", nil];
     
-    weatherParser = [[SandsParser alloc] initWithPath:[NSString stringWithFormat: @"http://www.google.com/ig/api?weather=%@", [placemark postalCode]]
-                                          andDelegate:self
-                                            andFields:fieldElements
-                                        andContainers:containerElements];
+    weatherParser = [[SandsParser alloc] initWithPath: [NSString stringWithFormat: @"http://www.google.com/ig/api?weather=%@", [placemark postalCode]]
+                                          andDelegate: self
+                                            andFields: fieldElements
+                                        andContainers: containerElements];
     return self;
 }
 

@@ -16,7 +16,7 @@
 -(void)foundTides;
 @end
 
-@interface TidalReading : NSObject<tidalStationDBDelegate,SandsParserDelegate>{
+@interface TidalReading : NSObject<TidalStationDBDelegate,SandsParserDelegate>{
     
     id<tidalDelegate> delegate;
     NSMutableArray *readings;

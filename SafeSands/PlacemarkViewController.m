@@ -7,6 +7,7 @@
 //
 
 #import "PlacemarkViewController.h"
+#import "SandsAppDelegate.h"
 
 @interface placemarkAnnotation : NSObject<MKAnnotation> {
     CLLocationCoordinate2D coordinate;
@@ -44,7 +45,8 @@
 
 - (void)viewDidLoad
 {
-    [mapView setVisibleMapRect:MKMapRectMake(0, 0, 100, 100) animated:YES];
+    placemark = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] placemark];
+    [mapView setVisibleMapRect:MKMapRectMake(0, 0, 1000000, 1000000) animated:YES];
     [mapView setCenterCoordinate:placemark.location.coordinate animated:YES];
     [mapView addAnnotation:[[placemarkAnnotation alloc]initWithCoordinate:placemark]];
     [super viewDidLoad];

@@ -11,26 +11,25 @@
 #import "SandsParser.h"
 #import "WaterTemperature.h"
 
-@protocol weatherDelegate
+@protocol WeatherDelegate
 -(void)foundWeather;
 @end
 
 @interface Weather : NSObject<SandsParserDelegate, WaterTemperatureDelegate>{
-    id<weatherDelegate> delegate;
+    id<WeatherDelegate> delegate;
     
     WaterTemperature *waterTemp;
     
     NSArray * containerElements;
     NSArray * fieldElements;
+    SandsParser *weatherParser;
     
     NSMutableDictionary *forecastInfo;
     NSMutableDictionary *currentConditions;
     NSMutableArray *forecastConditions;
-    
-    SandsParser *weatherParser;
 }
 
-@property (strong, nonatomic) id<weatherDelegate> delegate;
+@property (strong, nonatomic) id<WeatherDelegate> delegate;
 @property (strong, nonatomic) SandsParser *weatherParser;
 
 @property (strong, nonatomic) WaterTemperature *waterTemp;

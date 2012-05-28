@@ -23,12 +23,14 @@
     id<WaterTempStationDBDelegate> delegate;
     SandsParser *stationParser;
     NSArray *fieldElements;
+    bool databaseBuilt;
     
     int count;
     SandsDataStore *dataStore;
 }
 
 @property (strong, nonatomic) id<WaterTempStationDBDelegate> delegate;
+@property bool databaseBuilt;
 
 -(id)initWithDelegate:(id<WaterTempStationDBDelegate>)del;
 -(WaterTempStation *)closestStationTo:(CLPlacemark *)placemark;

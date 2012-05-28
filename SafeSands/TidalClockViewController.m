@@ -7,6 +7,7 @@
 //
 
 #import "TidalClockViewController.h"
+#import "SandsAppDelegate.h"
 
 @implementation TidalClockViewController
 
@@ -25,9 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if(hasReading){
-        [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
-    }
+    [clock setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
+    
+    reading = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] reading];
+    [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
 }
 
 - (void)viewDidUnload

@@ -7,6 +7,7 @@
 //
 
 #import "TidalReading.h"
+#import "SandsAppDelegate.h"
 
 @implementation TidalReading
 
@@ -23,7 +24,17 @@ CLPlacemark *thePlacemark;
     fieldElements = [NSArray arrayWithObjects:@"date", @"day", @"time", @"predictions_in_ft", @"predictions_in_cm", @"highlow", nil];
     readings = [[NSMutableArray alloc] init];
     thePlacemark = placemark;
-    tidalDB = [[TidalStationDB alloc] initWithDelegate:self];
+    //tidalDB = [[TidalStationDB alloc] initWithDelegate:self];
+    tidalDB = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] stationDB];
+    station = [tidalDB closestStationTo:thePlacemark];
+    
+    NSString *tidalPath = [NSString stringWithFormat: @"%@%@", noaaURL, station.stationID];
+    //NSLog(@"%@", tidalPath);
+    
+    tideParser = [[SandsParser alloc] initWithPath:tidalPath
+                                       andDelegate:self
+                                         andFields:fieldElements
+                                     andContainers:[NSArray arrayWithObject:@"item"]];
     return self;
 }
 

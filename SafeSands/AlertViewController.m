@@ -7,11 +7,17 @@
 //
 
 #import "AlertViewController.h"
+#import "SandsAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AlertViewController
 
 @synthesize alerts;
 @synthesize scrollView;
+@synthesize pageControl;
+
+NSInteger numberOfViews;
+NSMutableArray *alertViews;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,6 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    alerts = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] alerts];
+    [self.view setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
     if(alerts != NULL){
         [self setUpScrollView:alerts];
     }
@@ -49,34 +57,169 @@
 }
 
 -(void)setUpScrollView:(Alerts *)a
-{
-    [scrollView setPagingEnabled:YES];
-    NSInteger numberOfViews;
+{    
+    alertViews = [[NSMutableArray alloc] init];
+    
     if ([[alerts alerts] count] > 0) {
         numberOfViews = [[alerts alerts] count];
         for (int i = 0; i < numberOfViews; i++) {
             NSMutableDictionary *theAlert = [[alerts alerts] objectAtIndex:i];
             NSString *displayText = [[NSString alloc] init];
-            displayText = [displayText stringByAppendingFormat:@"%@\n", [theAlert objectForKey:@"title"]];
+            displayText = [displayText stringByAppendingFormat:@"%@\n\n", [theAlert objectForKey:@"title"]];
             displayText = [displayText stringByAppendingFormat:@"Status: %@\n", [theAlert objectForKey:@"cap:status"]];
             displayText = [displayText stringByAppendingFormat:@"Urgency: %@\n", [theAlert objectForKey:@"cap:urgency"]];
-            displayText = [displayText stringByAppendingFormat:@"Areas Affected: %@\n", [theAlert objectForKey:@"cap:areaDesc"]];
+            displayText = [displayText stringByAppendingFormat:@"Areas Affected: %@\n\n", [theAlert objectForKey:@"cap:areaDesc"]];
             displayText = [displayText stringByAppendingFormat:@"Summary: %@\n", [theAlert objectForKey:@"summary"]];
             
-            CGFloat yOrigin = i * self.view.frame.size.height;
-            UILabel *alertView = [[UILabel alloc] initWithFrame:CGRectMake(yOrigin, 0, self.view.frame.size.width, self.view.frame.size.height)];
-            [alertView setText:displayText];
-            alertView.backgroundColor = [UIColor colorWithRed:1 green:0.1 blue:0.1 alpha:1];
-            [scrollView addSubview:alertView];
+            UIView *alertView = [[UIView alloc] initWithFrame:self.view.frame];
+            CALayer *alertLayer = [CALayer layer];
+            [alertView.layer addSublayer:alertLayer];
+            alertLayer.backgroundColor = [UIColor colorWithRed:0 green:0.140625 blue:0.45703125 alpha:1].CGColor;
+            alertLayer.shadowOffset = CGSizeMake(0, 3);
+            alertLayer.frame = CGRectMake(20, 20, 280, 400);
+            alertLayer.cornerRadius = 10.0;
+            alertLayer.zPosition = -10;
+            
+            CATextLayer *alertTextLayer = [CATextLayer layer];
+            [alertTextLayer setForegroundColor:[[UIColor colorWithRed:1 green:1 blue:1 alpha:1] CGColor]];
+            [alertTextLayer setString:displayText];
+            [alertTextLayer setWrapped:YES];
+            [alertTextLayer setFrame:CGRectMake(30, 30, 260, 380)];
+            [alertTextLayer setAlignmentMode:kCAAlignmentLeft];
+            [alertTextLayer setFont:@"Helvetica"];
+            [alertTextLayer setFontSize:20];
+            [alertTextLayer setContentsScale:[[UIScreen mainScreen] scale]];
+            alertTextLayer.shadowOffset = CGSizeMake(0, 0);
+            alertTextLayer.shadowRadius = 1;
+            alertTextLayer.shadowColor = [UIColor blackColor].CGColor;
+            alertTextLayer.shadowOpacity = 1;
+            
+            [alertView.layer addSublayer:alertTextLayer];
+            [alertTextLayer setZPosition:1];
+            
+            [alertViews addObject:alertView];
         }
     }else {
         numberOfViews = 1;
-        UILabel *noAlertView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        [noAlertView setText:@"No Alerts found for this area."];
-        noAlertView.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1];
-        [scrollView addSubview:noAlertView];
+        UIView *noAlertView = [[UIView alloc] initWithFrame:self.view.frame];
+        CALayer *alertLayer = [CALayer layer];
+        [noAlertView.layer addSublayer:alertLayer];
+        alertLayer.backgroundColor = [UIColor colorWithRed:0 green:0.140625 blue:0.45703125 alpha:1].CGColor;
+        alertLayer.shadowOffset = CGSizeMake(0, 3);
+        alertLayer.frame = CGRectMake(20, 20, 280, 400);
+        alertLayer.cornerRadius = 10.0;
+        alertLayer.zPosition = -10;
+        
+        CATextLayer *alertTextLayer = [CATextLayer layer];
+        [alertTextLayer setForegroundColor:[[UIColor colorWithRed:1 green:1 blue:1 alpha:1] CGColor]];
+        [alertTextLayer setString:@"No Alerts found for this area."];
+        [alertTextLayer setWrapped:YES];
+        [alertTextLayer setFrame:CGRectMake(30, 30, 260, 380)];
+        [alertTextLayer setAlignmentMode:kCAAlignmentLeft];
+        [alertTextLayer setFont:@"Helvetica"];
+        [alertTextLayer setFontSize:20];
+        [alertTextLayer setContentsScale:[[UIScreen mainScreen] scale]];
+        alertTextLayer.shadowOffset = CGSizeMake(0, 0);
+        alertTextLayer.shadowRadius = 1;
+        alertTextLayer.shadowColor = [UIColor blackColor].CGColor;
+        alertTextLayer.shadowOpacity = 1;
+        
+        [noAlertView.layer addSublayer:alertTextLayer];
+        [alertTextLayer setZPosition:1];
+        [alertViews addObject:noAlertView];
     }
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width * numberOfViews, self.view.frame.size.height);
+    scrollView.pagingEnabled = YES;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.scrollsToTop = NO;
+    scrollView.delegate = self;
+    
+    pageControl.numberOfPages = numberOfViews;
+    pageControl.currentPage = 0;
+    
+    // pages are created on demand
+    // load the visible page
+    // load the page on either side to avoid flashes when the user starts scrolling
+    //
+    [self loadScrollViewWithPage:0];
+    [self loadScrollViewWithPage:1];
+}
+
+- (void)loadScrollViewWithPage:(int)page
+{
+    if (page < 0)
+        return;
+    if (page >= numberOfViews)
+        return;
+    
+    // replace the placeholder if necessary
+    UIView *alertView = [alertViews objectAtIndex:page];
+    
+    // add the controller's view to the scroll view
+    if (alertView.superview == nil)
+    {
+        CGRect frame = scrollView.frame;
+        frame.origin.x = frame.size.width * page;
+        frame.origin.y = 0;
+        alertView.frame = frame;
+        [scrollView addSubview:alertView];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    // We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
+    // which a scroll event generated from the user hitting the page control triggers updates from
+    // the delegate method. We use a boolean to disable the delegate logic when the page control is used.
+    if (pageControlUsed)
+    {
+        // do nothing - the scroll was initiated from the page control, not the user dragging
+        return;
+    }
+	
+    // Switch the indicator when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    pageControl.currentPage = page;
+    
+    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    [self loadScrollViewWithPage:page - 1];
+    [self loadScrollViewWithPage:page];
+    [self loadScrollViewWithPage:page + 1];
+    
+    // A possible optimization would be to unload the views+controllers which are no longer visible
+}
+
+// At the begin of scroll dragging, reset the boolean used when scrolls originate from the UIPageControl
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    pageControlUsed = NO;
+}
+
+// At the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    pageControlUsed = NO;
+}
+
+- (IBAction)changePage:(id)sender
+{
+    int page = pageControl.currentPage;
+	
+    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    [self loadScrollViewWithPage:page - 1];
+    [self loadScrollViewWithPage:page];
+    [self loadScrollViewWithPage:page + 1];
+    
+	// update the scroll view to the appropriate page
+    CGRect frame = scrollView.frame;
+    frame.origin.x = frame.size.width * page;
+    frame.origin.y = 0;
+    [scrollView scrollRectToVisible:frame animated:YES];
+    
+	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
+    pageControlUsed = YES;
 }
 
 @end
