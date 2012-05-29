@@ -60,7 +60,7 @@ TidalStationDB *tidalDB;
     [geocoder reverseGeocodeLocation:[thePlacemark location] completionHandler:^(NSArray *placemarks, NSError *error)
      {
          if (placemarks){
-             if([[[placemarks objectAtIndex:0] ISOcountryCode] isEqualToString:@"USA"])
+             if([[[placemarks objectAtIndex:0] ISOcountryCode] isEqualToString:@"US"])
              {
                  [self setPlacemark:[placemarks objectAtIndex:0]];
                  dispatch_async(dispatch_get_main_queue(),

@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <iAd/iAd.h>
 #import "MainViewController.h"
 #import "Beach.h"
+#import "SandsAppDelegate.h"
 
-@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate>
+@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate, ADBannerViewDelegate>{
+    ADBannerView *adView;
+    bool bannerIsVisible, adIsLoaded, bannerShouldShow;
+    SandsAppDelegate *delegate;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *useCurrentLocationButton;
 @property (weak, nonatomic) IBOutlet UISearchBar *locationSearchBar;
@@ -19,4 +25,9 @@
 
 
 - (IBAction)useCurrentLocation:(id)sender;
+-(void)showBanner;
+-(void)hideBanner;
+-(bool)iAdIsAvailable;
+-(float)getAdHeight;
+
 @end

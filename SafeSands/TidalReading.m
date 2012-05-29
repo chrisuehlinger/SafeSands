@@ -89,7 +89,7 @@ CLPlacemark *thePlacemark;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat: @"yyyy'/'MM'/'dd' 'HH':'mm"];
     NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@", [element objectForKey:@"date"],[element objectForKey:@"time"]]];
-    
+    //NSLog(@"Tide at: %@ on %@", [element objectForKey:@"time"], [element objectForKey:@"date"]);
     [element setObject:date forKey:@"formattedDate"];
     [readings addObject: element];
 }

@@ -107,7 +107,7 @@ static double pi = 3.14159268;
         [highTimeDisplay setContentsScale:[[UIScreen mainScreen] scale]];
         [self.layer addSublayer:highTimeDisplay];
         
-        if([[nextTide objectForKey:@"highlow"] isEqualToString:@"L"])
+        if([[lastTide objectForKey:@"highlow"] isEqualToString:@"H"])
             timeString = [dateFormatter stringFromDate:[nextTide objectForKey:@"formattedDate"]] ;
         else
             timeString = [dateFormatter stringFromDate:[lastTide objectForKey:@"formattedDate"]] ;

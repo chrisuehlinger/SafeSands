@@ -24,7 +24,7 @@ SpinnerView *spinner;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+        delegate = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
     }
     return self;
 }
@@ -80,6 +80,16 @@ SpinnerView *spinner;
     locationSearchController = [[UISearchDisplayController alloc] initWithSearchBar:locationSearchBar contentsController:self];
     locationSearchBar.delegate = self;
     
+    if ([self iAdIsAvailable]) {
+        adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+        adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+        
+        // position the guy off the screen
+        adView.frame = CGRectMake(0, 416, self.view.frame.size.width, adView.frame.size.height);
+        adView.delegate = self;
+        [self.view addSubview:adView];
+    }
+    
 }
 
 
@@ -96,7 +106,7 @@ SpinnerView *spinner;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -148,6 +158,7 @@ SpinnerView *spinner;
     SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
     [del setCurrentBeach:[[Beach alloc] initWithString:[searchBar text] andDelegate:del]];
     spinner = [SpinnerView loadSpinnerIntoView:self.view];
+    [self.view bringSubviewToFront:adView];
     [self searchBarCancelButtonClicked:searchBar];
 }
 
@@ -155,6 +166,7 @@ SpinnerView *spinner;
     SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
     [del setCurrentBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:del]];
     spinner = [SpinnerView loadSpinnerIntoView:self.view];
+    [self.view bringSubviewToFront:adView];
 }
 
 -(void)foundData
@@ -164,6 +176,84 @@ SpinnerView *spinner;
     UITabBarController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainTabController"];
     [self.navigationController pushViewController:dest animated:YES];
 }
+
+#pragma mark iAd Stuff
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    BOOL shouldExecuteAction = YES;
+    
+    if (!willLeave && shouldExecuteAction)
+    {
+        ;//[delegate pause];
+    }
+    return shouldExecuteAction;
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
+    ;//[delegate resume];
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    adIsLoaded = YES;
+    //if ([delegate isGameScene])
+        [self showBanner];
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    adIsLoaded = NO;
+    [self hideBanner];
+}
+
+#pragma mark animations
+
+-(void)showBanner
+{
+    bannerShouldShow = YES;
+    if (bannerIsVisible || !adIsLoaded) {
+        return;
+    }
+    [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+    adView.frame = CGRectOffset(adView.frame, 0, -adView.frame.size.height);
+    [UIView commitAnimations];
+    bannerIsVisible = YES;
+}
+
+-(void)hideBanner
+{
+    bannerShouldShow = NO;
+    if (!bannerIsVisible) {
+        return;
+    }
+    [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+    adView.frame = CGRectOffset(adView.frame, 0, adView.frame.size.height);
+    [UIView commitAnimations];
+    bannerIsVisible = NO;
+}
+
+-(float)getAdHeight
+{
+    return adView.frame.size.height;
+}
+
+-(bool)iAdIsAvailable
+{
+    // Check for presence of GKLocalPlayer API.
+    Class gcClass = (NSClassFromString(@"ADBannerView"));
+	
+    // The device must be running running iOS 4.1 or later.
+    bool isIPAD = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+    NSString *reqSysVer = (isIPAD) ? @"4.2" : @"4.1";
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+    BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
+	
+    return (gcClass && osVersionSupported);
+}
+
+#pragma mark - Error Handling
 
 -(void)handleConnectionError
 {
@@ -208,5 +298,7 @@ SpinnerView *spinner;
         [nonUSAAlert show];
     }
 }
+
+
 
 @end
