@@ -19,8 +19,33 @@
 		8359FC4515263F4D00B243F3 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8359FC4415263F4B00B243F3 /* AlertViewController.m */; };
 		837304F5153BDBDF006B33E6 /* UVIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 837304F4153BDBDF006B33E6 /* UVIndex.m */; };
 		837304F8153C0763006B33E6 /* sandBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 837304F7153C0763006B33E6 /* sandBackground.jpg */; };
-		837304FB153C0F47006B33E6 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837304FA153C0F46006B33E6 /* MainView.m */; };
+		83865FD415886BA200A01606 /* rayLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 83865FD215886BA200A01606 /* rayLayer.png */; };
+		83865FD515886BA200A01606 /* rayLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83865FD315886BA200A01606 /* rayLayer@2x.png */; };
 		8396670C1558EBFE0043EC15 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E409101509EE0300F9222C /* MainStoryboard.storyboard */; };
+		839962401585DA3B00C41AD2 /* beachLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399623E1585DA3B00C41AD2 /* beachLayer.png */; };
+		839962411585DA3B00C41AD2 /* beachLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399623F1585DA3B00C41AD2 /* beachLayer@2x.png */; };
+		839962461586FE5400C41AD2 /* sunLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 839962421586FE5400C41AD2 /* sunLayer.png */; };
+		839962471586FE5400C41AD2 /* sunLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 839962431586FE5400C41AD2 /* sunLayer@2x.png */; };
+		839962481586FE5400C41AD2 /* weatherBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 839962441586FE5400C41AD2 /* weatherBackground.png */; };
+		839962491586FE5400C41AD2 /* weatherBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 839962451586FE5400C41AD2 /* weatherBackground@2x.png */; };
+		8399625D15871DCB00C41AD2 /* oceanBackLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399625715871DCA00C41AD2 /* oceanBackLayer.png */; };
+		8399625E15871DCB00C41AD2 /* oceanBackLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399625815871DCA00C41AD2 /* oceanBackLayer@2x.png */; };
+		8399625F15871DCB00C41AD2 /* oceanFrontLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399625915871DCA00C41AD2 /* oceanFrontLayer.png */; };
+		8399626015871DCB00C41AD2 /* oceanFrontLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399625A15871DCA00C41AD2 /* oceanFrontLayer@2x.png */; };
+		8399626115871DCB00C41AD2 /* oceanMiddleLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399625B15871DCA00C41AD2 /* oceanMiddleLayer.png */; };
+		8399626215871DCB00C41AD2 /* oceanMiddleLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8399625C15871DCA00C41AD2 /* oceanMiddleLayer@2x.png */; };
+		839EDA511589AF3700732F65 /* rain1.png in Resources */ = {isa = PBXBuildFile; fileRef = 839EDA4F1589AF3700732F65 /* rain1.png */; };
+		839EDA521589AF3700732F65 /* rain1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 839EDA501589AF3700732F65 /* rain1@2x.png */; };
+		839EDA551589D72A00732F65 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 839EDA541589D72A00732F65 /* InfoViewController.m */; };
+		83A59779158871AB00E1C79A /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A59778158871AB00E1C79A /* CoreImage.framework */; };
+		83A597801588778B00E1C79A /* cloud1Layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5977A1588778B00E1C79A /* cloud1Layer.png */; };
+		83A597811588778B00E1C79A /* cloud1Layer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5977B1588778B00E1C79A /* cloud1Layer@2x.png */; };
+		83A597841588778B00E1C79A /* cloud3Layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5977E1588778B00E1C79A /* cloud3Layer.png */; };
+		83A597851588778B00E1C79A /* cloud3Layer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5977F1588778B00E1C79A /* cloud3Layer@2x.png */; };
+		83A5978815887DE300E1C79A /* cloud2Layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5978615887DE200E1C79A /* cloud2Layer.png */; };
+		83A5978915887DE300E1C79A /* cloud2Layer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5978715887DE300E1C79A /* cloud2Layer@2x.png */; };
+		83A5978E1588866600E1C79A /* rain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5978A1588866600E1C79A /* rain@2x.png */; };
+		83A597911588866600E1C79A /* rain2.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A5978D1588866600E1C79A /* rain2.png */; };
 		83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */; };
 		83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A41519075900E44C2C /* PlacemarkViewController.m */; };
 		83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AA151908CB00E44C2C /* iAd.framework */; };
@@ -47,7 +72,6 @@
 		83E409271509EE0600F9222C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83E409251509EE0600F9222C /* InfoPlist.strings */; };
 		83E4092A1509EE0600F9222C /* SafeSandsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409291509EE0600F9222C /* SafeSandsTests.m */; };
 		83E409351509EF2D00F9222C /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409341509EF2D00F9222C /* LocationSelectorViewController.m */; };
-		83E409391509F1DD00F9222C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409381509F1DD00F9222C /* MainViewController.m */; };
 		83ED625F15101FF600368777 /* TidalReading.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ED625E15101FF600368777 /* TidalReading.m */; };
 		83ED626D1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */; };
 		83ED62701512A59600368777 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83ED626F1512A59600368777 /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -96,8 +120,33 @@
 		837304F3153BDBDF006B33E6 /* UVIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVIndex.h; sourceTree = "<group>"; };
 		837304F4153BDBDF006B33E6 /* UVIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UVIndex.m; sourceTree = "<group>"; };
 		837304F7153C0763006B33E6 /* sandBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sandBackground.jpg; sourceTree = "<group>"; };
-		837304F9153C0F46006B33E6 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
-		837304FA153C0F46006B33E6 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		83865FD215886BA200A01606 /* rayLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rayLayer.png; sourceTree = "<group>"; };
+		83865FD315886BA200A01606 /* rayLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rayLayer@2x.png"; sourceTree = "<group>"; };
+		8399623E1585DA3B00C41AD2 /* beachLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beachLayer.png; path = ../beachLayer.png; sourceTree = "<group>"; };
+		8399623F1585DA3B00C41AD2 /* beachLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "beachLayer@2x.png"; path = "../beachLayer@2x.png"; sourceTree = "<group>"; };
+		839962421586FE5400C41AD2 /* sunLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sunLayer.png; path = ../sunLayer.png; sourceTree = "<group>"; };
+		839962431586FE5400C41AD2 /* sunLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sunLayer@2x.png"; path = "../sunLayer@2x.png"; sourceTree = "<group>"; };
+		839962441586FE5400C41AD2 /* weatherBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weatherBackground.png; path = ../weatherBackground.png; sourceTree = "<group>"; };
+		839962451586FE5400C41AD2 /* weatherBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weatherBackground@2x.png"; path = "../weatherBackground@2x.png"; sourceTree = "<group>"; };
+		8399625715871DCA00C41AD2 /* oceanBackLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oceanBackLayer.png; path = ../oceanBackLayer.png; sourceTree = "<group>"; };
+		8399625815871DCA00C41AD2 /* oceanBackLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "oceanBackLayer@2x.png"; path = "../oceanBackLayer@2x.png"; sourceTree = "<group>"; };
+		8399625915871DCA00C41AD2 /* oceanFrontLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oceanFrontLayer.png; path = ../oceanFrontLayer.png; sourceTree = "<group>"; };
+		8399625A15871DCA00C41AD2 /* oceanFrontLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "oceanFrontLayer@2x.png"; path = "../oceanFrontLayer@2x.png"; sourceTree = "<group>"; };
+		8399625B15871DCA00C41AD2 /* oceanMiddleLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oceanMiddleLayer.png; path = ../oceanMiddleLayer.png; sourceTree = "<group>"; };
+		8399625C15871DCA00C41AD2 /* oceanMiddleLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "oceanMiddleLayer@2x.png"; path = "../oceanMiddleLayer@2x.png"; sourceTree = "<group>"; };
+		839EDA4F1589AF3700732F65 /* rain1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rain1.png; sourceTree = SOURCE_ROOT; };
+		839EDA501589AF3700732F65 /* rain1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rain1@2x.png"; sourceTree = SOURCE_ROOT; };
+		839EDA531589D72A00732F65 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		839EDA541589D72A00732F65 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		83A59778158871AB00E1C79A /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		83A5977A1588778B00E1C79A /* cloud1Layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud1Layer.png; sourceTree = SOURCE_ROOT; };
+		83A5977B1588778B00E1C79A /* cloud1Layer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud1Layer@2x.png"; sourceTree = SOURCE_ROOT; };
+		83A5977E1588778B00E1C79A /* cloud3Layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud3Layer.png; sourceTree = SOURCE_ROOT; };
+		83A5977F1588778B00E1C79A /* cloud3Layer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud3Layer@2x.png"; sourceTree = SOURCE_ROOT; };
+		83A5978615887DE200E1C79A /* cloud2Layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud2Layer.png; sourceTree = SOURCE_ROOT; };
+		83A5978715887DE300E1C79A /* cloud2Layer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud2Layer@2x.png"; sourceTree = SOURCE_ROOT; };
+		83A5978A1588866600E1C79A /* rain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rain@2x.png"; sourceTree = SOURCE_ROOT; };
+		83A5978D1588866600E1C79A /* rain2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rain2.png; sourceTree = SOURCE_ROOT; };
 		83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
 		83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
 		83AFF4A31519075900E44C2C /* PlacemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacemarkViewController.h; sourceTree = "<group>"; };
@@ -141,8 +190,6 @@
 		83E409291509EE0600F9222C /* SafeSandsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeSandsTests.m; sourceTree = "<group>"; };
 		83E409331509EF2D00F9222C /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
 		83E409341509EF2D00F9222C /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
-		83E409371509F1DD00F9222C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		83E409381509F1DD00F9222C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		83ED625D15101FF600368777 /* TidalReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalReading.h; sourceTree = "<group>"; };
 		83ED625E15101FF600368777 /* TidalReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalReading.m; sourceTree = "<group>"; };
 		83ED626C1512A43700368777 /* TidalStationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TidalStationModel.xcdatamodel; sourceTree = "<group>"; };
@@ -169,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A59779158871AB00E1C79A /* CoreImage.framework in Frameworks */,
 				83CB24801523731900514100 /* QuartzCore.framework in Frameworks */,
 				83AFF4AD151908E600E44C2C /* MapKit.framework in Frameworks */,
 				83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */,
@@ -216,9 +264,41 @@
 			path = OCMock;
 			sourceTree = "<group>";
 		};
+		839962561586FF4600C41AD2 /* Weather Layers */ = {
+			isa = PBXGroup;
+			children = (
+				839EDA4F1589AF3700732F65 /* rain1.png */,
+				839EDA501589AF3700732F65 /* rain1@2x.png */,
+				83A5978A1588866600E1C79A /* rain@2x.png */,
+				83A5978D1588866600E1C79A /* rain2.png */,
+				83865FD215886BA200A01606 /* rayLayer.png */,
+				83865FD315886BA200A01606 /* rayLayer@2x.png */,
+				8399625715871DCA00C41AD2 /* oceanBackLayer.png */,
+				8399625815871DCA00C41AD2 /* oceanBackLayer@2x.png */,
+				8399625915871DCA00C41AD2 /* oceanFrontLayer.png */,
+				8399625A15871DCA00C41AD2 /* oceanFrontLayer@2x.png */,
+				8399625B15871DCA00C41AD2 /* oceanMiddleLayer.png */,
+				8399625C15871DCA00C41AD2 /* oceanMiddleLayer@2x.png */,
+				839962421586FE5400C41AD2 /* sunLayer.png */,
+				839962431586FE5400C41AD2 /* sunLayer@2x.png */,
+				839962441586FE5400C41AD2 /* weatherBackground.png */,
+				839962451586FE5400C41AD2 /* weatherBackground@2x.png */,
+				8399623E1585DA3B00C41AD2 /* beachLayer.png */,
+				8399623F1585DA3B00C41AD2 /* beachLayer@2x.png */,
+				83A5977A1588778B00E1C79A /* cloud1Layer.png */,
+				83A5977B1588778B00E1C79A /* cloud1Layer@2x.png */,
+				83A5978615887DE200E1C79A /* cloud2Layer.png */,
+				83A5978715887DE300E1C79A /* cloud2Layer@2x.png */,
+				83A5977E1588778B00E1C79A /* cloud3Layer.png */,
+				83A5977F1588778B00E1C79A /* cloud3Layer@2x.png */,
+			);
+			name = "Weather Layers";
+			sourceTree = "<group>";
+		};
 		83E408EF1509EDEA00F9222C = {
 			isa = PBXGroup;
 			children = (
+				83A59778158871AB00E1C79A /* CoreImage.framework */,
 				834EE3DE1558DCA200E867A1 /* Libraries */,
 				83E409041509EE0100F9222C /* SafeSands */,
 				83E409221509EE0600F9222C /* SafeSandsTests */,
@@ -258,8 +338,6 @@
 				83E409101509EE0300F9222C /* MainStoryboard.storyboard */,
 				C0F0FA6B153CFCA500C967C0 /* SpinnerView.h */,
 				C0F0FA6C153CFCA500C967C0 /* SpinnerView.m */,
-				83E3F1731522EB0B005422D9 /* TidalClockView.h */,
-				83E3F1741522EB0B005422D9 /* TidalClockView.m */,
 				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
 				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
 				C010FFAF154A63DA007628F7 /* Beach */,
@@ -273,6 +351,8 @@
 		83E409051509EE0100F9222C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				837304F7153C0763006B33E6 /* sandBackground.jpg */,
+				839962561586FF4600C41AD2 /* Weather Layers */,
 				830D8AE4156F6C7600E01FE1 /* Icon.png */,
 				830D8AE2156F6C5000E01FE1 /* Icon@2x.png */,
 				834C7044157249FC00D4CCE1 /* Icon-small.png */,
@@ -320,17 +400,16 @@
 				8359FC4415263F4B00B243F3 /* AlertViewController.m */,
 				83E3F1761522EE0D005422D9 /* TidalClockViewController.h */,
 				83E3F1771522EE0D005422D9 /* TidalClockViewController.m */,
+				83E3F1731522EB0B005422D9 /* TidalClockView.h */,
+				83E3F1741522EB0B005422D9 /* TidalClockView.m */,
 				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
 				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
 				83AFF4A31519075900E44C2C /* PlacemarkViewController.h */,
 				83AFF4A41519075900E44C2C /* PlacemarkViewController.m */,
-				83E409371509F1DD00F9222C /* MainViewController.h */,
-				83E409381509F1DD00F9222C /* MainViewController.m */,
-				837304F9153C0F46006B33E6 /* MainView.h */,
-				837304FA153C0F46006B33E6 /* MainView.m */,
-				837304F7153C0763006B33E6 /* sandBackground.jpg */,
 				83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */,
 				83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */,
+				839EDA531589D72A00732F65 /* InfoViewController.h */,
+				839EDA541589D72A00732F65 /* InfoViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -462,6 +541,30 @@
 				830D8AE5156F6C7600E01FE1 /* Icon.png in Resources */,
 				834C7046157249FC00D4CCE1 /* Icon-small.png in Resources */,
 				834C7047157249FC00D4CCE1 /* Icon-small@2x.png in Resources */,
+				839962401585DA3B00C41AD2 /* beachLayer.png in Resources */,
+				839962411585DA3B00C41AD2 /* beachLayer@2x.png in Resources */,
+				839962461586FE5400C41AD2 /* sunLayer.png in Resources */,
+				839962471586FE5400C41AD2 /* sunLayer@2x.png in Resources */,
+				839962481586FE5400C41AD2 /* weatherBackground.png in Resources */,
+				839962491586FE5400C41AD2 /* weatherBackground@2x.png in Resources */,
+				8399625D15871DCB00C41AD2 /* oceanBackLayer.png in Resources */,
+				8399625E15871DCB00C41AD2 /* oceanBackLayer@2x.png in Resources */,
+				8399625F15871DCB00C41AD2 /* oceanFrontLayer.png in Resources */,
+				8399626015871DCB00C41AD2 /* oceanFrontLayer@2x.png in Resources */,
+				8399626115871DCB00C41AD2 /* oceanMiddleLayer.png in Resources */,
+				8399626215871DCB00C41AD2 /* oceanMiddleLayer@2x.png in Resources */,
+				83865FD415886BA200A01606 /* rayLayer.png in Resources */,
+				83865FD515886BA200A01606 /* rayLayer@2x.png in Resources */,
+				83A597801588778B00E1C79A /* cloud1Layer.png in Resources */,
+				83A597811588778B00E1C79A /* cloud1Layer@2x.png in Resources */,
+				83A597841588778B00E1C79A /* cloud3Layer.png in Resources */,
+				83A597851588778B00E1C79A /* cloud3Layer@2x.png in Resources */,
+				83A5978815887DE300E1C79A /* cloud2Layer.png in Resources */,
+				83A5978915887DE300E1C79A /* cloud2Layer@2x.png in Resources */,
+				83A5978E1588866600E1C79A /* rain@2x.png in Resources */,
+				83A597911588866600E1C79A /* rain2.png in Resources */,
+				839EDA511589AF3700732F65 /* rain1.png in Resources */,
+				839EDA521589AF3700732F65 /* rain1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +602,6 @@
 				83E4090B1509EE0100F9222C /* main.m in Sources */,
 				83E4090F1509EE0200F9222C /* SandsAppDelegate.m in Sources */,
 				83E409351509EF2D00F9222C /* LocationSelectorViewController.m in Sources */,
-				83E409391509F1DD00F9222C /* MainViewController.m in Sources */,
 				83B1E849150FC4A300B1664F /* Beach.m in Sources */,
 				83B1E84E150FC4D500B1664F /* Weather.m in Sources */,
 				83B1E852150FEE5800B1664F /* TidalStation.m in Sources */,
@@ -519,8 +621,8 @@
 				8318443B15251964005FF862 /* Alerts.m in Sources */,
 				8359FC4515263F4D00B243F3 /* AlertViewController.m in Sources */,
 				837304F5153BDBDF006B33E6 /* UVIndex.m in Sources */,
-				837304FB153C0F47006B33E6 /* MainView.m in Sources */,
 				C0F0FA6D153CFCA500C967C0 /* SpinnerView.m in Sources */,
+				839EDA551589D72A00732F65 /* InfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +702,7 @@
 				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
 				INFOPLIST_FILE = "SafeSands/SafeSands-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -685,6 +788,7 @@
 				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
 				INFOPLIST_FILE = "SafeSands/SafeSands-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -696,6 +800,7 @@
 				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
 				INFOPLIST_FILE = "SafeSands/SafeSands-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

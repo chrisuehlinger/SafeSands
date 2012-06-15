@@ -22,6 +22,8 @@
     int count;
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
+    
+    NSArray *items;
 }
 
 @property int count;

@@ -103,7 +103,7 @@
         [NSException raise:@"Fetch failed"
                     format:@"Reason: %@", [error localizedDescription]];
     }
-    NSArray *items = [[NSMutableArray alloc] initWithArray:result];
+    items = [[NSMutableArray alloc] initWithArray:result];
     count = [items count];
     //NSLog(@"Count: %d", count);
     return items;
@@ -111,7 +111,12 @@
 
 -(NSManagedObject *)fetchItem:(int)orderingValue
 {
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    if(orderingValue < count)
+        return [items objectAtIndex:orderingValue];
+    else 
+        return nil;
+    
+    /*NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *e = [[model entitiesByName] objectForKey:datatype];
     [request setEntity:e];
     NSPredicate *p = [NSPredicate predicateWithFormat:@"orderingValue == %d", orderingValue];
@@ -126,7 +131,7 @@
         [NSException raise:@"No items fetched"
                     format:@"Reason: %@", [error localizedDescription]];
     }
-    return [result objectAtIndex:0];
+    return [result objectAtIndex:0];*/
 }
 
 - (NSManagedObject *)createItem

@@ -86,9 +86,13 @@ bool imagesLoaded;
     //NSLog(@"%@", outText);
     if (corrupt) {
         [weatherParser repeatOperations];
-    }else
-        imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
-        
+    }/*else
+        imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];*/
+    
+    imagesLoaded = YES;
+    
+    if(imagesLoaded && waterTempFound)
+        dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
 }
 
 -(void)retrievedData:(NSData *)data
@@ -104,7 +108,7 @@ bool imagesLoaded;
                 [foreCond setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
                 imageUsed = YES;
             }else {
-                imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
+                //imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
                 break;
             }
     

@@ -17,10 +17,15 @@
 
 static NSString * const noaaURL = @"http://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual%20XML&timeZone=0&datum=MLLW&Stationid=";
 
+NSDateFormatter *dateFormatter;
+
 CLPlacemark *thePlacemark;
 
 -(id)initWithPlacemark:(CLPlacemark *)placemark
 {
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"yyyy'/'MM'/'dd' 'HH':'mm"];
+    
     fieldElements = [NSArray arrayWithObjects:@"date", @"day", @"time", @"predictions_in_ft", @"predictions_in_cm", @"highlow", nil];
     readings = [[NSMutableArray alloc] init];
     thePlacemark = placemark;
@@ -86,8 +91,6 @@ CLPlacemark *thePlacemark;
 
 -(void)elementParsed:(NSMutableDictionary *)element
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat: @"yyyy'/'MM'/'dd' 'HH':'mm"];
     NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@", [element objectForKey:@"date"],[element objectForKey:@"time"]]];
     //NSLog(@"Tide at: %@ on %@", [element objectForKey:@"time"], [element objectForKey:@"date"]);
     [element setObject:date forKey:@"formattedDate"];

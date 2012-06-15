@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <iAd/iAd.h>
-#import "MainViewController.h"
 #import "Beach.h"
 #import "SandsAppDelegate.h"
 

@@ -204,6 +204,9 @@ SpinnerView *spinner;
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
+    if(error)
+        NSLog(@"Error: %@", [error description]);
+    
     adIsLoaded = NO;
     [self hideBanner];
 }
