@@ -78,6 +78,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"foundData" object:nil];
 }
 
+-(void)foundTides
+{
+    NSLog(@"Posting Notification: foundTides.");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"foundTides" object:nil];
+}
+
+-(void)foundAlerts
+{
+    NSLog(@"Posting Notification: foundAlerts.");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"foundAlerts" object:nil];
+}
+
 #pragma mark TidalStationDBDelegate methods
 
 -(void)databaseBuilt

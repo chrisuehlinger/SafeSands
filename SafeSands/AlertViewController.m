@@ -9,6 +9,8 @@
 #import "AlertViewController.h"
 #import "SandsAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SpinnerView.h"
+#import "Beach.h"
 
 @implementation AlertViewController
 
@@ -18,6 +20,8 @@
 
 NSInteger numberOfViews;
 NSMutableArray *alertViews;
+
+SpinnerView *spinner;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,17 +35,31 @@ NSMutableArray *alertViews;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    alerts = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] alerts];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
-    if(alerts != NULL){
-        [self setUpScrollView:alerts];
-    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    if ([[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] hasAlerts] )
+    {
+        alerts = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] alerts];
+        [self setUpScrollView:alerts];
+    }else
+    {
+        spinner = [SpinnerView loadSpinnerIntoView:self.view];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(foundAlerts)
+                                                     name:@"foundAlerts"
+                                                   object:nil];
+    }
+}
+
+-(void)foundAlerts
+{
+    alerts = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] alerts];
+    [self setUpScrollView:alerts];
+    [spinner removeSpinner];
 }
 
 - (void)viewDidUnload
@@ -65,10 +83,10 @@ NSMutableArray *alertViews;
         for (int i = 0; i < numberOfViews; i++) {
             NSMutableDictionary *theAlert = [[alerts alerts] objectAtIndex:i];
             NSString *displayText = [[NSString alloc] init];
-            displayText = [displayText stringByAppendingFormat:@"%@\n\n", [theAlert objectForKey:@"title"]];
-            displayText = [displayText stringByAppendingFormat:@"Status: %@\n", [theAlert objectForKey:@"cap:status"]];
-            displayText = [displayText stringByAppendingFormat:@"Urgency: %@\n", [theAlert objectForKey:@"cap:urgency"]];
-            displayText = [displayText stringByAppendingFormat:@"Areas Affected: %@\n\n", [theAlert objectForKey:@"cap:areaDesc"]];
+            displayText = [displayText stringByAppendingFormat:@"%@\n", [theAlert objectForKey:@"cap:event"]];
+            //displayText = [displayText stringByAppendingFormat:@"Status: %@ ", [theAlert objectForKey:@"cap:status"]];
+            //displayText = [displayText stringByAppendingFormat:@"Urgency: %@\n", [theAlert objectForKey:@"cap:urgency"]];
+            displayText = [displayText stringByAppendingFormat:@"Areas Affected: %@\n", [theAlert objectForKey:@"cap:areaDesc"]];
             displayText = [displayText stringByAppendingFormat:@"Summary: %@\n", [theAlert objectForKey:@"summary"]];
             
             UIView *alertView = [[UIView alloc] initWithFrame:self.view.frame];
@@ -87,7 +105,7 @@ NSMutableArray *alertViews;
             [alertTextLayer setFrame:CGRectMake(30, 30, 260, 380)];
             [alertTextLayer setAlignmentMode:kCAAlignmentLeft];
             [alertTextLayer setFont:@"Helvetica"];
-            [alertTextLayer setFontSize:20];
+            [alertTextLayer setFontSize:18];
             [alertTextLayer setContentsScale:[[UIScreen mainScreen] scale]];
             alertTextLayer.shadowOffset = CGSizeMake(0, 0);
             alertTextLayer.shadowRadius = 1;

@@ -8,7 +8,6 @@
 
 #import "Alerts.h"
 
-
 @implementation Alerts
 
 @synthesize placemark;

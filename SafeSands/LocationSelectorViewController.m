@@ -129,10 +129,12 @@ SpinnerView *spinner;
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    [UIView animateWithDuration:0.5 animations:^{
+    
+    [UIView animateWithDuration:0.33 animations:^{
         searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, searchBar.frame.size.height);
-        [locationSearchController setActive:YES animated:NO];
+         [locationSearchController setActive:YES animated:YES];
     }];
+   
     
     return YES;
 }
@@ -140,7 +142,7 @@ SpinnerView *spinner;
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [locationSearchController setActive:NO animated:NO];
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.33 animations:^{
         searchBar.frame = searchBarFrame;
     }];
     [searchBar resignFirstResponder];
@@ -158,6 +160,7 @@ SpinnerView *spinner;
     SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
     [del setCurrentBeach:[[Beach alloc] initWithString:[searchBar text] andDelegate:del]];
     spinner = [SpinnerView loadSpinnerIntoView:self.view];
+    [spinner setCenter:CGPointMake(self.view.center.x, self.view.center.y-25)];
     [self.view bringSubviewToFront:adView];
     [self searchBarCancelButtonClicked:searchBar];
 }
@@ -166,6 +169,7 @@ SpinnerView *spinner;
     SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
     [del setCurrentBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:del]];
     spinner = [SpinnerView loadSpinnerIntoView:self.view];
+    [spinner setCenter:CGPointMake(self.view.center.x, self.view.center.y-25)];
     [self.view bringSubviewToFront:adView];
 }
 

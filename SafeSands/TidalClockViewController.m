@@ -8,11 +8,14 @@
 
 #import "TidalClockViewController.h"
 #import "SandsAppDelegate.h"
+#import "SpinnerView.h"
 
 @implementation TidalClockViewController
 
 @synthesize reading;
 @synthesize clock;
+
+SpinnerView *spinner;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,9 +30,28 @@
 {
     [super viewDidLoad];
     [clock setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
-    
-    reading = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] reading];
-    [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if([[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] hasTidalReading])
+    {
+        [spinner removeSpinner];
+        reading = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] reading];
+        [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
+    }else
+    {
+        spinner = [SpinnerView loadSpinnerIntoView:self.view];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(foundTides)
+                                                     name:@"foundTides"
+                                                   object:nil];
+    }
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [spinner removeSpinner];
 }
 
 - (void)viewDidUnload
@@ -53,6 +75,13 @@
 {
     reading=r;
     hasReading=YES;
+}
+
+-(void)foundTides
+{
+    reading = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] reading];
+    [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
+    [spinner removeSpinner];
 }
 
 @end

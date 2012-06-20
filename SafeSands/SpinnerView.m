@@ -22,7 +22,9 @@
 
 +(SpinnerView *)loadSpinnerIntoView:(UIView *)superView{
 	// Create a new view with the same frame size as the superView
-	SpinnerView *spinnerView = [[SpinnerView alloc] initWithFrame:superView.bounds];
+    CGRect frame = CGRectMake(0, 0, 275, 275);
+	SpinnerView *spinnerView = [[SpinnerView alloc] initWithFrame:frame];
+    spinnerView.center = superView.center;
 	// If something's gone wrong, abort!
 	if(!spinnerView){ return nil; }
 
@@ -30,24 +32,32 @@
 	[superView addSubview:spinnerView];
     if(!spinnerView){ return nil; }
     
-    // Create a new image view, from the image made by our gradient method
-    UIImageView *background = [[UIImageView alloc] initWithImage:[spinnerView addBackground]];
+    CALayer *backgroundLayer = [CALayer layer];
+    backgroundLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
+    backgroundLayer.shadowOffset = CGSizeMake(0, 3);
+    backgroundLayer.frame = frame;
+    backgroundLayer.cornerRadius = 10.0;
+    [spinnerView.layer addSublayer:backgroundLayer];
+    /*// Create a new image view, from the image made by our gradient method
+    CALayer *background = [CALayer layer];
+    [background setContents:(id)[[spinnerView addBackground] CGImage]];
 	// Make a little bit of the superView show through
-    background.alpha = 0.7;
-    [spinnerView addSubview:background];
+    //background.opacity = 0.7;
+    background.cornerRadius = 10;
+    [spinnerView.layer addSublayer:background];*/
     
 	// This is the new stuff here ;)
     UIActivityIndicatorView *indicator =
     [[UIActivityIndicatorView alloc]
       initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
 	// Set the resizing mask so it's not stretched
-    indicator.autoresizingMask =
+    /*indicator.autoresizingMask =
     UIViewAutoresizingFlexibleTopMargin |
     UIViewAutoresizingFlexibleRightMargin |
     UIViewAutoresizingFlexibleBottomMargin |
-    UIViewAutoresizingFlexibleLeftMargin;
+    UIViewAutoresizingFlexibleLeftMargin;*/
 	// Place it in the middle of the view
-    indicator.center = superView.center;
+    indicator.center = CGPointMake(spinnerView.center.x-spinnerView.frame.origin.x, spinnerView.center.y-spinnerView.frame.origin.y);
 	// Add it into the spinnerView
     [spinnerView addSubview:indicator];
 	// Start it spinning! Don't miss this step

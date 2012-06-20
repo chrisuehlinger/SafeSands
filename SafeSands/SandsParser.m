@@ -190,7 +190,9 @@ NSString *thePath;
     // We abort parsing if we get more than kMaximumNumberOfItemsToParse. 
     // We use the didAbortParsing flag to avoid treating this as an error. 
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    NSLog(@"Repeating parse for: %@\nParse error occured: %@", thePath, [parseError localizedDescription]);
+    [self repeatOperations];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
     //[NSException raise:@"XML Parse Failed" format:@"Reason: %@", [parseError localizedDescription]];
 }
 

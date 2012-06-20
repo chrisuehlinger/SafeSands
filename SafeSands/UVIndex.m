@@ -39,7 +39,7 @@ NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort
     forecastDate = [dateFormatter dateFromString:[element objectForKey:@"forecastDate"]];
     
     index = [NSNumber numberWithInt:[[element objectForKey:@"index"] intValue]];
-    NSLog(@"Index = %d", [index intValue]);
+    NSLog(@"UV Index = %d", [index intValue]);
 }
 
 -(void)parseComplete

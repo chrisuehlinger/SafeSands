@@ -16,13 +16,15 @@
 @synthesize weather;
 @synthesize uvIndex;
 
-//CALayer *weatherLayer, *uvIndexLayer;
+CALayer *rayLayer, *cloud1Layer, *cloud2Layer, *cloud3Layer;
+CALayer *oceanBackLayer, *oceanMiddleLayer, *oceanFrontLayer;
+CAEmitterLayer* emitter;
+NSArray *sunConditions, *cloudConditions, *rainConditions;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -35,32 +37,21 @@
     weather = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] weather];
     uvIndex = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] uvIndex];
     
-    NSArray *sunConditions = [NSArray arrayWithObjects:@"partly sunny", @"sunny", @"clear", @"mostly sunny", nil];
-    //NSArray *cloudConditions = [NSArray arrayWithObjects:@"overcast", @"partly cloudy", @"mostly cloudy", @"cloudy", @"mist", @"dust", @"fog", @"smoke", @"haze", nil];
-    NSArray *rainConditions = [NSArray arrayWithObjects:@"scattered thunderstorms", @"showers", @"scattered showers", @"rain and snow", @"light snow", @"freezing drizzle", @"chance of rain", @"chance of storm", @"rain", @"chance of snow", @"storm", @"thunderstorm", @"chance of tstorm", @"sleet", @"snow", @"icy", @"flurries", @"light rain", @"snow showers", @"hail", nil];
+    sunConditions = [NSArray arrayWithObjects:@"partly sunny", @"sunny", @"clear", @"mostly sunny", nil];
+    //cloudConditions = [NSArray arrayWithObjects:@"overcast", @"partly cloudy", @"mostly cloudy", @"cloudy", @"mist", @"dust", @"fog", @"smoke", @"haze", nil];
+    rainConditions = [NSArray arrayWithObjects:@"scattered thunderstorms", @"showers", @"scattered showers", @"rain and snow", @"light snow", @"freezing drizzle", @"chance of rain", @"chance of storm", @"rain", @"chance of snow", @"storm", @"thunderstorm", @"chance of tstorm", @"sleet", @"snow", @"icy", @"flurries", @"light rain", @"snow showers", @"hail", nil];
     
     if([sunConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]])
     {
-        CALayer *rayLayer = [CALayer layer];
+        rayLayer = [CALayer layer];
         rayLayer.frame = CGRectMake(0, 0, 320, 387);
         UIImage *rayImage = [UIImage imageNamed:@"rayLayer.png"];
         rayLayer.contents = (id) rayImage.CGImage;
         rayLayer.masksToBounds = YES;
         [rayLayer setContentsScale:[[UIScreen mainScreen] scale]];
         [self.view.layer addSublayer:rayLayer];
-
-        // create the animation that will handle the pulsing.
-        CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
-        pulseAnimation.keyPath = @"opacity";
-        pulseAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
-        pulseAnimation.toValue = [NSNumber numberWithFloat: 1.0];
-        pulseAnimation.duration = 3.0;
-        pulseAnimation.repeatCount = HUGE_VALF;
-        pulseAnimation.autoreverses = YES;
-        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseOut];
-        [rayLayer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
     }else {
-        CALayer *cloud1Layer = [CALayer layer];
+        cloud1Layer = [CALayer layer];
         cloud1Layer.frame = CGRectMake(-15, 0, 335, 367);
         UIImage *cloud1Image = [UIImage imageNamed:@"cloud1Layer.png"];
         cloud1Layer.contents = (id) cloud1Image.CGImage;
@@ -68,18 +59,8 @@
         [cloud1Layer setContentsScale:[[UIScreen mainScreen] scale]];
         cloud1Layer.opacity = 0.75;
         [self.view.layer addSublayer:cloud1Layer];
-    
-        CABasicAnimation *cloud1Animation = [CABasicAnimation animation];
-        [cloud1Animation setKeyPath:@"position.x"];
-        [cloud1Animation setFromValue:[NSNumber numberWithInt:cloud1Layer.position.x-5]];
-        [cloud1Animation setToValue:[NSNumber numberWithInt:cloud1Layer.position.x+4]];
-        [cloud1Animation setDuration: 4.5];
-        [cloud1Animation setRepeatCount:HUGE_VALF];
-        [cloud1Animation setAutoreverses:YES];
-        [cloud1Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
-        [cloud1Layer addAnimation:cloud1Animation forKey:@"animateCloud1"];
-    
-        CALayer *cloud2Layer = [CALayer layer];
+        
+        cloud2Layer = [CALayer layer];
         cloud2Layer.frame = CGRectMake(-15, 0, 335, 367);
         UIImage *cloud2Image = [UIImage imageNamed:@"cloud2Layer.png"];
         cloud2Layer.contents = (id) cloud2Image.CGImage;
@@ -87,18 +68,8 @@
         [cloud2Layer setContentsScale:[[UIScreen mainScreen] scale]];
         cloud2Layer.opacity = 0.75;
         [self.view.layer addSublayer:cloud2Layer];
-    
-        CABasicAnimation *cloud2Animation = [CABasicAnimation animation];
-        [cloud2Animation setKeyPath:@"position.x"];
-        [cloud2Animation setFromValue:[NSNumber numberWithInt:cloud2Layer.position.x-5]];
-        [cloud2Animation setToValue:[NSNumber numberWithInt:cloud2Layer.position.x+5]];
-        [cloud2Animation setDuration: 5.0];
-        [cloud2Animation setRepeatCount:HUGE_VALF];
-        [cloud2Animation setAutoreverses:YES];
-        [cloud2Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
-        [cloud2Layer addAnimation:cloud2Animation forKey:@"animateCloud2"];
-    
-        CALayer *cloud3Layer = [CALayer layer];
+        
+        cloud3Layer = [CALayer layer];
         cloud3Layer.frame = CGRectMake(-15, 0, 335, 367);
         UIImage *cloud3Image = [UIImage imageNamed:@"cloud3Layer.png"];
         cloud3Layer.contents = (id) cloud3Image.CGImage;
@@ -106,57 +77,7 @@
         [cloud3Layer setContentsScale:[[UIScreen mainScreen] scale]];
         cloud3Layer.opacity = 0.75;
         [self.view.layer addSublayer:cloud3Layer];
-    
-        CABasicAnimation *cloud3Animation = [CABasicAnimation animation];
-        [cloud3Animation setKeyPath:@"position.x"];
-        [cloud3Animation setFromValue:[NSNumber numberWithInt:cloud3Layer.position.x-4]];
-        [cloud3Animation setToValue:[NSNumber numberWithInt:cloud3Layer.position.x+5]];
-        [cloud3Animation setDuration: 5.5];
-        [cloud3Animation setRepeatCount:HUGE_VALF];
-        [cloud3Animation setAutoreverses:YES];
-        [cloud3Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
-        [cloud3Layer addAnimation:cloud3Animation forKey:@"animateCloud3"];
-    
-        if ([rainConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]]) 
-        {
-            CAEmitterLayer* emitter;
-            emitter = [CAEmitterLayer layer];
-            emitter.emitterPosition = CGPointMake(230, 75);
-            emitter.emitterMode = kCAEmitterLayerLine;
-            emitter.emitterShape = kCAEmitterLayerLine;
-            emitter.emitterSize = CGSizeMake(125, 0);
-    
-            //Create the emitter cell
-            CAEmitterCell* rain1 = [CAEmitterCell emitterCell];
-            rain1.emissionLongitude = 1.15*M_PI;
-            rain1.birthRate = 20;
-            rain1.lifetime = 1;
-            rain1.lifetimeRange = 0.5;
-            rain1.velocity = 50;
-            rain1.velocityRange = 10;
-            rain1.emissionRange = .1*M_PI;
-            rain1.scaleSpeed = 0.25; // was 0.3
-            rain1.color = [[UIColor colorWithRed:0.1 green:0.1 blue:.5 alpha:.5] CGColor];
-            rain1.contents = (id)([UIImage imageNamed:@"rain1.png"].CGImage);
-            rain1.name = @"particle";
-    
-            CAEmitterCell* rain2 = [CAEmitterCell emitterCell];
-            /*rain2.emissionLongitude = 1.15*M_PI;
-             rain2.birthRate = 20;
-             rain2.lifetime = 1;
-             rain2.lifetimeRange = 0.50;
-             rain2.velocity = 50;
-             rain2.velocityRange = 10;
-             //rain2.emissionRange = .5*M_PI;
-             rain2.scaleSpeed = 0.25; // was 0.3
-             //particle.color = [[UIColor purpleColor] CGColor];
-             rain2.contents = (id)([UIImage imageNamed:@"rain2.png"].CGImage);
-             rain2.name = @"particle";*/
-    
-            emitter.emitterCells = [NSArray arrayWithObjects:rain1, rain2, nil];
-            [emitter setZPosition: -10];
-            [self.view.layer addSublayer:emitter];
-        }
+        
     }
     
     CALayer *sunLayer = [CALayer layer];
@@ -167,7 +88,7 @@
     [sunLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.view.layer addSublayer:sunLayer];
     
-    CALayer *oceanBackLayer = [CALayer layer];
+    oceanBackLayer = [CALayer layer];
     oceanBackLayer.frame = CGRectMake(-15, 0, 335, 367);
     UIImage *oceanBackImage = [UIImage imageNamed:@"oceanBackLayer.png"];
     oceanBackLayer.contents = (id) oceanBackImage.CGImage;
@@ -175,17 +96,7 @@
     [oceanBackLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.view.layer addSublayer:oceanBackLayer];
     
-    CABasicAnimation *oceanBackAnimation = [CABasicAnimation animation];
-    [oceanBackAnimation setKeyPath:@"position.x"];
-    [oceanBackAnimation setFromValue:[NSNumber numberWithInt:oceanBackLayer.position.x-5]];
-    [oceanBackAnimation setToValue:[NSNumber numberWithInt:oceanBackLayer.position.x+5]];
-    [oceanBackAnimation setDuration: 4.0];
-    [oceanBackAnimation setRepeatCount:HUGE_VALF];
-    [oceanBackAnimation setAutoreverses:YES];
-    //[oceanBackAnimation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
-    [oceanBackLayer addAnimation:oceanBackAnimation forKey:@"animateOceanBack"];
-    
-    CALayer *oceanMiddleLayer = [CALayer layer];
+    oceanMiddleLayer = [CALayer layer];
     oceanMiddleLayer.frame = CGRectMake(-15, 0, 335, 367);
     UIImage *oceanMiddleImage = [UIImage imageNamed:@"oceanMiddleLayer.png"];
     oceanMiddleLayer.contents = (id) oceanMiddleImage.CGImage;
@@ -193,17 +104,7 @@
     [oceanMiddleLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.view.layer addSublayer:oceanMiddleLayer];
     
-    CABasicAnimation *oceanMiddleAnimation = [CABasicAnimation animation];
-    [oceanMiddleAnimation setKeyPath:@"position.x"];
-    [oceanMiddleAnimation setFromValue:[NSNumber numberWithInt:oceanMiddleLayer.position.x+5]];
-    [oceanMiddleAnimation setToValue:[NSNumber numberWithInt:oceanMiddleLayer.position.x-5]];
-    [oceanMiddleAnimation setDuration: 4.0];
-    [oceanMiddleAnimation setRepeatCount:HUGE_VALF];
-    [oceanMiddleAnimation setAutoreverses:YES];
-    //[oceanMiddleAnimation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
-    [oceanMiddleLayer addAnimation:oceanMiddleAnimation forKey:@"animateOceanMiddle"];
-    
-    CALayer *oceanFrontLayer = [CALayer layer];
+    oceanFrontLayer = [CALayer layer];
     oceanFrontLayer.frame = CGRectMake(-15, 0, 335, 367);
     UIImage *oceanFrontImage = [UIImage imageNamed:@"oceanFrontLayer.png"];
     oceanFrontLayer.contents = (id) oceanFrontImage.CGImage;
@@ -211,18 +112,8 @@
     [oceanFrontLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.view.layer addSublayer:oceanFrontLayer];
     
-    CABasicAnimation *oceanFrontAnimation = [CABasicAnimation animation];
-    [oceanFrontAnimation setKeyPath:@"position.x"];
-    [oceanFrontAnimation setFromValue:[NSNumber numberWithInt:oceanFrontLayer.position.x-4]];
-    [oceanFrontAnimation setToValue:[NSNumber numberWithInt:oceanFrontLayer.position.x+4]];
-    [oceanFrontAnimation setDuration: 4.0];
-    [oceanFrontAnimation setRepeatCount:HUGE_VALF];
-    [oceanFrontAnimation setAutoreverses:YES];
-    //[oceanFrontAnimation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
-    [oceanFrontLayer addAnimation:oceanFrontAnimation forKey:@"animateOceanFront"];
-    
     CALayer *beachLayer = [CALayer layer];
-    beachLayer.frame = CGRectMake(0, 0, 320, 367);
+    beachLayer.frame = CGRectMake(0, 15, 320, 367);
     UIImage *beachImage = [UIImage imageNamed:@"beachLayer.png"];
     beachLayer.contents = (id) beachImage.CGImage;
     beachLayer.masksToBounds = YES;
@@ -260,6 +151,105 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    if([sunConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]])
+    {
+        // create the animation that will handle the pulsing.
+        CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
+        pulseAnimation.keyPath = @"opacity";
+        pulseAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
+        pulseAnimation.toValue = [NSNumber numberWithFloat: 1.0];
+        pulseAnimation.duration = 3.0;
+        pulseAnimation.repeatCount = HUGE_VALF;
+        pulseAnimation.autoreverses = YES;
+        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseOut];
+        [rayLayer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
+    }else {
+        CABasicAnimation *cloud1Animation = [CABasicAnimation animation];
+        [cloud1Animation setKeyPath:@"position.x"];
+        [cloud1Animation setFromValue:[NSNumber numberWithInt:cloud1Layer.position.x-5]];
+        [cloud1Animation setToValue:[NSNumber numberWithInt:cloud1Layer.position.x+4]];
+        [cloud1Animation setDuration: 3.5];
+        [cloud1Animation setRepeatCount:HUGE_VALF];
+        [cloud1Animation setAutoreverses:YES];
+        [cloud1Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
+        [cloud1Layer addAnimation:cloud1Animation forKey:@"animateCloud1"];
+        
+        CABasicAnimation *cloud2Animation = [CABasicAnimation animation];
+        [cloud2Animation setKeyPath:@"position.x"];
+        [cloud2Animation setFromValue:[NSNumber numberWithInt:cloud2Layer.position.x-5]];
+        [cloud2Animation setToValue:[NSNumber numberWithInt:cloud2Layer.position.x+5]];
+        [cloud2Animation setDuration: 4.0];
+        [cloud2Animation setRepeatCount:HUGE_VALF];
+        [cloud2Animation setAutoreverses:YES];
+        [cloud2Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
+        [cloud2Layer addAnimation:cloud2Animation forKey:@"animateCloud2"];
+        
+        CABasicAnimation *cloud3Animation = [CABasicAnimation animation];
+        [cloud3Animation setKeyPath:@"position.x"];
+        [cloud3Animation setFromValue:[NSNumber numberWithInt:cloud3Layer.position.x-4]];
+        [cloud3Animation setToValue:[NSNumber numberWithInt:cloud3Layer.position.x+5]];
+        [cloud3Animation setDuration: 4.5];
+        [cloud3Animation setRepeatCount:HUGE_VALF];
+        [cloud3Animation setAutoreverses:YES];
+        [cloud3Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
+        [cloud3Layer addAnimation:cloud3Animation forKey:@"animateCloud3"];
+        
+        if ([rainConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]]) 
+        {
+            
+            emitter = [CAEmitterLayer layer];
+            emitter.emitterPosition = CGPointMake(230, 75);
+            emitter.emitterMode = kCAEmitterLayerLine;
+            emitter.emitterShape = kCAEmitterLayerLine;
+            emitter.emitterSize = CGSizeMake(125, 0);
+            
+            //Create the emitter cell
+            CAEmitterCell* rain1 = [CAEmitterCell emitterCell];
+            rain1.emissionLongitude = 1.15*M_PI;
+            rain1.birthRate = 20;
+            rain1.lifetime = 1;
+            rain1.lifetimeRange = 0.5;
+            rain1.velocity = 50;
+            rain1.velocityRange = 10;
+            rain1.emissionRange = .1*M_PI;
+            rain1.scaleSpeed = 0.25; // was 0.3
+            rain1.color = [[UIColor colorWithRed:0.1 green:0.1 blue:.5 alpha:.5] CGColor];
+            rain1.contents = (id)([UIImage imageNamed:@"rain1.png"].CGImage);
+            rain1.name = @"particle";
+            
+            emitter.emitterCells = [NSArray arrayWithObject:rain1];
+            [emitter setZPosition: -10];
+            [self.view.layer addSublayer:emitter];
+        }
+    }
+
+    CABasicAnimation *oceanBackAnimation = [CABasicAnimation animation];
+    [oceanBackAnimation setKeyPath:@"position.x"];
+    [oceanBackAnimation setFromValue:[NSNumber numberWithInt:oceanBackLayer.position.x-5]];
+    [oceanBackAnimation setToValue:[NSNumber numberWithInt:oceanBackLayer.position.x+5]];
+    [oceanBackAnimation setDuration: 4.0];
+    [oceanBackAnimation setRepeatCount:HUGE_VALF];
+    [oceanBackAnimation setAutoreverses:YES];
+    [oceanBackLayer addAnimation:oceanBackAnimation forKey:@"animateOceanBack"];
+    
+    CABasicAnimation *oceanMiddleAnimation = [CABasicAnimation animation];
+    [oceanMiddleAnimation setKeyPath:@"position.x"];
+    [oceanMiddleAnimation setFromValue:[NSNumber numberWithInt:oceanMiddleLayer.position.x+5]];
+    [oceanMiddleAnimation setToValue:[NSNumber numberWithInt:oceanMiddleLayer.position.x-5]];
+    [oceanMiddleAnimation setDuration: 4.0];
+    [oceanMiddleAnimation setRepeatCount:HUGE_VALF];
+    [oceanMiddleAnimation setAutoreverses:YES];
+    [oceanMiddleLayer addAnimation:oceanMiddleAnimation forKey:@"animateOceanMiddle"];    
+    
+    CABasicAnimation *oceanFrontAnimation = [CABasicAnimation animation];
+    [oceanFrontAnimation setKeyPath:@"position.x"];
+    [oceanFrontAnimation setFromValue:[NSNumber numberWithInt:oceanFrontLayer.position.x-4]];
+    [oceanFrontAnimation setToValue:[NSNumber numberWithInt:oceanFrontLayer.position.x+4]];
+    [oceanFrontAnimation setDuration: 4.0];
+    [oceanFrontAnimation setRepeatCount:HUGE_VALF];
+    [oceanFrontAnimation setAutoreverses:YES];
+    [oceanFrontLayer addAnimation:oceanFrontAnimation forKey:@"animateOceanFront"];
+    
     NSString *weatherText = [[NSString alloc] initWithFormat:@"Forecast:\n%@", [[weather currentConditions] objectForKey:@"condition"]];
     
     CATextLayer *weatherTextLayer = [CATextLayer layer];
@@ -306,10 +296,7 @@
         waterTempText = [waterTempText stringByAppendingFormat:@"%d°F", [[[weather waterTemp] tempF] intValue]];
         airTempText = [airTempText stringByAppendingFormat:@"%d°F\nLow: %d°F", highTemp, lowTemp];
     }
-    
 
-    
-    
     CATextLayer *waterTempTextLayer = [CATextLayer layer];
     [waterTempTextLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
     [waterTempTextLayer setString:waterTempText];

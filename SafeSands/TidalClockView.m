@@ -36,13 +36,6 @@ static double pi = 3.14159268;
     if([[lastTide objectForKey:@"highlow"] isEqualToString:@"L"])
         angle += pi;
     
-    /*NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSDate *now = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-    [dateFormatter setDateFormat:@"hh:mm:ss"];
-    NSArray *timeArray = [[dateFormatter stringFromDate:now] componentsSeparatedByString: @":"];
-    double time = [[timeArray objectAtIndex:2] doubleValue];
-    time = 2.0*pi*(time/60.0);*/
-    
     return angle;
 }
 
@@ -147,7 +140,8 @@ static double pi = 3.14159268;
     lastTide=last;
     nextTide=next;
     hasTide=YES;
-    [self setNeedsDisplay];
+    [super setNeedsDisplay];
+    [self setContentMode:UIViewContentModeRedraw];
 }
 
 
