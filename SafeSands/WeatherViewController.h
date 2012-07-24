@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Weather.h"
 #import "UVIndex.h"
+#import "AdWhirlView.h"
 
 @interface WeatherViewController : UIViewController
 
 @property (strong, nonatomic) Weather *weather;
 @property (strong, nonatomic) UVIndex *uvIndex;
-
+@property (strong, nonatomic) AdWhirlView *adWhirlView;
 
 
 @end

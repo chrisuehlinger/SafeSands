@@ -12,6 +12,7 @@
 
 @synthesize delegate;
 @synthesize databaseBuilt;
+@synthesize stationParser, dataStore;
 
 static NSString * const nodcURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.xml";
 
@@ -101,5 +102,8 @@ static NSString * const nodcURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.x
     }
 }
 
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
+}
 
 @end

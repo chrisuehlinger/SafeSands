@@ -9,29 +9,23 @@
 #import <Foundation/Foundation.h>
 
 @protocol SandsParserDelegate <NSObject>
-
 -(void)elementParsed:(NSMutableDictionary *)element;
 -(void)parseComplete;
 -(void)retrievedData:(NSData *)data;
-
+-(void)handleConnectionError;
 @end
 
 @interface SandsParser : NSObject <NSURLConnectionDelegate, NSXMLParserDelegate>
 {
-    id<SandsParserDelegate> delegate;
     NSArray *containerItems;
     NSArray *fieldItems;
     bool justGetData;
     NSString *thePath;
-    
-    // parser properties
-    NSMutableString *currentParsedCharacterData;
-    NSMutableArray *currentItemObject;
     BOOL accumulatingParsedCharacterData;
     int depth;
 }
 
-@property (strong, nonatomic) id<SandsParserDelegate> delegate;
+@property (weak) id<SandsParserDelegate> delegate;
 
 @property (strong, nonatomic) NSArray *containerItems;
 @property (strong, nonatomic) NSArray *fieldItems;

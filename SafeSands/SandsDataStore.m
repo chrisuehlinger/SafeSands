@@ -19,20 +19,21 @@
 {
     delegate = del;
     datatype=type;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveChanges) name:@"aboutToEnterBackground" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveChanges) name:@"aboutToTerminate" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveChanges) name:@"aboutToEnterBackground" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveChanges) name:@"aboutToTerminate" object:nil];
 
     model = [NSManagedObjectModel mergedModelFromBundles:nil];
 
     NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    //NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"/%@", name];
-    NSString *dbPath = [[NSBundle mainBundle] pathForResource:name ofType:@"data"];
+    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"/%@", name];
+    //NSString *dbPath = [[NSBundle mainBundle] pathForResource:name ofType:@"data"];
     NSURL *dbURL = [NSURL fileURLWithPath: dbPath];
     NSError *error = nil;
     if(![psc addPersistentStoreWithType:NSSQLiteStoreType
                           configuration:nil
                                     URL:dbURL
-                                options:nil
+                                options:nil /*[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
+                                                                    forKey:NSReadOnlyPersistentStoreOption]*/
                                   error:&error])
     {[NSException raise:@"Create Failed" format:@"Reason: %@", [error localizedDescription]];}
 
@@ -40,7 +41,11 @@
 
     NSDate *dateCompleted = [metadata objectForKey:@"dateCompleted"];
 
-    if (dateCompleted && [dateCompleted timeIntervalSinceNow] > -2592000) {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"yyyy'/'MM"];
+    NSString *currentMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+    
+    if (dateCompleted && [[dateFormatter stringFromDate:dateCompleted] isEqualToString:currentMonth]) { //&& [dateCompleted timeIntervalSinceNow] > -2592000) {
         NSLog(@"Opening database.");
         databaseBuilt = YES;
         count = [[metadata objectForKey:@"count"] intValue];

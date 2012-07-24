@@ -18,33 +18,27 @@
 -(void)foundData;
 -(void)foundTides;
 -(void)foundAlerts;
+-(void)handleConnectionError;
+-(void)handleNonUSACountryError;
 @end
 
 @interface Beach : NSObject<CLLocationManagerDelegate, WeatherDelegate, tidalDelegate, AlertsDelegate, UVIndexDelegate> 
-{
-    id<BeachDelegate> delegate;
-    CLPlacemark *placemark;
-    Weather *weather;
-    TidalReading *reading;
-    Alerts *alerts;
-    UVIndex *uvIndex;
-    
+{   
     bool haveWeather;
     bool haveWaterTemp;
     bool hasTidalReading;
     bool hasAlerts;
     bool haveUVIndex;
-    
-    CLGeocoder *geocoder;
-    CLLocationManager *locationManager;
 }
 
-@property (strong, nonatomic) id<BeachDelegate> delegate;
+@property (weak) id<BeachDelegate> delegate;
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) Weather *weather;
 @property (strong, nonatomic) TidalReading *reading;
 @property (strong, nonatomic) Alerts *alerts;
 @property (strong, nonatomic) UVIndex *uvIndex;
+@property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong) CLLocationManager *locationManager;
 
 @property bool hasTidalReading;
 @property bool hasAlerts;

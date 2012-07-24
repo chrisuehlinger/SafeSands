@@ -14,6 +14,8 @@
 @synthesize delegate;
 @synthesize waterTempParser;
 @synthesize tempF, tempC;
+@synthesize station;
+@synthesize stationDB;
 
 NSString *ndocURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.xml";
 CLPlacemark *thePlacemark;
@@ -47,7 +49,7 @@ CLPlacemark *thePlacemark;
         NSArray *tempMatches = [[NSRegularExpression regularExpressionWithPattern:@"\\W(-?1?[0-9]{1,2}\\.[0-9])\\W" options:0 error:&err] matchesInString:[element objectForKey:@"description"] options:0 range:NSMakeRange(0, [[element objectForKey:@"description"] length])];
         tempF = [NSNumber numberWithDouble:[[[element objectForKey:@"description"] substringWithRange:[[tempMatches objectAtIndex:0] rangeAtIndex:1]] doubleValue]];
         tempC = [NSNumber numberWithDouble:[[[element objectForKey:@"description"] substringWithRange:[[tempMatches objectAtIndex:1] rangeAtIndex:1]] doubleValue]];
-        //NSLog(@"Water Temperature = %.1f°F %.1f°C", [tempF doubleValue], [tempC doubleValue]);
+        NSLog(@"Water Temperature = %.1f°F %.1f°C", [tempF doubleValue], [tempC doubleValue]);
         [delegate foundWaterTemperature];
     }
 }
@@ -60,6 +62,10 @@ CLPlacemark *thePlacemark;
 -(void)retrievedData:(NSData *)data
 {
     NSLog(@"This shouldn't happen: WaterTemperature");
+}
+
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
 }
 
 -(void)databaseBuilt

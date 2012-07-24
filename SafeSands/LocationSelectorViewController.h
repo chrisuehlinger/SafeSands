@@ -8,25 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import <iAd/iAd.h>
+#import "AdWhirlView.h"
 #import "Beach.h"
 #import "SandsAppDelegate.h"
 
-@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate, ADBannerViewDelegate>{
-    ADBannerView *adView;
+@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate>{
+    AdWhirlView *adWhirlView;
     bool bannerIsVisible, adIsLoaded, bannerShouldShow;
     SandsAppDelegate *delegate;
 }
 
-@property (weak, nonatomic) IBOutlet UIButton *useCurrentLocationButton;
-@property (weak, nonatomic) IBOutlet UISearchBar *locationSearchBar;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *useCurrentLocationButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *locationSearchController;
-
+@property (strong, nonatomic) AdWhirlView *adWhirlView;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 - (IBAction)useCurrentLocation:(id)sender;
--(void)showBanner;
--(void)hideBanner;
--(bool)iAdIsAvailable;
--(float)getAdHeight;
+- (IBAction)cancelSearch:(id)sender;
 
 @end

@@ -14,6 +14,7 @@
 @synthesize delegate;
 @synthesize alerts;
 @synthesize headlines;
+@synthesize alertParser;
 
 NSString *alertsPath= @"http://alerts.weather.gov/cap/us.php?x=0";
 NSString *sameCodesPath= @"http://www.nws.noaa.gov/nwr/SameCode.txt";
@@ -23,7 +24,9 @@ NSString *countyCodesPath = @"http://www.itl.nist.gov/fipspubs/co-codes/states.t
 SandsParser *codeRetriever;
 NSString *code;
 NSMutableDictionary *stateAbbrevs;
+#ifndef NDEBUG
 NSMutableDictionary *alertsPerCode;
+#endif
 NSMutableDictionary *codeMapping;
 
 -(id)initWithPlacemark:(CLPlacemark *)p andDelegate:(id<AlertsDelegate>)del
@@ -48,14 +51,19 @@ NSMutableDictionary *codeMapping;
         headlines = [headlines stringByAppendingFormat:@"%@\n", [element objectForKey:@"cap:event"]];
         NSLog(@"Found Alert: %@", [element objectForKey:@"cap:event"]);
     }
+#ifndef NDEBUG
     [self incrementAlerts:element];
+#endif
 }
 
 -(void)parseComplete
 {
-    [self codeWithMostAlerts];
-    NSLog(@"Alerts parsed");
     
+    #ifndef NDEBUG
+    [self codeWithMostAlerts];
+    #endif
+    
+    NSLog(@"Alerts parsed");
     [delegate foundAlerts];
 }
 
@@ -84,7 +92,13 @@ NSMutableDictionary *codeMapping;
                                         andDelegate:self
                                           andFields:fieldElements
                                       andContainers:[NSArray arrayWithObjects:@"entry", @"cap:geocode", nil]];
+#ifndef NDEBUG
     [self getCodeMapping:sameCodes];
+#endif
+}
+
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
 }
 
 -(void)setupStateAbbrevs
@@ -159,9 +173,11 @@ NSMutableDictionary *codeMapping;
 
 #pragma mark - Methods for finding most alerted county
 
+#ifndef NDEBUG
 -(void)getCodeMapping:(NSArray *)codesArray
 {
     alertsPerCode = [[NSMutableDictionary alloc] init];
+    
     codeMapping = [[NSMutableDictionary alloc] init];
     for (NSString *c in codesArray) {
         NSArray *parts = [c componentsSeparatedByString:@","];
@@ -171,14 +187,20 @@ NSMutableDictionary *codeMapping;
     }
 }
 
+
 -(void)incrementAlerts:(NSDictionary *)alert
 {
     NSArray *affectedAreas = [[[alert objectForKey:@"cap:geocode"] objectForKey:@"value"] componentsSeparatedByString:@" "];
-    for (NSString *c in affectedAreas) {
-        NSNumber *oldVal = [alertsPerCode objectForKey:c];
-        oldVal = [NSNumber numberWithInteger: ([oldVal intValue] + 1)];
-        [alertsPerCode setValue:oldVal forKey:c];
-    }
+    
+    for (NSString *c in affectedAreas)
+        if(c.length > 0)
+        {
+            NSNumber *oldVal = [alertsPerCode objectForKey:c];
+            oldVal = [NSNumber numberWithInteger: ([oldVal intValue] + 1)];
+
+            [alertsPerCode setValue:oldVal forKey:c];
+
+        }
 }
 
 -(void)codeWithMostAlerts
@@ -192,7 +214,8 @@ NSMutableDictionary *codeMapping;
             codeWithMostAlerts = c;
         }
     }
-    NSLog(@"Most Alerts: %d in county: %@", mostAlerts, [codeMapping objectForKey:codeWithMostAlerts]);
+    NSLog(@"Most Alerts: %d in county: %@", mostAlerts,[codeMapping objectForKey:codeWithMostAlerts]);
 }
+#endif
 
 @end

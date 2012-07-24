@@ -7,23 +7,37 @@
 //
 
 #import "SandsAppDelegate.h"
+#import "SandsTabBarController.h"
+#import "AlertViewController.h"
+#import "TidalClockViewController.h"
+#import "WeatherViewController.h"
+#import "PlacemarkViewController.h"
+#import "LocationSelectorViewController.h"
+
 
 @implementation SandsAppDelegate
 
-@synthesize window = _window;
+@synthesize window, navController;
 @synthesize currentBeach;
 @synthesize stationDB;
 @synthesize tempStationDB;
+@synthesize adView;
+@synthesize hasAd;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.hasAd=NO;
+    adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+    [adView setFrame:CGRectMake(0, window.rootViewController.view.bounds.size.height, window.rootViewController.view.bounds.size.width, 0)];
+    [adView requestFreshAd];
+    
     stationDB = [[TidalStationDB alloc] initWithDelegate:self];
-    //while (![stationDB databaseBuilt]) {[NSThread sleepForTimeInterval:1.0];}
-    
     tempStationDB = [[WaterTempStationDB alloc] initWithDelegate:self];
-    //while (![tempStationDB databaseBuilt]) { [NSThread sleepForTimeInterval:1.0]; }
     
+    [window addSubview:[navController view]];
+    [window makeKeyAndVisible];
+    
+    //[NSThread sleepForTimeInterval:10.0];
     return YES;
 }
 							
@@ -96,5 +110,79 @@
 {
     
 }
+
+- (NSString *)adWhirlApplicationKey {
+    NSLog(@"AdWhirl Key Retrieved");
+    return @"1a4fbc00cb164b2286f526bb5da3b9e9";
+}
+
+/*
+-(BOOL)adWhirlTestMode
+{
+#ifndef NDEBUG
+    return YES;
+#else
+    return NO;
+#endif
+}
+ */
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    NSLog(@"Presenting Ad in Modal View");
+    UIViewController *vc = window.rootViewController;
+    return vc;
+    //return [[[[UIApplication sharedApplication] windows] lastObject] rootViewController];
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView {
+    [adWhirlView rotateToOrientation:UIInterfaceOrientationPortrait];
+    self.hasAd=YES;
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"receivedAd" object:nil];
+    NSLog(@"Ad Received from: %@", [adView mostRecentNetworkName]);
+    
+    UIViewController *controllerToDisplayAd = [(UINavigationController *)[window rootViewController] visibleViewController];
+    
+    if ([controllerToDisplayAd isKindOfClass:[SandsTabBarController class]]) {
+        controllerToDisplayAd = [(SandsTabBarController *)controllerToDisplayAd selectedViewController];
+    }
+    
+    //NSLog(@"The currently displayed vc is a: %@",[controllerToDisplayAd class]);
+    [controllerToDisplayAd performSelector:@selector(adjustAdSize)];
+}
+
+#pragma mark - Error Handling
+
+-(void)handleConnectionError
+{
+    NSLog(@"Connection Error");
+        
+    currentBeach.delegate = nil;
+    currentBeach = nil;
+        
+    UIAlertView *noConnectionAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                message:@"Connection Error. Please ensure that you have an internet connection."
+                                                                delegate:nil
+                                                        cancelButtonTitle:@"Dismiss"
+                                                        otherButtonTitles:nil];
+    [noConnectionAlert show];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error"
+                                                        object:nil];
+}
+
+-(void)handleNonUSACountryError
+{
+    NSLog(@"Non-USA Country Error");
+    currentBeach.delegate = nil;
+    currentBeach = nil;
+    UIAlertView *nonUSAAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                          message:@"SafeSands can only report on conditions within the USA."
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Dismiss"
+                                                otherButtonTitles:nil];
+    [nonUSAAlert show];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Non-USA Country"
+                                                        object:nil];
+}
+
 
 @end

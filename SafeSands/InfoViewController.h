@@ -10,4 +10,9 @@
 
 @interface InfoViewController : UIViewController
 
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *infoLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *backButton;
+
+- (IBAction)dismiss:(id)sender;
+
 @end

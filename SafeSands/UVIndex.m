@@ -10,7 +10,7 @@
 
 @implementation UVIndex
 
-@synthesize delegate, placemark;
+@synthesize delegate, placemark, indexParser;
 @synthesize uvAlert, forecastDate, index;
 
 NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort?method=getUVIndexAlertByZipCode&in0=";
@@ -50,6 +50,10 @@ NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort
 -(void)retrievedData:(NSData *)data
 {
     NSLog(@"This shouldn't happen: UVIndex");
+}
+
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
 }
 
 @end

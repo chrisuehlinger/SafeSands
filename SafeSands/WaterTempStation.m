@@ -17,7 +17,7 @@
 @dynamic longitude;
 @dynamic orderingValue;
 @dynamic stationID;
-@dynamic delegate;
+@synthesize delegate;
 
 -(id)initWithName:(NSString *)theName stationID:(NSString *)stnID andDelegate:(id<WaterTempStationDelegate>)del
 {

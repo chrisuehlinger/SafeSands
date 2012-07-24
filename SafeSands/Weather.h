@@ -13,23 +13,16 @@
 
 @protocol WeatherDelegate
 -(void)foundWeather;
+-(void)handleConnectionError;
 @end
 
 @interface Weather : NSObject<SandsParserDelegate, WaterTemperatureDelegate>{
-    id<WeatherDelegate> delegate;
-    
-    WaterTemperature *waterTemp;
     
     NSArray * containerElements;
     NSArray * fieldElements;
-    SandsParser *weatherParser;
-    
-    NSMutableDictionary *forecastInfo;
-    NSMutableDictionary *currentConditions;
-    NSMutableArray *forecastConditions;
 }
 
-@property (strong, nonatomic) id<WeatherDelegate> delegate;
+@property (weak) id<WeatherDelegate> delegate;
 @property (strong, nonatomic) SandsParser *weatherParser;
 
 @property (strong, nonatomic) WaterTemperature *waterTemp;

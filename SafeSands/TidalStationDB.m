@@ -12,6 +12,7 @@
 
 @synthesize delegate;
 @synthesize databaseBuilt;
+@synthesize stationParser, dataStore;
 
 static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/StationListFormat?type=Current%20Data&filter=active&format=kml";
 
@@ -91,6 +92,10 @@ static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/Stat
 -(void)retrievedData:(NSData *)data
 {
     NSLog(@"This shouldn't happen: TidalStationDB");
+}
+
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
 }
 
 @end

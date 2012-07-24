@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "TidalReading.h"
 #import "TidalClockView.h"
+#import "AdWhirlView.h"
 
 @interface TidalClockViewController : UIViewController{
     bool hasReading;
 }
 
 @property (strong,nonatomic) TidalReading *reading;
-@property (weak, nonatomic) IBOutlet TidalClockView *clock;
+@property (strong, nonatomic) TidalClockView *clock;
+@property (strong, nonatomic) AdWhirlView *adWhirlView;
 
 -(void)createClockWithReading:(TidalReading *)r;
 

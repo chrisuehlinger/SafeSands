@@ -17,6 +17,7 @@
 @synthesize alerts;
 @synthesize scrollView;
 @synthesize pageControl;
+@synthesize adWhirlView;
 
 NSInteger numberOfViews;
 NSMutableArray *alertViews;
@@ -28,6 +29,7 @@ SpinnerView *spinner;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -36,6 +38,16 @@ SpinnerView *spinner;
 {
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(adjustAdSize)
+                                                 name:@"receivedAd"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(foundAlerts)
+                                                 name:@"foundAlerts"
+                                               object:nil];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -48,11 +60,10 @@ SpinnerView *spinner;
     }else
     {
         spinner = [SpinnerView loadSpinnerIntoView:self.view];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(foundAlerts)
-                                                     name:@"foundAlerts"
-                                                   object:nil];
     }
+    
+    if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])
+        [self adjustAdSize];
 }
 
 -(void)foundAlerts
@@ -67,6 +78,12 @@ SpinnerView *spinner;
     [self setScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [spinner removeSpinner];
+    spinner = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -92,9 +109,9 @@ SpinnerView *spinner;
             UIView *alertView = [[UIView alloc] initWithFrame:self.view.frame];
             CALayer *alertLayer = [CALayer layer];
             [alertView.layer addSublayer:alertLayer];
-            alertLayer.backgroundColor = [UIColor colorWithRed:0 green:0.140625 blue:0.45703125 alpha:1].CGColor;
+            alertLayer.backgroundColor = [UIColor colorWithRed:0 green:155.0/255.0 blue:219.0/255.0 alpha:1].CGColor;
             alertLayer.shadowOffset = CGSizeMake(0, 3);
-            alertLayer.frame = CGRectMake(20, 20, 280, 400);
+            alertLayer.frame = CGRectMake(15, 15, 290, 295);
             alertLayer.cornerRadius = 10.0;
             alertLayer.zPosition = -10;
             
@@ -102,7 +119,7 @@ SpinnerView *spinner;
             [alertTextLayer setForegroundColor:[[UIColor colorWithRed:1 green:1 blue:1 alpha:1] CGColor]];
             [alertTextLayer setString:displayText];
             [alertTextLayer setWrapped:YES];
-            [alertTextLayer setFrame:CGRectMake(30, 30, 260, 380)];
+            [alertTextLayer setFrame:CGRectMake(25, 25, 270, 270)];
             [alertTextLayer setAlignmentMode:kCAAlignmentLeft];
             [alertTextLayer setFont:@"Helvetica"];
             [alertTextLayer setFontSize:18];
@@ -122,9 +139,9 @@ SpinnerView *spinner;
         UIView *noAlertView = [[UIView alloc] initWithFrame:self.view.frame];
         CALayer *alertLayer = [CALayer layer];
         [noAlertView.layer addSublayer:alertLayer];
-        alertLayer.backgroundColor = [UIColor colorWithRed:0 green:0.140625 blue:0.45703125 alpha:1].CGColor;
+        alertLayer.backgroundColor = [UIColor colorWithRed:0 green:155.0/255.0 blue:219.0/255.0 alpha:1].CGColor;
         alertLayer.shadowOffset = CGSizeMake(0, 3);
-        alertLayer.frame = CGRectMake(20, 20, 280, 400);
+        alertLayer.frame = CGRectMake(15, 15, 290, 40);
         alertLayer.cornerRadius = 10.0;
         alertLayer.zPosition = -10;
         
@@ -132,7 +149,7 @@ SpinnerView *spinner;
         [alertTextLayer setForegroundColor:[[UIColor colorWithRed:1 green:1 blue:1 alpha:1] CGColor]];
         [alertTextLayer setString:@"No Alerts found for this area."];
         [alertTextLayer setWrapped:YES];
-        [alertTextLayer setFrame:CGRectMake(30, 30, 260, 380)];
+        [alertTextLayer setFrame:CGRectMake(25, 25, 270, 20)];
         [alertTextLayer setAlignmentMode:kCAAlignmentLeft];
         [alertTextLayer setFont:@"Helvetica"];
         [alertTextLayer setFontSize:20];
@@ -238,6 +255,37 @@ SpinnerView *spinner;
     
 	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
     pageControlUsed = YES;
+}
+
+#pragma mark - AdWhirl methods
+
+-(void)adjustAdSize {
+    NSLog(@"%@ is displaying the Ad.", self.navigationItem.title);
+    adWhirlView = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] adView];
+    [self.view addSubview:adWhirlView];
+	//1
+	[UIView beginAnimations:@"AdResize" context:nil];
+	[UIView setAnimationDuration:0.2];
+	//2
+	CGSize adSize = [adWhirlView actualAdSize];
+	//3
+	CGRect newFrame = adWhirlView.frame;
+	//4
+	newFrame.size.height = adSize.height;
+    
+   	//5 
+    CGSize winSize = self.view.bounds.size;
+    //6
+	newFrame.size.width = winSize.width;
+	//7
+	newFrame.origin.x = (self.adWhirlView.bounds.size.width - adSize.width)/2;
+    
+    //8 
+	newFrame.origin.y = (winSize.height - adSize.height);
+	//9
+	adWhirlView.frame = newFrame;
+	//10
+	[UIView commitAnimations];
 }
 
 @end

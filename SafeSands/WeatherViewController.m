@@ -15,6 +15,7 @@
 
 @synthesize weather;
 @synthesize uvIndex;
+@synthesize adWhirlView;
 
 CALayer *rayLayer, *cloud1Layer, *cloud2Layer, *cloud3Layer;
 CALayer *oceanBackLayer, *oceanMiddleLayer, *oceanFrontLayer;
@@ -32,6 +33,12 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(adjustAdSize)
+                                                 name:@"receivedAd"
+                                               object:nil];
+    
     [self.view setBackgroundColor: [UIColor colorWithRed:0 green:1 blue:1 alpha:1]];
     
     weather = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] weather];
@@ -89,7 +96,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [self.view.layer addSublayer:sunLayer];
     
     oceanBackLayer = [CALayer layer];
-    oceanBackLayer.frame = CGRectMake(-15, 0, 335, 367);
+    oceanBackLayer.frame = CGRectMake(-15, 0, 350, 367);
     UIImage *oceanBackImage = [UIImage imageNamed:@"oceanBackLayer.png"];
     oceanBackLayer.contents = (id) oceanBackImage.CGImage;
     oceanBackLayer.masksToBounds = YES;
@@ -97,7 +104,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [self.view.layer addSublayer:oceanBackLayer];
     
     oceanMiddleLayer = [CALayer layer];
-    oceanMiddleLayer.frame = CGRectMake(-15, 0, 335, 367);
+    oceanMiddleLayer.frame = CGRectMake(-15, 0, 350, 367);
     UIImage *oceanMiddleImage = [UIImage imageNamed:@"oceanMiddleLayer.png"];
     oceanMiddleLayer.contents = (id) oceanMiddleImage.CGImage;
     oceanMiddleLayer.masksToBounds = YES;
@@ -105,7 +112,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [self.view.layer addSublayer:oceanMiddleLayer];
     
     oceanFrontLayer = [CALayer layer];
-    oceanFrontLayer.frame = CGRectMake(-15, 0, 335, 367);
+    oceanFrontLayer.frame = CGRectMake(-15, 0, 350, 367);
     UIImage *oceanFrontImage = [UIImage imageNamed:@"oceanFrontLayer.png"];
     oceanFrontLayer.contents = (id) oceanFrontImage.CGImage;
     oceanFrontLayer.masksToBounds = YES;
@@ -113,7 +120,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [self.view.layer addSublayer:oceanFrontLayer];
     
     CALayer *beachLayer = [CALayer layer];
-    beachLayer.frame = CGRectMake(0, 15, 320, 367);
+    beachLayer.frame = CGRectMake(0, 0, 320, 367);
     UIImage *beachImage = [UIImage imageNamed:@"beachLayer.png"];
     beachLayer.contents = (id) beachImage.CGImage;
     beachLayer.masksToBounds = YES;
@@ -123,21 +130,21 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     CALayer *waterTempLayer = [CALayer layer];
     waterTempLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
     waterTempLayer.shadowOffset = CGSizeMake(0, 3);
-    waterTempLayer.frame = CGRectMake(10, 260, 120, 25);
+    waterTempLayer.frame = CGRectMake(10, 240, 120, 25);
     waterTempLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:waterTempLayer];
     
     CALayer *forecastLayer = [CALayer layer];
     forecastLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
     forecastLayer.shadowOffset = CGSizeMake(0, 3);
-    forecastLayer.frame = CGRectMake(175, 110, 120, 40);
+    forecastLayer.frame = CGRectMake(175, 100, 120, 40);
     forecastLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:forecastLayer];
     
     CALayer *airTempLayer = [CALayer layer];
     airTempLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
     airTempLayer.shadowOffset = CGSizeMake(0, 3);
-    airTempLayer.frame = CGRectMake(190, 290, 100, 45);
+    airTempLayer.frame = CGRectMake(205, 265, 100, 45);
     airTempLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:airTempLayer];
     
@@ -149,7 +156,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [self.view.layer addSublayer:uvIndexLayer];
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
     if([sunConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]])
     {
@@ -250,12 +257,20 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [oceanFrontAnimation setAutoreverses:YES];
     [oceanFrontLayer addAnimation:oceanFrontAnimation forKey:@"animateOceanFront"];
     
+    if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])
+        [self adjustAdSize];
+/*}
+
+- (void)viewDidAppear:(BOOL)animated
+{*/
+    
+    
     NSString *weatherText = [[NSString alloc] initWithFormat:@"Forecast:\n%@", [[weather currentConditions] objectForKey:@"condition"]];
     
     CATextLayer *weatherTextLayer = [CATextLayer layer];
     [weatherTextLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
     [weatherTextLayer setString:weatherText];
-    [weatherTextLayer setFrame:CGRectMake(180, 115, 110, 40)];
+    [weatherTextLayer setFrame:CGRectMake(180, 105, 110, 40)];
     [weatherTextLayer setAlignmentMode:kCAAlignmentCenter];
     [weatherTextLayer setFont:@"Helvetica"];
     [weatherTextLayer setFontSize:18];
@@ -279,7 +294,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [uvIndexTextLayer setZPosition:1];
     
     NSString *waterTempText = [[NSString alloc] initWithString:@"Water:"];
-    NSString *airTempText = [[NSString alloc] initWithString:@"High:"];
+    NSString *airTempText = [[NSString alloc] initWithString:@"High: "];
     int highTemp = [[[[weather forecastConditions] objectAtIndex:0] objectForKey:@"high"] intValue];
     int lowTemp = [[[[weather forecastConditions] objectAtIndex:0] objectForKey:@"low"] intValue];
     
@@ -300,7 +315,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     CATextLayer *waterTempTextLayer = [CATextLayer layer];
     [waterTempTextLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
     [waterTempTextLayer setString:waterTempText];
-    [waterTempTextLayer setFrame:CGRectMake(15, 265, 110, 25)];
+    [waterTempTextLayer setFrame:CGRectMake(15, 245, 110, 25)];
     [waterTempTextLayer setAlignmentMode:kCAAlignmentCenter];
     [waterTempTextLayer setFont:@"Helvetica"];
     [waterTempTextLayer setFontSize:18];
@@ -311,14 +326,13 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     CATextLayer *airTempTextLayer = [CATextLayer layer];
     [airTempTextLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
     [airTempTextLayer setString:airTempText];
-    [airTempTextLayer setFrame:CGRectMake(195, 295, 90, 40)];
+    [airTempTextLayer setFrame:CGRectMake(210, 270, 90, 40)];
     [airTempTextLayer setAlignmentMode:kCAAlignmentCenter];
     [airTempTextLayer setFont:@"Helvetica"];
     [airTempTextLayer setFontSize:18];
     [airTempTextLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.view.layer addSublayer:airTempTextLayer];
     [airTempTextLayer setZPosition:1];
-    
 }
 
 - (void)viewDidUnload
@@ -330,6 +344,37 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - AdWhirl methods
+
+-(void)adjustAdSize {
+    NSLog(@"%@ is displaying the Ad.", self.navigationItem.title);
+    adWhirlView = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] adView];
+    [self.view addSubview:adWhirlView];
+	//1
+	[UIView beginAnimations:@"AdResize" context:nil];
+	[UIView setAnimationDuration:0.2];
+	//2
+	CGSize adSize = [adWhirlView actualAdSize];
+	//3
+	CGRect newFrame = adWhirlView.frame;
+	//4
+	newFrame.size.height = adSize.height;
+    
+   	//5 
+    CGSize winSize = self.view.bounds.size;
+    //6
+	newFrame.size.width = winSize.width;
+	//7
+	newFrame.origin.x = (self.adWhirlView.bounds.size.width - adSize.width)/2;
+    
+    //8 
+	newFrame.origin.y = (winSize.height - adSize.height);
+	//9
+	adWhirlView.frame = newFrame;
+	//10
+	[UIView commitAnimations];
 }
 
 @end

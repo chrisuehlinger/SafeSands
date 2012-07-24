@@ -19,12 +19,12 @@
                     </connections>
                 </searchDisplayController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kX6-qq-ufQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController title="Location Selector" id="pdO-Sp-yNI" customClass="LocationSelectorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Location Selector" title="Location Selector" id="pdO-Sp-yNI" customClass="LocationSelectorViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MV9-5k-byg">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VA2-jS-dSs">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="VA2-jS-dSs">
                                 <rect key="frame" x="71" y="226" width="178" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -43,18 +43,35 @@
                             <searchBar contentMode="redraw" placeholder="Enter City, State or Zip Code" id="zon-wH-gFt">
                                 <rect key="frame" x="30" y="154" width="260" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.0" green="0.45098039215686275" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.11511375933668284" green="0.30466593412174925" blue="0.61025191326530615" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="pdO-Sp-yNI" id="EWN-vx-tzh"/>
                                 </connections>
                             </searchBar>
+                            <button hidden="YES" opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rqg-Fa-xyd">
+                                <rect key="frame" x="60" y="297" width="200" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelSearch:" destination="pdO-Sp-yNI" eventType="touchUpInside" id="pnb-Vc-MhK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="mKi-mn-wlZ"/>
+                    <navigationItem key="navigationItem" title="Select Location" id="mKi-mn-wlZ"/>
                     <connections>
+                        <outlet property="cancelButton" destination="Rqg-Fa-xyd" id="mqC-AM-V4Q"/>
                         <outlet property="locationSearchBar" destination="zon-wH-gFt" id="4rx-Eu-sjg"/>
                         <outlet property="locationSearchController" destination="gnV-Cb-KUO" id="4mT-uz-gqk"/>
                         <outlet property="searchDisplayController" destination="gnV-Cb-KUO" id="g3J-iP-9Oj"/>
@@ -65,7 +82,7 @@
             </objects>
             <point key="canvasLocation" x="-201" y="-5"/>
         </scene>
-        <!--Placemark View Controller - Placemark-->
+        <!--Placemark View Controller - Map-->
         <scene sceneID="G3b-EG-6yI">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNq-bl-Lx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -74,17 +91,36 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="HJq-6D-JLW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Noh-lK-eUn">
+                                <rect key="frame" x="20" y="307" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Get Directions">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getDirections:" destination="68I-I2-Ejv" eventType="touchUpInside" id="JAT-X9-zXs"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" id="9Cc-r6-Xfd">
+                                <rect key="frame" x="20" y="15" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="26"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Location" image="icon_blog.png" id="AHl-Pj-dXM"/>
-                    <navigationItem key="navigationItem" title="Placemark" id="ke6-gG-Ygx"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_blog.png" id="AHl-Pj-dXM"/>
+                    <navigationItem key="navigationItem" title="Map" id="ke6-gG-Ygx"/>
                     <connections>
-                        <outlet property="mapView" destination="HJq-6D-JLW" id="4xg-zV-Uyc"/>
+                        <outlet property="directionsButton" destination="Noh-lK-eUn" id="1r6-LL-lM4"/>
+                        <outlet property="locationLabel" destination="9Cc-r6-Xfd" id="NFO-DA-pom"/>
                     </connections>
                 </viewController>
             </objects>
@@ -106,11 +142,11 @@
             </objects>
             <point key="canvasLocation" x="1273" y="-531"/>
         </scene>
-        <!--View Controller-->
+        <!--Info View Controller-->
         <scene sceneID="Y2L-Il-TBl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGE-h4-kqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Egk-iE-8Sz" sceneMemberID="viewController">
+                <viewController id="Egk-iE-8Sz" customClass="InfoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HC4-5C-Kgo">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -127,25 +163,36 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="z1Z-G4-ZFo" kind="modal" id="B05-QQ-h1t"/>
+                                    <action selector="dismiss:" destination="Egk-iE-8Sz" eventType="touchUpInside" id="usr-BH-ua6"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" minimumFontSize="10" id="9Sz-Wy-Iax">
+                                <rect key="frame" x="20" y="20" width="280" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="zQ2-pK-TCF" id="JQe-kI-Ge0"/>
+                        <outlet property="infoLabel" destination="9Sz-Wy-Iax" id="ypt-Vi-U9C"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="356" y="-668"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Sands Tab Bar Controller-->
         <scene sceneID="Nr5-AJ-hNd">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cgk-DT-RWE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tabBarController storyboardIdentifier="mainTabController" definesPresentationContext="YES" id="z1Z-G4-ZFo" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainTabController" definesPresentationContext="YES" id="z1Z-G4-ZFo" customClass="SandsTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0fQ-Bx-9qR">
                         <barButtonItem key="backBarButtonItem" title="Home" id="fxn-dS-Wlu"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="aXQ-vX-IoZ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="SSL-w3-tgo">
+                        <barButtonItem key="rightBarButtonItem" id="aXQ-vX-IoZ">
+                            <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="SSL-w3-tgo">
                                 <rect key="frame" x="297" y="12" width="18" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -157,7 +204,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Egk-iE-8Sz" kind="modal" modalTransitionStyle="partialCurl" id="dYM-aj-OMZ"/>
+                                    <segue destination="Egk-iE-8Sz" kind="modal" modalTransitionStyle="coverVertical" id="dYM-aj-OMZ"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -166,7 +213,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="NjA-rM-afM">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="tintColor" red="0.0" green="0.45098039215686275" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     </tabBar>
                     <connections>
                         <segue destination="buj-4Z-9Vg" kind="relationship" relationship="viewControllers" id="ONu-EQ-3b5"/>
@@ -191,12 +238,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" id="wuO-4N-c1Z">
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" id="wuO-4N-c1Z">
                                 <rect key="frame" x="141" y="-10" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Alerts" image="icon_bell.png" id="MLD-NR-Uhx"/>
                     <navigationItem key="navigationItem" title="Weather Alerts" id="Nax-B8-yQb"/>
@@ -216,20 +263,10 @@
                     <view key="view" contentMode="scaleToFill" id="79v-tE-14C">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" id="BKD-b7-Lwr" customClass="TidalClockView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tides" image="Clock.png" id="YGn-Hn-pUS"/>
                     <navigationItem key="navigationItem" title="Tidal Clock" id="1ib-Ti-j3Q"/>
-                    <connections>
-                        <outlet property="clock" destination="BKD-b7-Lwr" id="4Eb-5u-sKk"/>
-                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1675" y="361"/>
@@ -239,9 +276,11 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7T-Qv-i8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="bfV-dJ-OyZ" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="H9N-kM-PO8">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.0" green="0.45098039215686275" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pdO-Sp-yNI" kind="relationship" relationship="rootViewController" id="ncQ-39-37I"/>
@@ -265,10 +304,20 @@
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
+        <class className="InfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismiss:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="LocationSelectorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationSelectorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelSearch:"/>
                 <relationship kind="action" name="useCurrentLocation:"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="locationSearchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="locationSearchController" candidateClass="UISearchDisplayController"/>
                 <relationship kind="outlet" name="useCurrentLocationButton" candidateClass="UIButton"/>
@@ -277,17 +326,16 @@
         <class className="PlacemarkViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacemarkViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="action" name="getDirections:"/>
+                <relationship kind="outlet" name="directionsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="TidalClockView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TidalClockView.h"/>
+        <class className="SandsTabBarController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SandsTabBarController.h"/>
         </class>
         <class className="TidalClockViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TidalClockViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="clock" candidateClass="TidalClockView"/>
-            </relationships>
         </class>
         <class className="WeatherViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WeatherViewController.h"/>

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Alerts.h"
+#import "AdWhirlView.h"
 
 @interface AlertViewController : UIViewController <UIScrollViewDelegate> {
     Alerts *alerts;
@@ -15,8 +16,9 @@
 }
 
 @property (strong, nonatomic) Alerts *alerts;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, retain) IBOutlet UIPageControl *pageControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, unsafe_unretained) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) AdWhirlView *adWhirlView;
 
 -(void)setUpScrollView:(Alerts *)a;
 

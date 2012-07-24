@@ -30,6 +30,7 @@ bool imagesLoaded;
                                @"condition", @"temp_f", @"temp_c", @"humidity", @"icon", @"wind_condition", 
                                @"day_of_week", @"low", @"high", nil];
     
+    //NSLog(@"%@", [NSString stringWithFormat: @"http://www.google.com/ig/api?weather=%@", [placemark postalCode]]);
     weatherParser = [[SandsParser alloc] initWithPath: [NSString stringWithFormat: @"http://www.google.com/ig/api?weather=%@", [placemark postalCode]]
                                           andDelegate: self
                                             andFields: fieldElements
@@ -103,7 +104,7 @@ bool imagesLoaded;
         imageUsed = YES;
     }
     for (NSMutableDictionary *foreCond in forecastConditions)
-        if (![foreCond objectForKey:@"image"])
+        if (![foreCond objectForKey:@"image"]){
             if (!imageUsed) {
                 [foreCond setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
                 imageUsed = YES;
@@ -111,6 +112,7 @@ bool imagesLoaded;
                 //imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
                 break;
             }
+        }
     
     if ([[forecastConditions lastObject] objectForKey:@"image"])
         imagesLoaded = YES;
@@ -124,6 +126,10 @@ bool imagesLoaded;
     waterTempFound = YES;
     if(imagesLoaded && waterTempFound)
         dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
+}
+
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
 }
 
 @end

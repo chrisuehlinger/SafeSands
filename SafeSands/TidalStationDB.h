@@ -14,21 +14,17 @@
 #import "SandsDataStore.h"
 
 @protocol TidalStationDBDelegate <NSObject>
-
 -(void)databaseBuilt;
-
+-(void)handleConnectionError;
 @end
 
 @interface TidalStationDB : NSObject<SandsParserDelegate, SandsDataStoreDelegate>{
-    id<TidalStationDBDelegate> delegate;
-    SandsParser *stationParser;
     NSArray *fieldElements;
-    bool databaseBuilt;
-    
-    SandsDataStore *dataStore;
 }
 
-@property (strong, nonatomic) id<TidalStationDBDelegate> delegate;
+@property (weak) id<TidalStationDBDelegate> delegate;
+@property (strong, nonatomic) SandsParser *stationParser;
+@property (strong, nonatomic) SandsDataStore *dataStore;
 @property bool databaseBuilt;
 
 -(id)initWithDelegate:(id<TidalStationDBDelegate>)del;

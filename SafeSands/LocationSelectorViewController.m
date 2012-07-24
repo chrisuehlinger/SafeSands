@@ -14,6 +14,8 @@
 @synthesize useCurrentLocationButton;
 @synthesize locationSearchBar;
 @synthesize locationSearchController;
+@synthesize adWhirlView;
+@synthesize cancelButton;
 
 CGRect searchBarFrame;
 TidalStationDB *tidalDB;
@@ -25,6 +27,8 @@ SpinnerView *spinner;
     if (self) {
         // Custom initialization
         delegate = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        
     }
     return self;
 }
@@ -54,50 +58,59 @@ SpinnerView *spinner;
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:[UIImage imageNamed:@"sandBackground.jpg"]]];
     
+    if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])
+        [self adjustAdSize];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(adjustAdSize)
+                                                 name:@"receivedAd"
+                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(foundData)
                                                  name:@"foundData"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleConnectionError)
+                                             selector:@selector(handleError)
                                                  name:@"Connection Error"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleNonUSACountryError)
+                                             selector:@selector(handleError)
                                                  name:@"Non-USA Country"
                                                object:nil];
     
-    NSLog(@"SearchBarFrame = %f,%f,%f,%f",
+    /*NSLog(@"SearchBarFrame = %f,%f,%f,%f",
           locationSearchBar.frame.origin.x,
           locationSearchBar.frame.origin.y,
           locationSearchBar.frame.size.width,
-          locationSearchBar.frame.size.height);
+          locationSearchBar.frame.size.height);*/
     locationSearchBar.autoresizingMask = 0;
     searchBarFrame = locationSearchBar.frame;
-    //tidalDB = [[TidalStationDB alloc] init];
     locationSearchController = [[UISearchDisplayController alloc] initWithSearchBar:locationSearchBar contentsController:self];
     locationSearchBar.delegate = self;
     
-    if ([self iAdIsAvailable]) {
-        adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-        adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
-        
-        // position the guy off the screen
-        adView.frame = CGRectMake(0, 416, self.view.frame.size.width, adView.frame.size.height);
-        adView.delegate = self;
-        [self.view addSubview:adView];
-    }
-    
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])
+        [self adjustAdSize];
+    
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if([del currentBeach]) {
+        [[del currentBeach] setDelegate:nil];
+        [del setCurrentBeach:nil];
+    }
+}
 
 - (void)viewDidUnload
 {
     [self setUseCurrentLocationButton:nil];
     [self setLocationSearchBar:nil];
     [self setLocationSearchController:nil];
+    [self setCancelButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -109,20 +122,36 @@ SpinnerView *spinner;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    //if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
-      //  locationSearchBar.frame = CGRectMake(110, 92, 260, 44);
+- (IBAction)useCurrentLocation:(id)sender {
+    [self performSearch:@"CurrentLocation"];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (IBAction)cancelSearch:(id)sender {
+    [cancelButton setHidden:YES];
+    [spinner removeSpinner];
+    spinner = nil;
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [[del currentBeach] setDelegate:nil];
+    [del setCurrentBeach:nil];
+}
+
+-(void)performSearch:(NSString *)searchString {
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del setCurrentBeach:[[Beach alloc] initWithString:searchString andDelegate:del]];
+    spinner = [SpinnerView loadSpinnerIntoView:self.view];
+    [spinner setCenter:CGPointMake(self.view.center.x, self.view.center.y-25)];
+    [cancelButton setHidden:NO];
+    [self.view bringSubviewToFront:adWhirlView];
+}
+
+-(void)foundData
 {
-    //NSLog(@"Rotation from %@", [fromInterfaceOrientation] );
-    NSLog(@"SearchBarFrame = %f,%f,%f,%f",
-          locationSearchBar.frame.origin.x,
-          locationSearchBar.frame.origin.y,
-          locationSearchBar.frame.size.width,
-          locationSearchBar.frame.size.height);
+    [cancelButton setHidden:YES];
+    [spinner removeSpinner];
+    spinner = nil;
+    
+    UITabBarController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainTabController"];
+    [self.navigationController pushViewController:dest animated:YES];
 }
 
 #pragma mark - SearchBarControllerDelegate methods
@@ -156,156 +185,99 @@ SpinnerView *spinner;
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
-    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [del setCurrentBeach:[[Beach alloc] initWithString:[searchBar text] andDelegate:del]];
-    spinner = [SpinnerView loadSpinnerIntoView:self.view];
-    [spinner setCenter:CGPointMake(self.view.center.x, self.view.center.y-25)];
-    [self.view bringSubviewToFront:adView];
+    NSString *searchString = [searchBar text];
     [self searchBarCancelButtonClicked:searchBar];
+    [self performSearch:searchString];
 }
 
-- (IBAction)useCurrentLocation:(id)sender {
-    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [del setCurrentBeach:[[Beach alloc] initWithString:@"CurrentLocation" andDelegate:del]];
-    spinner = [SpinnerView loadSpinnerIntoView:self.view];
-    [spinner setCenter:CGPointMake(self.view.center.x, self.view.center.y-25)];
-    [self.view bringSubviewToFront:adView];
-}
+#pragma mark - AdWhirl methods
 
--(void)foundData
-{
-    [spinner removeSpinner];
+-(void)adjustAdSize {
+    /*if (adWhirlView) {
+        [UIView beginAnimations:@"AdHide" context:nil];
+        [UIView setAnimationDuration:0.2];
+        CGRect hiddenFrame = adWhirlView.frame;
+        hiddenFrame.origin.y = self.view.bounds.size.height;
+        [adWhirlView setFrame:hiddenFrame];
+        [UIView commitAnimations];
+    }*/
+    NSLog(@"%@ is displaying the Ad.", self.navigationItem.title);
+    adWhirlView = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] adView];
+    [self.view addSubview:adWhirlView];
+	//1
+	[UIView beginAnimations:@"AdResize" context:nil];
+	[UIView setAnimationDuration:0.2];
+	//2
+	CGSize adSize = [adWhirlView actualAdSize];
+	//3
+	CGRect newFrame = adWhirlView.frame;
+	//4
+	newFrame.size.height = adSize.height;
     
-    UITabBarController *dest = [[self storyboard] instantiateViewControllerWithIdentifier:@"mainTabController"];
-    [self.navigationController pushViewController:dest animated:YES];
-}
-
-#pragma mark iAd Stuff
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    BOOL shouldExecuteAction = YES;
+   	//5 
+    CGSize winSize = self.view.bounds.size;
+    //6
+	newFrame.size.width = winSize.width;
+	//7
+	newFrame.origin.x = (self.adWhirlView.bounds.size.width - adSize.width)/2;
     
-    if (!willLeave && shouldExecuteAction)
-    {
-        ;//[delegate pause];
-    }
-    return shouldExecuteAction;
+    //8 
+	newFrame.origin.y = (winSize.height - adSize.height);
+	//9
+	adWhirlView.frame = newFrame;
+	//10
+	[UIView commitAnimations];
 }
 
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner
-{
-    ;//[delegate resume];
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    adIsLoaded = YES;
-    //if ([delegate isGameScene])
-        [self showBanner];
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    if(error)
-        NSLog(@"Error: %@", [error description]);
+/*-(void)onEnter {
+    //1
+    UINavigationController *viewController = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] navController];
+    //[[[[UIApplication sharedApplication] windows] lastObject] rootViewController];
+    //2
+    self.adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+    //3
+    self.adWhirlView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
     
-    adIsLoaded = NO;
-    [self hideBanner];
+    //4
+    [adWhirlView updateAdWhirlConfig];
+    //5
+	CGSize adSize = [adWhirlView actualAdSize];
+    //6
+    CGSize winSize = self.view.bounds.size;
+    //7
+	self.adWhirlView.frame = CGRectMake((winSize.width/2)-(adSize.width/2),winSize.height-adSize.height,winSize.width,adSize.height);
+    //8
+	self.adWhirlView.clipsToBounds = YES;
+    //9
+    [viewController.view addSubview:adWhirlView];
+    //10
+    [viewController.view bringSubviewToFront:adWhirlView];
+    //11
+    //[super onEnter];
 }
 
-#pragma mark animations
-
--(void)showBanner
-{
-    bannerShouldShow = YES;
-    if (bannerIsVisible || !adIsLoaded) {
-        return;
+-(void)onExit {
+    if (adWhirlView) {
+        [adWhirlView removeFromSuperview];
+        [adWhirlView replaceBannerViewWith:nil];
+        [adWhirlView ignoreNewAdRequests];
+        [adWhirlView setDelegate:nil];
+        self.adWhirlView = nil;
     }
-    [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-    adView.frame = CGRectOffset(adView.frame, 0, -adView.frame.size.height);
-    [UIView commitAnimations];
-    bannerIsVisible = YES;
-}
-
--(void)hideBanner
-{
-    bannerShouldShow = NO;
-    if (!bannerIsVisible) {
-        return;
-    }
-    [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-    adView.frame = CGRectOffset(adView.frame, 0, adView.frame.size.height);
-    [UIView commitAnimations];
-    bannerIsVisible = NO;
-}
-
--(float)getAdHeight
-{
-    return adView.frame.size.height;
-}
-
--(bool)iAdIsAvailable
-{
-    // Check for presence of GKLocalPlayer API.
-    Class gcClass = (NSClassFromString(@"ADBannerView"));
-	
-    // The device must be running running iOS 4.1 or later.
-    bool isIPAD = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
-    NSString *reqSysVer = (isIPAD) ? @"4.2" : @"4.1";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
-	
-    return (gcClass && osVersionSupported);
-}
+    //[super onExit];
+}*/
 
 #pragma mark - Error Handling
 
--(void)handleConnectionError
+-(void)handleError
 {
+    [cancelButton setHidden:YES];
     if(spinner)
     {
-        NSLog(@"Connection Error");
-        
-        SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
-        del.currentBeach.delegate = nil;
-        del.currentBeach = nil;
-        
         [spinner removeSpinner];
         spinner = nil;
-        
-        UIAlertView *noConnectionAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                    message:@"Connection Error. Please ensure that you have an internet connection."
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-        [noConnectionAlert show];
     }
 }
-
--(void)handleNonUSACountryError
-{
-    if(spinner)
-    {
-        NSLog(@"Non-USA Country Error");
-        
-        SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
-        del.currentBeach.delegate = nil;
-        del.currentBeach = nil;
-        
-        [spinner removeSpinner];
-        spinner = nil;
-        
-        UIAlertView *nonUSAAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                              message:@"SafeSands can only report on conditions within the USA."
-                                                             delegate:nil
-                                                    cancelButtonTitle:@"OK"
-                                                    otherButtonTitles:nil];
-        [nonUSAAlert show];
-    }
-}
-
 
 
 @end

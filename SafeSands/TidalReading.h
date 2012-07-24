@@ -14,23 +14,18 @@
 
 @protocol tidalDelegate
 -(void)foundTides;
+-(void)handleConnectionError;
 @end
 
 @interface TidalReading : NSObject<TidalStationDBDelegate,SandsParserDelegate>{
-    
-    id<tidalDelegate> delegate;
-    NSMutableArray *readings;
-    SandsParser *tideParser;
-    
-    TidalStationDB *tidalDB;
-    TidalStation *station;
-    
     NSArray * fieldElements;
 }
 
-@property (strong, nonatomic) id<tidalDelegate> delegate;
+@property (weak) id<tidalDelegate> delegate;
+@property (strong, nonatomic) SandsParser *tideParser;
 @property (strong, nonatomic) NSMutableArray *readings;
 @property (strong, nonatomic) TidalStationDB *tidalDB;
+@property (strong, nonatomic) TidalStation *station;
 
 -(id)initWithPlacemark:(CLPlacemark *)placemark;// andTidalDB:(TidalStationDB *)database;
 -(void)databaseBuilt;

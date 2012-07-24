@@ -17,6 +17,7 @@
 @synthesize delegate;
 @synthesize uvIndex;
 @synthesize hasTidalReading, hasAlerts;
+@synthesize geocoder, locationManager;
 
 TidalStationDB *tidalDB;
 
@@ -34,7 +35,40 @@ TidalStationDB *tidalDB;
     NSLog(@"%@", locationString);
     
     if([locationString isEqualToString:@"CurrentLocation"])
-        [locationManager startMonitoringSignificantLocationChanges];
+        if ([locationManager location] != nil){
+            NSLog(@"Using pre-fetched location");
+            [geocoder reverseGeocodeLocation:[locationManager location] completionHandler:^(NSArray *placemarks, NSError *error)
+             {
+                 if (placemarks)
+                     dispatch_async(dispatch_get_main_queue(),
+                                    ^{
+                                        BOOL inTheUS=NO;
+                                        for (CLPlacemark *p in placemarks) {
+                                            if ([[p ISOcountryCode] isEqualToString:@"US"]) {
+                                                inTheUS = YES;
+                                                [self haveLocation:p];
+                                                break;
+                                            }
+                                        }
+                                        
+                                        if(!inTheUS)
+                                            [delegate handleNonUSACountryError];
+                                    });
+                 else {
+                     [delegate handleConnectionError];
+                     //[NSException raise:@"Geocode failed"
+                     //            format:@"Reason: %@", [error localizedDescription]];
+                 }
+                 
+             }];
+
+        }else if ([CLLocationManager locationServicesEnabled]){ //[CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized){
+            NSLog(@"Tracking location");
+            [locationManager startMonitoringSignificantLocationChanges];
+        }else {
+            NSLog(@"Tracking location not authorized");
+            [delegate handleConnectionError];
+        }
     else
         [geocoder geocodeAddressString:locationString
                      completionHandler:^(NSArray *placemarks, NSError *error)
@@ -52,13 +86,12 @@ TidalStationDB *tidalDB;
                                      }
                                      
                                      if(!inTheUS)
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:@"Non-USA Country"
-                                                                                             object:nil];
+                                         [delegate handleNonUSACountryError];
                                      
                                  });
               else
               {
-                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+                  [delegate handleConnectionError];
                   //[NSException raise:@"Geocode failed"
                   //            format:@"Reason: %@", [error localizedDescription]];
               }
@@ -76,7 +109,6 @@ TidalStationDB *tidalDB;
              
              for (CLPlacemark *p in placemarks) {
                  if ([[p ISOcountryCode] isEqualToString:@"US"]) {
-                     NSLog(@"Yes!");
                      [self setPlacemark:p];
                      inTheUS = YES;
                      break;
@@ -96,16 +128,28 @@ TidalStationDB *tidalDB;
                                     [reading setDelegate:self];
                                 });
              else
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Non-USA Country"
-                                                                     object:nil];
+                 [delegate handleNonUSACountryError];
          }else
          {
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error"
-                                                                 object:nil];
+             [delegate handleConnectionError];
              //[NSException raise:@"Geocode failed"
              //           format:@"Reason: %@", [error localizedDescription]];
          }
      }];
+}
+
+-(void)dealloc
+{
+    [geocoder cancelGeocode];
+    [locationManager stopMonitoringSignificantLocationChanges];
+    locationManager=nil;
+    geocoder = nil;
+    delegate=nil;
+    alerts=nil;
+    placemark=nil;
+    weather=nil;
+    reading=nil;
+    uvIndex=nil;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -128,11 +172,10 @@ TidalStationDB *tidalDB;
                                  }
                                  
                                  if(!inTheUS)
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"Non-USA Country"
-                                                                                         object:nil];
+                                     [delegate handleNonUSACountryError];
                             });
          else {
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+             [delegate handleConnectionError];
              //[NSException raise:@"Geocode failed"
              //            format:@"Reason: %@", [error localizedDescription]];
          }
@@ -142,7 +185,7 @@ TidalStationDB *tidalDB;
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Connection Error" object:nil];
+    [delegate handleConnectionError];
     //[NSException raise:@"Find Location failed"
     //            format:@"Reason: %@", [error localizedDescription]];
 }
@@ -172,6 +215,10 @@ TidalStationDB *tidalDB;
 {
     haveUVIndex=YES;
     if (haveWeather && haveWaterTemp && haveUVIndex) [delegate foundData];
+}
+
+-(void)handleConnectionError{
+    [delegate handleConnectionError];
 }
 
 @end
