@@ -102,8 +102,11 @@ static NSString * const nodcURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.x
     }
 }
 
--(void)handleConnectionError{
-    [delegate handleConnectionError];
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kWaterTempDBError];
+    else 
+        [delegate handleError:error];
 }
 
 @end

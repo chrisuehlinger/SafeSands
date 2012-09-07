@@ -12,7 +12,7 @@
 
 @protocol AlertsDelegate <NSObject>
 -(void)foundAlerts;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface Alerts : NSObject<SandsParserDelegate>{

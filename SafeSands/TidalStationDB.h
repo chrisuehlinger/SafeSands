@@ -15,7 +15,7 @@
 
 @protocol TidalStationDBDelegate <NSObject>
 -(void)databaseBuilt;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface TidalStationDB : NSObject<SandsParserDelegate, SandsDataStoreDelegate>{

@@ -11,4 +11,20 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    typedef enum SandsError {
+        kLocationManagerError,
+        kLocationServiceAuthError,
+        kGeocodeError,
+        kNonUSACountryError,
+        kWeatherError,
+        kTideError,
+        kUVError,
+        kWaterTempError,
+        kAlertsError,
+        kTidalDBError,
+        kWaterTempDBError,
+        kTransactionFailedError,
+        kOtherError
+    } SandsError;
 #endif

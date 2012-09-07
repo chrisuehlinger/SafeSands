@@ -12,7 +12,7 @@
 
 @protocol UVIndexDelegate <NSObject>
 -(void)foundUVIndex;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 

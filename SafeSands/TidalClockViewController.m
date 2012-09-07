@@ -51,7 +51,7 @@ SpinnerView *spinner;
         [clock drawClockWithLastTide:[reading lastTide] andNextTide:[reading nextTide]];
     }else if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] != nil)
     {
-        spinner = [SpinnerView loadSpinnerIntoView:self.view];
+        spinner = [SpinnerView loadSpinnerIntoView:self.view withLoadingText:@"Loading Tides..."];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(foundTides)
                                                      name:@"foundTides"

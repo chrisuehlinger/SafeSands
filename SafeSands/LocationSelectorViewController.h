@@ -23,8 +23,13 @@
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *locationSearchController;
 @property (strong, nonatomic) AdWhirlView *adWhirlView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *goProButton;
+@property (weak, nonatomic) IBOutlet UIButton *recentLocationsButton;
 
+-(void)performSearch:(NSString *)searchString;
 - (IBAction)useCurrentLocation:(id)sender;
 - (IBAction)cancelSearch:(id)sender;
+-(void)changeLoadingTextTo:(NSString *)newText;
+
 
 @end

@@ -16,6 +16,8 @@
 @synthesize locationSearchController;
 @synthesize adWhirlView;
 @synthesize cancelButton;
+@synthesize goProButton;
+@synthesize recentLocationsButton;
 
 CGRect searchBarFrame;
 TidalStationDB *tidalDB;
@@ -62,6 +64,11 @@ SpinnerView *spinner;
         [self adjustAdSize];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(purchaseRestored)
+                                                 name:@"purchaseComplete"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(adjustAdSize)
                                                  name:@"receivedAd"
                                                object:nil];
@@ -74,11 +81,6 @@ SpinnerView *spinner;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleError)
                                                  name:@"Connection Error"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleError)
-                                                 name:@"Non-USA Country"
                                                object:nil];
     
     /*NSLog(@"SearchBarFrame = %f,%f,%f,%f",
@@ -95,14 +97,28 @@ SpinnerView *spinner;
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if([del hasAd])
         [self adjustAdSize];
     
-    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
     if([del currentBeach]) {
         [[del currentBeach] setDelegate:nil];
         [del setCurrentBeach:nil];
     }
+    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"]) {
+        [goProButton setHidden:YES];
+        [recentLocationsButton setHidden:NO];
+        [goProButton setEnabled:NO];
+        [recentLocationsButton setEnabled:YES];
+    }else {
+        [goProButton setHidden:NO];
+        [recentLocationsButton setHidden:YES];
+        [goProButton setEnabled:YES];
+        [recentLocationsButton setEnabled:NO];
+    }
+    
+    
 }
 
 - (void)viewDidUnload
@@ -111,6 +127,8 @@ SpinnerView *spinner;
     [self setLocationSearchBar:nil];
     [self setLocationSearchController:nil];
     [self setCancelButton:nil];
+    [self setGoProButton:nil];
+    [self setRecentLocationsButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -127,6 +145,14 @@ SpinnerView *spinner;
 }
 
 - (IBAction)cancelSearch:(id)sender {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"])
+        [recentLocationsButton setHidden:NO];
+    else 
+        [goProButton setHidden:NO];
+    
+    [useCurrentLocationButton setHidden:NO];
+    [locationSearchBar setHidden:NO];
+    
     [cancelButton setHidden:YES];
     [spinner removeSpinner];
     spinner = nil;
@@ -136,16 +162,31 @@ SpinnerView *spinner;
 }
 
 -(void)performSearch:(NSString *)searchString {
-    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [del setCurrentBeach:[[Beach alloc] initWithString:searchString andDelegate:del]];
     spinner = [SpinnerView loadSpinnerIntoView:self.view];
+    
     [spinner setCenter:CGPointMake(self.view.center.x, self.view.center.y-25)];
     [cancelButton setHidden:NO];
     [self.view bringSubviewToFront:adWhirlView];
+    
+    [recentLocationsButton setHidden:YES];
+    [goProButton setHidden:YES];
+    [useCurrentLocationButton setHidden:YES];
+    [locationSearchBar setHidden:YES];
+    
+    SandsAppDelegate *del = (SandsAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del setCurrentBeach:[[Beach alloc] initWithString:searchString andDelegate:del]];
 }
 
 -(void)foundData
 {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"])
+        [recentLocationsButton setHidden:NO];
+    else 
+        [goProButton setHidden:NO];
+    
+    [useCurrentLocationButton setHidden:NO];
+    [locationSearchBar setHidden:NO];
+    
     [cancelButton setHidden:YES];
     [spinner removeSpinner];
     spinner = nil;
@@ -154,10 +195,24 @@ SpinnerView *spinner;
     [self.navigationController pushViewController:dest animated:YES];
 }
 
+-(void)purchaseRestored
+{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"]) {
+        [goProButton setHidden:YES];
+        [recentLocationsButton setHidden:NO];
+        [goProButton setEnabled:NO];
+        [recentLocationsButton setEnabled:YES];
+    }
+    
+    adWhirlView = nil;
+}
+
 #pragma mark - SearchBarControllerDelegate methods
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
+    [goProButton setHidden:YES];
+    [recentLocationsButton setHidden:YES];
     
     [UIView animateWithDuration:0.33 animations:^{
         searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, searchBar.frame.size.height);
@@ -173,6 +228,17 @@ SpinnerView *spinner;
     [locationSearchController setActive:NO animated:NO];
     [UIView animateWithDuration:0.33 animations:^{
         searchBar.frame = searchBarFrame;
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"]) {
+            [goProButton setHidden:YES];
+            [recentLocationsButton setHidden:NO];
+            [goProButton setEnabled:NO];
+            [recentLocationsButton setEnabled:YES];
+        }else {
+            [goProButton setHidden:NO];
+            [recentLocationsButton setHidden:YES];
+            [goProButton setEnabled:YES];
+            [recentLocationsButton setEnabled:NO];
+        }
     }];
     [searchBar resignFirstResponder];
 }
@@ -188,6 +254,14 @@ SpinnerView *spinner;
     NSString *searchString = [searchBar text];
     [self searchBarCancelButtonClicked:searchBar];
     [self performSearch:searchString];
+}
+
+-(void)changeLoadingTextTo:(NSString *)newText
+{
+    if (spinner) {
+        [[spinner loadingLabel] setString:newText];
+        //[spinner setNeedsDisplay];
+    }
 }
 
 #pragma mark - AdWhirl methods
@@ -271,6 +345,14 @@ SpinnerView *spinner;
 
 -(void)handleError
 {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"])
+        [recentLocationsButton setHidden:NO];
+    else 
+        [goProButton setHidden:NO];
+    
+    [useCurrentLocationButton setHidden:NO];
+    [locationSearchBar setHidden:NO];
+    
     [cancelButton setHidden:YES];
     if(spinner)
     {

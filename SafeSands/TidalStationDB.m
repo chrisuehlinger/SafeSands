@@ -94,8 +94,11 @@ static NSString * const coopsURL = @"http://tidesandcurrents.noaa.gov/cdata/Stat
     NSLog(@"This shouldn't happen: TidalStationDB");
 }
 
--(void)handleConnectionError{
-    [delegate handleConnectionError];
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kTidalDBError];
+    else 
+        [delegate handleError:error];
 }
 
 @end

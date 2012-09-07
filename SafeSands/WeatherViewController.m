@@ -20,7 +20,7 @@
 CALayer *rayLayer, *cloud1Layer, *cloud2Layer, *cloud3Layer;
 CALayer *oceanBackLayer, *oceanMiddleLayer, *oceanFrontLayer;
 CAEmitterLayer* emitter;
-NSArray *sunConditions, *cloudConditions, *rainConditions;
+NSString *displayCondition;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +29,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     }
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -44,11 +45,10 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     weather = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] weather];
     uvIndex = [[(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] currentBeach] uvIndex];
     
-    sunConditions = [NSArray arrayWithObjects:@"partly sunny", @"sunny", @"clear", @"mostly sunny", nil];
-    //cloudConditions = [NSArray arrayWithObjects:@"overcast", @"partly cloudy", @"mostly cloudy", @"cloudy", @"mist", @"dust", @"fog", @"smoke", @"haze", nil];
-    rainConditions = [NSArray arrayWithObjects:@"scattered thunderstorms", @"showers", @"scattered showers", @"rain and snow", @"light snow", @"freezing drizzle", @"chance of rain", @"chance of storm", @"rain", @"chance of snow", @"storm", @"thunderstorm", @"chance of tstorm", @"sleet", @"snow", @"icy", @"flurries", @"light rain", @"snow showers", @"hail", nil];
+    displayCondition= [self determineDisplayWeather:[[weather currentConditions] objectForKey:@"weather"]];
     
-    if([sunConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]])
+    
+    if([displayCondition isEqualToString:@"Sunny"])
     {
         rayLayer = [CALayer layer];
         rayLayer.frame = CGRectMake(0, 0, 320, 387);
@@ -57,7 +57,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
         rayLayer.masksToBounds = YES;
         [rayLayer setContentsScale:[[UIScreen mainScreen] scale]];
         [self.view.layer addSublayer:rayLayer];
-    }else {
+    }else if([displayCondition isEqualToString:@"Cloudy"] || [displayCondition isEqualToString:@"Rainy"]){
         cloud1Layer = [CALayer layer];
         cloud1Layer.frame = CGRectMake(-15, 0, 335, 367);
         UIImage *cloud1Image = [UIImage imageNamed:@"cloud1Layer.png"];
@@ -144,7 +144,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     CALayer *airTempLayer = [CALayer layer];
     airTempLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
     airTempLayer.shadowOffset = CGSizeMake(0, 3);
-    airTempLayer.frame = CGRectMake(205, 265, 100, 45);
+    airTempLayer.frame = CGRectMake(205, 265, 100, 25);
     airTempLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:airTempLayer];
     
@@ -154,11 +154,18 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     uvIndexLayer.frame = CGRectMake(10, 15, 120, 25);
     uvIndexLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:uvIndexLayer];
+    
+    CALayer *wuIconLayer = [CALayer layer];
+    wuIconLayer.frame = CGRectMake((320-126)/2, 367-(25+50), 126, 17);
+    UIImage *wuIcon = [UIImage imageNamed:@"wundergroundLogo_black_horz.png"];
+    wuIconLayer.contents = (id) wuIcon.CGImage;
+    [wuIconLayer setContentsScale:[[UIScreen mainScreen] scale]];
+    [self.view.layer addSublayer:wuIconLayer];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if([sunConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]])
+    if([displayCondition isEqualToString:@"Sunny"])
     {
         // create the animation that will handle the pulsing.
         CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
@@ -170,7 +177,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
         pulseAnimation.autoreverses = YES;
         pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseOut];
         [rayLayer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
-    }else {
+    }else if([displayCondition isEqualToString:@"Cloudy"] || [displayCondition isEqualToString:@"Rainy"]){
         CABasicAnimation *cloud1Animation = [CABasicAnimation animation];
         [cloud1Animation setKeyPath:@"position.x"];
         [cloud1Animation setFromValue:[NSNumber numberWithInt:cloud1Layer.position.x-5]];
@@ -201,7 +208,7 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
         [cloud3Animation setTimingFunction:[CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]];
         [cloud3Layer addAnimation:cloud3Animation forKey:@"animateCloud3"];
         
-        if ([rainConditions containsObject:[[[weather currentConditions] objectForKey:@"condition"] lowercaseString]]) 
+        if ([displayCondition isEqualToString:@"Rainy"]) 
         {
             
             emitter = [CAEmitterLayer layer];
@@ -259,13 +266,9 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     
     if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])
         [self adjustAdSize];
-/*}
-
-- (void)viewDidAppear:(BOOL)animated
-{*/
     
     
-    NSString *weatherText = [[NSString alloc] initWithFormat:@"Forecast:\n%@", [[weather currentConditions] objectForKey:@"condition"]];
+    NSString *weatherText = [[NSString alloc] initWithFormat:@"Forecast:\n%@", [[weather currentConditions] objectForKey:@"weather"]];
     
     CATextLayer *weatherTextLayer = [CATextLayer layer];
     [weatherTextLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
@@ -294,22 +297,20 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
     [uvIndexTextLayer setZPosition:1];
     
     NSString *waterTempText = [[NSString alloc] initWithString:@"Water:"];
-    NSString *airTempText = [[NSString alloc] initWithString:@"High: "];
-    int highTemp = [[[[weather forecastConditions] objectAtIndex:0] objectForKey:@"high"] intValue];
-    int lowTemp = [[[[weather forecastConditions] objectAtIndex:0] objectForKey:@"low"] intValue];
+    NSString *airTempText = [[NSString alloc] initWithString:@"Air: "];
+    int airTemp = [[[weather currentConditions] objectForKey:@"temp_f"] intValue];
     
     if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) 
     {
+        airTemp = [[[weather currentConditions] objectForKey:@"temp_c"] intValue];
+        
         waterTempText = [waterTempText stringByAppendingFormat:@"%d°C", [[[weather waterTemp] tempC] intValue]];
         
-        highTemp = (highTemp-32)*5/9;
-        lowTemp = (lowTemp-32)*5/9;
-        
-        airTempText = [airTempText stringByAppendingFormat:@"%d°C\nLow: %d°C", highTemp, lowTemp];
+        airTempText = [airTempText stringByAppendingFormat:@"%d°C", airTemp];
     }else
     {
         waterTempText = [waterTempText stringByAppendingFormat:@"%d°F", [[[weather waterTemp] tempF] intValue]];
-        airTempText = [airTempText stringByAppendingFormat:@"%d°F\nLow: %d°F", highTemp, lowTemp];
+        airTempText = [airTempText stringByAppendingFormat:@"%d°F", airTemp];
     }
 
     CATextLayer *waterTempTextLayer = [CATextLayer layer];
@@ -345,6 +346,27 @@ NSArray *sunConditions, *cloudConditions, *rainConditions;
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+-(NSString *)determineDisplayWeather:(NSString *)condition
+{
+    NSArray *sunConditions = [NSArray arrayWithObjects:@"Clear", nil];
+    NSArray *cloudConditions = [NSArray arrayWithObjects:@"Mist", @"Fog", @"Fog Patches", @"Smoke", @"Haze", @"Freezing Fog", @"Patches of Fog", @"Shallow Fog", @"Partial Fog", @"Overcast", @"Scattered Clouds", @"Funnel Cloud", @"Mostly Cloudy", @"Partly Cloudy", nil];
+    NSArray *rainConditions = [NSArray arrayWithObjects:@"Drizzle", @"Rain", @"Snow", @"Snow Grains", @"Ice Crystals", @"Ice Pellets", @"Hail", @"Spray", @"Low Drifting Snow", @"Blowing Snow", @"Rain Mist", @"Rain Showers", @"Snow Showers", @"Snow Blowing Snow Mist", @"Ice Pellet Showers", @"Hail Showers", @"Small Hail Showers", @"Thunderstorm", @"Thunderstorms and Rain", @"Thunderstorms and Snow", @"Thunderstorms and Ice Pellets", @"Thunderstorms with Hail", @"Thunderstorms with Small Hail", @"Freezing Drizzle", @"Freezing Rain", @"Small Hail", @"Squals", nil];
+    
+    if ([condition length] > 6 && ([[condition substringToIndex:4] isEqualToString:@"Light"] || [[condition substringToIndex:4] isEqualToString:@"Heavy"])) {
+        condition = [condition substringFromIndex:6];
+    }
+    
+    if ([sunConditions containsObject:condition])
+        return @"Sunny";
+    else if ([cloudConditions containsObject:condition])
+        return @"Cloudy";
+    else if ([rainConditions containsObject:condition])
+        return @"Rainy";
+    else 
+        return @"Other";
+}
+
 
 #pragma mark - AdWhirl methods
 

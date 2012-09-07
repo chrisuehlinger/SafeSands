@@ -59,7 +59,7 @@ SpinnerView *spinner;
         [self setUpScrollView:alerts];
     }else
     {
-        spinner = [SpinnerView loadSpinnerIntoView:self.view];
+        spinner = [SpinnerView loadSpinnerIntoView:self.view withLoadingText:@"Loading Alerts..."];
     }
     
     if([(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] hasAd])

@@ -38,12 +38,14 @@
 @synthesize directionsButton;
 @synthesize locationLabel;
 
+NSMutableDictionary *stateAbbrevs;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self setupStateAbbrevs];
+        stateAbbrevs = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] stateAbbrevs];
     }
     return self;
 }
@@ -174,78 +176,4 @@
 {
     return self.placemark.thoroughfare;
 }
-
-#pragma mark - ugh CL...
-
-NSMutableDictionary *stateAbbrevs;
--(void)setupStateAbbrevs
-{
-    stateAbbrevs = [[NSMutableDictionary alloc] init];
-    [stateAbbrevs setValue:@"AL" forKey:@"Alabama"];
-    [stateAbbrevs setValue:@"AK" forKey:@"Alaska"];
-    [stateAbbrevs setValue:@"AZ" forKey:@"Arizona"];
-    [stateAbbrevs setValue:@"AR" forKey:@"Arkansas"];
-    [stateAbbrevs setValue:@"CA" forKey:@"California"];
-    [stateAbbrevs setValue:@"CO" forKey:@"Colorado"];
-    [stateAbbrevs setValue:@"CT" forKey:@"Connecticut"];
-    [stateAbbrevs setValue:@"DE" forKey:@"Delaware"];
-    [stateAbbrevs setValue:@"FL" forKey:@"Florida"];
-    [stateAbbrevs setValue:@"GA" forKey:@"Georgia"];
-    [stateAbbrevs setValue:@"HI" forKey:@"Hawaii"];
-    [stateAbbrevs setValue:@"ID" forKey:@"Idaho"];
-    [stateAbbrevs setValue:@"IL" forKey:@"Illinois"];
-    [stateAbbrevs setValue:@"IN" forKey:@"Indiana"];
-    [stateAbbrevs setValue:@"IA" forKey:@"Iowa"];
-    [stateAbbrevs setValue:@"KS" forKey:@"Kansas"];
-    [stateAbbrevs setValue:@"KY" forKey:@"Kentucky"];
-    [stateAbbrevs setValue:@"LA" forKey:@"Louisiana"];
-    [stateAbbrevs setValue:@"ME" forKey:@"Maine"];
-    [stateAbbrevs setValue:@"MD" forKey:@"Maryland"];
-    [stateAbbrevs setValue:@"MA" forKey:@"Massachusetts"];
-    [stateAbbrevs setValue:@"MI" forKey:@"Michigan"];
-    [stateAbbrevs setValue:@"MN" forKey:@"Minnesota"];
-    [stateAbbrevs setValue:@"MS" forKey:@"Mississippi"];
-    [stateAbbrevs setValue:@"MO" forKey:@"Missouri"];
-    [stateAbbrevs setValue:@"MT" forKey:@"Montana"];
-    [stateAbbrevs setValue:@"NE" forKey:@"Nebraska"];
-    [stateAbbrevs setValue:@"NV" forKey:@"Nevada"];
-    [stateAbbrevs setValue:@"NH" forKey:@"New Hampshire"];
-    [stateAbbrevs setValue:@"NJ" forKey:@"New Jersey"];
-    [stateAbbrevs setValue:@"NM" forKey:@"New Mexico"];
-    [stateAbbrevs setValue:@"NY" forKey:@"New York"];
-    [stateAbbrevs setValue:@"NC" forKey:@"North Carolina"];
-    [stateAbbrevs setValue:@"ND" forKey:@"North Dakota"];
-    [stateAbbrevs setValue:@"OH" forKey:@"Ohio"];
-    [stateAbbrevs setValue:@"OK" forKey:@"Oklahoma"];
-    [stateAbbrevs setValue:@"OR" forKey:@"Oregon"];
-    [stateAbbrevs setValue:@"PA" forKey:@"Pennsylvania"];
-    [stateAbbrevs setValue:@"RI" forKey:@"Rhode Island"];
-    [stateAbbrevs setValue:@"SC" forKey:@"South Carolina"];
-    [stateAbbrevs setValue:@"SD" forKey:@"South Dakota"];
-    [stateAbbrevs setValue:@"TN" forKey:@"Tennessee"];
-    [stateAbbrevs setValue:@"TX" forKey:@"Texas"];
-    [stateAbbrevs setValue:@"UT" forKey:@"Utah"];
-    [stateAbbrevs setValue:@"VT" forKey:@"Vermont"];
-    [stateAbbrevs setValue:@"VA" forKey:@"Virginia"];
-    [stateAbbrevs setValue:@"WA" forKey:@"Washington"];
-    [stateAbbrevs setValue:@"WV" forKey:@"West Virginia"];
-    [stateAbbrevs setValue:@"WI" forKey:@"Wisconsin"];
-    [stateAbbrevs setValue:@"WY" forKey:@"Wyoming"];
-    [stateAbbrevs setValue:@"AS" forKey:@"American Samoa"];
-    [stateAbbrevs setValue:@"DC" forKey:@"District of Columbia"];
-    [stateAbbrevs setValue:@"FM" forKey:@"Federated States of Micronesia"];
-    [stateAbbrevs setValue:@"GU" forKey:@"Guam"];
-    [stateAbbrevs setValue:@"MH" forKey:@"Marshall Islands"];
-    [stateAbbrevs setValue:@"MP" forKey:@"Northern Mariana Islands"];
-    [stateAbbrevs setValue:@"PW" forKey:@"Palau"];
-    [stateAbbrevs setValue:@"PR" forKey:@"Puerto Rico"];
-    [stateAbbrevs setValue:@"VI" forKey:@"Virgin Islands"];
-    [stateAbbrevs setValue:@"AE" forKey:@"Armed Forces Africa"];
-    [stateAbbrevs setValue:@"AA" forKey:@"Armed Forces Americas"];
-    [stateAbbrevs setValue:@"AE" forKey:@"Armed Forces Canada"];
-    [stateAbbrevs setValue:@"AE" forKey:@"Armed Forces Europe"];
-    [stateAbbrevs setValue:@"AE" forKey:@"Armed Forces Middle East"];
-    [stateAbbrevs setValue:@"AP" forKey:@"Armed Forces Pacific"];
-}
-
 @end

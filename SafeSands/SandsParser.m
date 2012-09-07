@@ -28,7 +28,7 @@ NSString *thePath;
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: path]];
     xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
     if (xmlConnection == nil)
-        [delegate handleConnectionError];
+        [delegate handleError:kOtherError];
     //NSAssert(xmlConnection != nil, @"Could not establish connection");
     return self;
 }
@@ -60,7 +60,7 @@ NSString *thePath;
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: path]];
     xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
     if (xmlConnection == nil)
-        [delegate handleConnectionError];
+        [delegate handleError:kOtherError];
     //NSAssert(xmlConnection != nil, @"Could not establish connection");
     return self;
 }
@@ -70,7 +70,7 @@ NSString *thePath;
     NSURLRequest *xmlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: thePath]];
     xmlConnection = [[NSURLConnection alloc] initWithRequest:xmlRequest delegate:self];
     if (xmlConnection == nil)
-        [delegate handleConnectionError];
+        [delegate handleError:kOtherError];
     //NSAssert(xmlConnection != nil, @"Could not establish connection");
 }
 
@@ -115,7 +115,7 @@ NSString *thePath;
 {
     [self setXmlConnection:nil];
     [self setXmlData:nil];
-    [delegate handleConnectionError];
+    [delegate handleError:kOtherError];
     //[NSException raise:@"Connection Failed" format:@"Reason: %@", [error localizedDescription]];
 }
 

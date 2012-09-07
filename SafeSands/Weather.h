@@ -13,7 +13,7 @@
 
 @protocol WeatherDelegate
 -(void)foundWeather;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface Weather : NSObject<SandsParserDelegate, WaterTemperatureDelegate>{
@@ -27,10 +27,8 @@
 
 @property (strong, nonatomic) WaterTemperature *waterTemp;
 
-@property (strong, nonatomic) NSMutableDictionary *forecastInfo;
 @property (strong, nonatomic) NSMutableDictionary *currentConditions;
-@property (strong, nonatomic) NSMutableArray *forecastConditions;
 
--(id)initWithPlacemark:(CLPlacemark *)placemark;
+-(id)initWithPlacemark:(CLPlacemark *)placemark andDelegate:(id<WeatherDelegate>)del;
 
 @end

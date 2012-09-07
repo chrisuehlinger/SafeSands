@@ -7,17 +7,24 @@
 //
 
 #import "SpinnerView.h"
-#import <QuartzCore/QuartzCore.h>
 
 @implementation SpinnerView
+
+@synthesize loadingLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
     }
     return self;
+}
+
++(SpinnerView *)loadSpinnerIntoView:(UIView *)superView withLoadingText:(NSString *)loadingText
+{
+    SpinnerView *theSpinner = [SpinnerView loadSpinnerIntoView:superView];
+    [[theSpinner loadingLabel] setString:loadingText];
+    return theSpinner;
 }
 
 +(SpinnerView *)loadSpinnerIntoView:(UIView *)superView{
@@ -62,6 +69,18 @@
     [spinnerView addSubview:indicator];
 	// Start it spinning! Don't miss this step
 	[indicator startAnimating];
+    
+    CATextLayer *theLoadingLabel = [CATextLayer layer];
+    [theLoadingLabel setForegroundColor:[[UIColor whiteColor] CGColor]];
+    [theLoadingLabel setString:@"Loading..."];
+    [theLoadingLabel setFrame:CGRectMake(0, 0+3*spinnerView.frame.size.height/4, spinnerView.frame.size.width, 40)];
+    [theLoadingLabel setAlignmentMode:kCAAlignmentCenter];
+    [theLoadingLabel setFont:@"Helvetica"];
+    [theLoadingLabel setFontSize:16];
+    [theLoadingLabel setContentsScale:[[UIScreen mainScreen] scale]];
+    [spinnerView setLoadingLabel:theLoadingLabel];
+    [spinnerView.layer addSublayer:[spinnerView loadingLabel]];
+    [theLoadingLabel setZPosition:1];
     
     // Create a new animation
     CATransition *animation = [CATransition animation];

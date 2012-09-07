@@ -23,8 +23,9 @@ NSDateFormatter *dateFormatter;
 
 CLPlacemark *thePlacemark;
 
--(id)initWithPlacemark:(CLPlacemark *)placemark
+-(id)initWithPlacemark:(CLPlacemark *)placemark andDelegate:(id<TidalDelegate>)del
 {
+    delegate = del;
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat: @"yyyy'/'MM'/'dd' 'HH':'mm"];
     
@@ -120,8 +121,11 @@ CLPlacemark *thePlacemark;
     NSLog(@"This shouldn't happen: TidalReading");
 }
 
--(void)handleConnectionError{
-    [delegate handleConnectionError];
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kTideError];
+    else 
+        [delegate handleError:error];
 }
 
 @end

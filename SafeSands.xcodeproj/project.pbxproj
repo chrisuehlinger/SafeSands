@@ -50,6 +50,8 @@
 		83170EF41591AF080006E1D2 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83170EE91591AF080006E1D2 /* CJSONSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		83170EF51591AF080006E1D2 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 83170EEB1591AF080006E1D2 /* CSerializedJSONData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8318443B15251964005FF862 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318443A15251964005FF862 /* Alerts.m */; };
+		83244ABF15F5C61C0071D452 /* wundergroundLogo_4c_horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 83244ABE15F5C61C0071D452 /* wundergroundLogo_4c_horz.png */; };
+		83244AC115F5C7160071D452 /* wundergroundLogo_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 83244AC015F5C7160071D452 /* wundergroundLogo_black.png */; };
 		834C7046157249FC00D4CCE1 /* Icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 834C7044157249FC00D4CCE1 /* Icon-small.png */; };
 		834C7047157249FC00D4CCE1 /* Icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 834C7045157249FC00D4CCE1 /* Icon-small@2x.png */; };
 		834EE3DC1558D82B00E867A1 /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = 834EE3DB1558D82B00E867A1 /* pred.kml */; };
@@ -97,9 +99,13 @@
 		83B1E852150FEE5800B1664F /* TidalStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E851150FEE5800B1664F /* TidalStation.m */; };
 		83B1E856150FF1A900B1664F /* TidalStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E855150FF1A900B1664F /* TidalStationDB.m */; };
 		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
+		83CAD2AA15FA135200BA7DB2 /* wundergroundLogo_black_horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 83CAD2A915FA135100BA7DB2 /* wundergroundLogo_black_horz.png */; };
 		83CB24801523731900514100 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CB247F1523731900514100 /* QuartzCore.framework */; };
 		83CB248415241ACF00514100 /* WaterTemperature.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB248315241ACF00514100 /* WaterTemperature.m */; };
 		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
+		83E0AE7815BEA8CA00D944B4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E0AE7715BEA8C500D944B4 /* StoreKit.framework */; };
+		83E0AE7B15BEAC2E00D944B4 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E0AE7A15BEAC2D00D944B4 /* StoreViewController.m */; };
+		83E0AE7E15BF060C00D944B4 /* RecentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E0AE7D15BF060900D944B4 /* RecentViewController.m */; };
 		83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1741522EB0B005422D9 /* TidalClockView.m */; };
 		83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1771522EE0D005422D9 /* TidalClockViewController.m */; };
 		83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
@@ -219,6 +225,8 @@
 		83170EEB1591AF080006E1D2 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
 		8318443915251964005FF862 /* Alerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alerts.h; sourceTree = "<group>"; };
 		8318443A15251964005FF862 /* Alerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alerts.m; sourceTree = "<group>"; };
+		83244ABE15F5C61C0071D452 /* wundergroundLogo_4c_horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wundergroundLogo_4c_horz.png; sourceTree = "<group>"; };
+		83244AC015F5C7160071D452 /* wundergroundLogo_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wundergroundLogo_black.png; sourceTree = "<group>"; };
 		834C7044157249FC00D4CCE1 /* Icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-small.png"; sourceTree = "<group>"; };
 		834C7045157249FC00D4CCE1 /* Icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-small@2x.png"; sourceTree = "<group>"; };
 		834EE3DB1558D82B00E867A1 /* pred.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pred.kml; path = ../pred.kml; sourceTree = "<group>"; };
@@ -298,10 +306,16 @@
 		83B1E855150FF1A900B1664F /* TidalStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalStationDB.m; sourceTree = "<group>"; };
 		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
 		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
+		83CAD2A915FA135100BA7DB2 /* wundergroundLogo_black_horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wundergroundLogo_black_horz.png; sourceTree = "<group>"; };
 		83CB247F1523731900514100 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83CB248215241ACF00514100 /* WaterTemperature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTemperature.h; sourceTree = "<group>"; };
 		83CB248315241ACF00514100 /* WaterTemperature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTemperature.m; sourceTree = "<group>"; };
 		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		83E0AE7715BEA8C500D944B4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		83E0AE7915BEAC2C00D944B4 /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
+		83E0AE7A15BEAC2D00D944B4 /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
+		83E0AE7C15BF060100D944B4 /* RecentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentViewController.h; sourceTree = "<group>"; };
+		83E0AE7D15BF060900D944B4 /* RecentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentViewController.m; sourceTree = "<group>"; };
 		83E3F1731522EB0B005422D9 /* TidalClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockView.h; sourceTree = "<group>"; };
 		83E3F1741522EB0B005422D9 /* TidalClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockView.m; sourceTree = "<group>"; };
 		83E3F1761522EE0D005422D9 /* TidalClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockViewController.h; sourceTree = "<group>"; };
@@ -351,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E0AE7815BEA8CA00D944B4 /* StoreKit.framework in Frameworks */,
 				8300A0001591B1EB00AFD20A /* MessageUI.framework in Frameworks */,
 				83170E651591AA720006E1D2 /* AddressBook.framework in Frameworks */,
 				83170E661591AA720006E1D2 /* AudioToolbox.framework in Frameworks */,
@@ -594,9 +609,9 @@
 		83E408EF1509EDEA00F9222C = {
 			isa = PBXGroup;
 			children = (
-				834EE3DE1558DCA200E867A1 /* Libraries */,
 				83E409041509EE0100F9222C /* SafeSands */,
 				83E409221509EE0600F9222C /* SafeSandsTests */,
+				834EE3DE1558DCA200E867A1 /* Libraries */,
 				83E408FD1509EE0000F9222C /* Frameworks */,
 				83E408FB1509EDFF00F9222C /* Products */,
 			);
@@ -614,6 +629,7 @@
 		83E408FD1509EE0000F9222C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83E0AE7715BEA8C500D944B4 /* StoreKit.framework */,
 				83009FFF1591B1EB00AFD20A /* MessageUI.framework */,
 				83170E5F1591AA6C0006E1D2 /* AddressBook.framework */,
 				83170E601591AA6D0006E1D2 /* AudioToolbox.framework */,
@@ -653,6 +669,9 @@
 		83E409051509EE0100F9222C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				83244ABE15F5C61C0071D452 /* wundergroundLogo_4c_horz.png */,
+				83CAD2A915FA135100BA7DB2 /* wundergroundLogo_black_horz.png */,
+				83244AC015F5C7160071D452 /* wundergroundLogo_black.png */,
 				835562C11599EC8A00B7B011 /* sandBackground.jpg */,
 				835562BF1599E9A000B7B011 /* sandBackground@2x.jpg */,
 				835562B9159956D500B7B011 /* tidalClockLayer.png */,
@@ -717,6 +736,10 @@
 				838F2027159843ED00373F8E /* SandsTabBarController.m */,
 				839EDA531589D72A00732F65 /* InfoViewController.h */,
 				839EDA541589D72A00732F65 /* InfoViewController.m */,
+				83E0AE7915BEAC2C00D944B4 /* StoreViewController.h */,
+				83E0AE7A15BEAC2D00D944B4 /* StoreViewController.m */,
+				83E0AE7C15BF060100D944B4 /* RecentViewController.h */,
+				83E0AE7D15BF060900D944B4 /* RecentViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -876,6 +899,9 @@
 				835562BC159956D500B7B011 /* tidalClockLayer@2x.png in Resources */,
 				835562C01599E9A000B7B011 /* sandBackground@2x.jpg in Resources */,
 				835562C21599EC8A00B7B011 /* sandBackground.jpg in Resources */,
+				83244ABF15F5C61C0071D452 /* wundergroundLogo_4c_horz.png in Resources */,
+				83244AC115F5C7160071D452 /* wundergroundLogo_black.png in Resources */,
+				83CAD2AA15FA135200BA7DB2 /* wundergroundLogo_black_horz.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,6 +991,8 @@
 				83170EF41591AF080006E1D2 /* CJSONSerializer.m in Sources */,
 				83170EF51591AF080006E1D2 /* CSerializedJSONData.m in Sources */,
 				838F2028159843ED00373F8E /* SandsTabBarController.m in Sources */,
+				83E0AE7B15BEAC2E00D944B4 /* StoreViewController.m in Sources */,
+				83E0AE7E15BF060C00D944B4 /* RecentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

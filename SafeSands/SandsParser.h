@@ -12,7 +12,7 @@
 -(void)elementParsed:(NSMutableDictionary *)element;
 -(void)parseComplete;
 -(void)retrievedData:(NSData *)data;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface SandsParser : NSObject <NSURLConnectionDelegate, NSXMLParserDelegate>

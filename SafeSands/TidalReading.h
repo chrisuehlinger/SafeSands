@@ -12,22 +12,22 @@
 #import "TidalStationDB.h"
 #import "SandsParser.h"
 
-@protocol tidalDelegate
+@protocol TidalDelegate
 -(void)foundTides;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface TidalReading : NSObject<TidalStationDBDelegate,SandsParserDelegate>{
     NSArray * fieldElements;
 }
 
-@property (weak) id<tidalDelegate> delegate;
+@property (weak) id<TidalDelegate> delegate;
 @property (strong, nonatomic) SandsParser *tideParser;
 @property (strong, nonatomic) NSMutableArray *readings;
 @property (strong, nonatomic) TidalStationDB *tidalDB;
 @property (strong, nonatomic) TidalStation *station;
 
--(id)initWithPlacemark:(CLPlacemark *)placemark;// andTidalDB:(TidalStationDB *)database;
+-(id)initWithPlacemark:(CLPlacemark *)placemark andDelegate:(id<TidalDelegate>)del;
 -(void)databaseBuilt;
 
 -(NSMutableDictionary *)lastTide;

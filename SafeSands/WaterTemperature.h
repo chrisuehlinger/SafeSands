@@ -13,7 +13,7 @@
 
 @protocol WaterTemperatureDelegate <NSObject>
 -(void)foundWaterTemperature;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface WaterTemperature : NSObject<SandsParserDelegate, WaterTempStationDBDelegate>

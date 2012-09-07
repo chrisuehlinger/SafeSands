@@ -7,6 +7,7 @@
 //
 
 #import "Beach.h"
+#import "SandsAppDelegate.h"
 
 @implementation Beach
 
@@ -18,11 +19,15 @@
 @synthesize uvIndex;
 @synthesize hasTidalReading, hasAlerts;
 @synthesize geocoder, locationManager;
+@synthesize locationInput;
 
 TidalStationDB *tidalDB;
+NSMutableDictionary *stateAbbrevs;
 
 - (id)initWithString:(NSString *)locationString andDelegate:(id<BeachDelegate>)del
 {
+    stateAbbrevs = [(SandsAppDelegate *)[[UIApplication sharedApplication] delegate] stateAbbrevs];
+    locationInput=locationString;
     haveWeather = NO;
     haveWaterTemp = NO;
     hasTidalReading = NO;
@@ -37,7 +42,10 @@ TidalStationDB *tidalDB;
     if([locationString isEqualToString:@"CurrentLocation"])
         if ([locationManager location] != nil){
             NSLog(@"Using pre-fetched location");
-            [geocoder reverseGeocodeLocation:[locationManager location] completionHandler:^(NSArray *placemarks, NSError *error)
+            [delegate changeLoadingText:@"Geocoding Location..."];
+            
+            [self reverseGeocodeLocation:[locationManager location]];
+            /*[geocoder reverseGeocodeLocation:[locationManager location] completionHandler:^(NSArray *placemarks, NSError *error)
              {
                  if (placemarks)
                      dispatch_async(dispatch_get_main_queue(),
@@ -52,24 +60,29 @@ TidalStationDB *tidalDB;
                                         }
                                         
                                         if(!inTheUS)
-                                            [delegate handleNonUSACountryError];
+                                            [delegate handleError:kNonUSACountryError];
                                     });
                  else {
-                     [delegate handleConnectionError];
+                     [delegate handleError:kGeocodeError];
                      //[NSException raise:@"Geocode failed"
                      //            format:@"Reason: %@", [error localizedDescription]];
                  }
                  
-             }];
+             }];*/
 
-        }else if ([CLLocationManager locationServicesEnabled]){ //[CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized){
+        }else if ([CLLocationManager locationServicesEnabled]){
             NSLog(@"Tracking location");
             [locationManager startMonitoringSignificantLocationChanges];
-        }else {
+            [delegate changeLoadingText:@"Finding Current Location..."];
+        }else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized){
             NSLog(@"Tracking location not authorized");
-            [delegate handleConnectionError];
+            [delegate handleError:kLocationServiceAuthError];
+        }else {
+            NSLog(@"Unknown location error");
+            [delegate handleError:kLocationManagerError];
         }
-    else
+    else{
+        [delegate changeLoadingText:@"Geocoding Location..."];
         [geocoder geocodeAddressString:locationString
                      completionHandler:^(NSArray *placemarks, NSError *error)
           {
@@ -86,22 +99,49 @@ TidalStationDB *tidalDB;
                                      }
                                      
                                      if(!inTheUS)
-                                         [delegate handleNonUSACountryError];
+                                         [delegate handleError:kNonUSACountryError];
                                      
                                  });
               else
               {
-                  [delegate handleConnectionError];
+                  [delegate handleError:kGeocodeError];
                   //[NSException raise:@"Geocode failed"
                   //            format:@"Reason: %@", [error localizedDescription]];
               }
           }];
+    }
     
     return self;
 }
 
 -(void)haveLocation:(CLPlacemark *)thePlacemark
 {
+    /*[delegate changeLoadingText:@"Loading Weather..."];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"]) {
+        
+        NSString *cityName = [NSString stringWithFormat:@"%@, %@", [placemark locality], [stateAbbrevs objectForKey:[placemark administrativeArea]]];
+        
+        NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"Recent Locations"]];
+        
+        if([temp containsObject:cityName])
+            [temp removeObject:cityName];
+        
+        
+        [temp addObject:cityName];
+        [defaults setObject:temp forKey:@"Recent Locations"];
+        [defaults synchronize];
+        
+        for (NSString *a in [[NSUserDefaults standardUserDefaults] objectForKey:@"Recent Locations"]) {
+            NSLog(@"%@", a);
+        }
+    }
+    
+    weather = [[Weather alloc] initWithPlacemark:placemark andDelegate:self];
+    uvIndex = [[UVIndex alloc] initWithPlacemark:placemark andDelegate:self];
+    alerts = [[Alerts alloc] initWithPlacemark:placemark andDelegate:self];
+    reading = [[TidalReading alloc] initWithPlacemark:placemark andDelegate:self];*/
+    
     [geocoder reverseGeocodeLocation:[thePlacemark location] completionHandler:^(NSArray *placemarks, NSError *error)
      {
          if (placemarks){
@@ -118,23 +158,68 @@ TidalStationDB *tidalDB;
              if(inTheUS)
                  dispatch_async(dispatch_get_main_queue(),
                                 ^{
-                                    weather = [[Weather alloc] initWithPlacemark:placemark];
-                                    [weather setDelegate:self];
-                                    uvIndex = [[UVIndex alloc] initWithPlacemark:placemark
-                                                                     andDelegate:self];
-                                    alerts = [[Alerts alloc] initWithPlacemark:placemark
-                                                                   andDelegate:self];
-                                    reading = [[TidalReading alloc] initWithPlacemark:placemark];
-                                    [reading setDelegate:self];
+                                    [delegate changeLoadingText:@"Loading Weather..."];
+                                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                    if ([[defaults objectForKey:@"SafeSandsPro"] isEqualToString:@"YES"]) {
+                                        
+                                        NSString *cityName = [NSString stringWithFormat:@"%@, %@", [placemark locality], [stateAbbrevs objectForKey:[placemark administrativeArea]]];
+                                        
+                                        NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"Recent Locations"]];
+                                        
+                                        NSLog(@"Success! %@", cityName);
+                                        if([temp containsObject:cityName])
+                                            [temp removeObject:cityName];
+                                        
+                                        
+                                        [temp addObject:cityName];
+                                        [defaults setObject:temp forKey:@"Recent Locations"];
+                                        [defaults synchronize];
+                                        
+                                        for (NSString *a in [[NSUserDefaults standardUserDefaults] objectForKey:@"Recent Locations"]) {
+                                            NSLog(@"%@", a);
+                                        }
+                                    }
+                                    weather = [[Weather alloc] initWithPlacemark:placemark andDelegate:self];
+                                    uvIndex = [[UVIndex alloc] initWithPlacemark:placemark andDelegate:self];
+                                    alerts = [[Alerts alloc] initWithPlacemark:placemark andDelegate:self];
+                                    reading = [[TidalReading alloc] initWithPlacemark:placemark andDelegate:self];
                                 });
              else
-                 [delegate handleNonUSACountryError];
+                 [delegate handleError:kNonUSACountryError];
          }else
          {
-             [delegate handleConnectionError];
+             [delegate handleError:kGeocodeError];
              //[NSException raise:@"Geocode failed"
              //           format:@"Reason: %@", [error localizedDescription]];
          }
+     }];
+}
+
+-(void)reverseGeocodeLocation:(CLLocation *)theLocation
+{
+    [geocoder reverseGeocodeLocation:theLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (placemarks)
+             dispatch_async(dispatch_get_main_queue(),
+                            ^{
+                                BOOL inTheUS=NO;
+                                for (CLPlacemark *p in placemarks) {
+                                    if ([[p ISOcountryCode] isEqualToString:@"US"]) {
+                                        inTheUS = YES;
+                                        [self haveLocation:p];
+                                        break;
+                                    }
+                                }
+                                
+                                if(!inTheUS)
+                                    [delegate handleError:kNonUSACountryError];
+                            });
+         else {
+             [delegate handleError:kGeocodeError];
+             //[NSException raise:@"Geocode failed"
+             //            format:@"Reason: %@", [error localizedDescription]];
+         }
+         
      }];
 }
 
@@ -156,36 +241,15 @@ TidalStationDB *tidalDB;
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
+    NSLog(@"Found it!");
     [manager stopMonitoringSignificantLocationChanges];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (placemarks)
-             dispatch_async(dispatch_get_main_queue(),
-                            ^{
-                                BOOL inTheUS=NO;
-                                 for (CLPlacemark *p in placemarks) {
-                                     if ([[p ISOcountryCode] isEqualToString:@"US"]) {
-                                         inTheUS = YES;
-                                         [self haveLocation:p];
-                                         break;
-                                     }
-                                 }
-                                 
-                                 if(!inTheUS)
-                                     [delegate handleNonUSACountryError];
-                            });
-         else {
-             [delegate handleConnectionError];
-             //[NSException raise:@"Geocode failed"
-             //            format:@"Reason: %@", [error localizedDescription]];
-         }
-         
-     }];
+    [delegate changeLoadingText:@"Geocoding Location..."];
+    [self reverseGeocodeLocation:newLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [delegate handleConnectionError];
+    [delegate handleError:kLocationManagerError];
     //[NSException raise:@"Find Location failed"
     //            format:@"Reason: %@", [error localizedDescription]];
 }
@@ -196,7 +260,10 @@ TidalStationDB *tidalDB;
 {
     haveWeather=YES;
     haveWaterTemp=YES;
-    if (haveWeather && haveWaterTemp && haveUVIndex) [delegate foundData];
+    if (haveWeather && haveWaterTemp && haveUVIndex)
+        [delegate foundData];
+    else if (!haveUVIndex)
+        [delegate changeLoadingText:@"Loading UV Index..."];
 }
 
 -(void)foundTides
@@ -214,11 +281,14 @@ TidalStationDB *tidalDB;
 -(void)foundUVIndex
 {
     haveUVIndex=YES;
-    if (haveWeather && haveWaterTemp && haveUVIndex) [delegate foundData];
+    if (haveWeather && haveWaterTemp && haveUVIndex)
+        [delegate foundData];
+    else if (!haveWeather)
+        [delegate changeLoadingText:@"Loading Weather..."];
 }
 
--(void)handleConnectionError{
-    [delegate handleConnectionError];
+-(void)handleError:(SandsError)error{
+    [delegate handleError:error];
 }
 
 @end

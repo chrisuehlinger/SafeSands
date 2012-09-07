@@ -15,7 +15,7 @@
 
 @protocol WaterTempStationDBDelegate <NSObject>
 -(void)databaseBuilt;
--(void)handleConnectionError;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface WaterTempStationDB : NSObject<SandsParserDelegate, SandsDataStoreDelegate, WaterTempStationDelegate>{

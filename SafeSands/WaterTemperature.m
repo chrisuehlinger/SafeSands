@@ -64,8 +64,11 @@ CLPlacemark *thePlacemark;
     NSLog(@"This shouldn't happen: WaterTemperature");
 }
 
--(void)handleConnectionError{
-    [delegate handleConnectionError];
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kWaterTempError];
+    else 
+        [delegate handleError:error];
 }
 
 -(void)databaseBuilt

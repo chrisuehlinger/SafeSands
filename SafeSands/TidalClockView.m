@@ -128,7 +128,7 @@ static double pi = 3.14159268;
         
         double angle = [self angleFromDate];
         CGMutablePathRef path = CGPathCreateMutable();
-        CGPathMoveToPoint(path, NULL, center.x, center.y);
+        CGPathMoveToPoint(path, NULL, center.x-1, center.y+1);
         CGPathAddLineToPoint(path, NULL, center.x+sin(angle)*(radius-5), center.y-cos(angle)*(radius-5));
         CGPathCloseSubpath(path);
         

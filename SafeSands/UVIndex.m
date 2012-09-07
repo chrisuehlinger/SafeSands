@@ -52,8 +52,11 @@ NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort
     NSLog(@"This shouldn't happen: UVIndex");
 }
 
--(void)handleConnectionError{
-    [delegate handleConnectionError];
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kUVError];
+    else 
+        [delegate handleError:error];
 }
 
 @end
