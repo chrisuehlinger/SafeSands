@@ -14,21 +14,19 @@
 #import "SandsDataStore.h"
 
 @protocol WaterTempStationDBDelegate <NSObject>
-
 -(void)databaseBuilt;
-
+-(void)handleError:(SandsError)error;
 @end
 
 @interface WaterTempStationDB : NSObject<SandsParserDelegate, SandsDataStoreDelegate, WaterTempStationDelegate>{
-    id<WaterTempStationDBDelegate> delegate;
-    SandsParser *stationParser;
     NSArray *fieldElements;
-    
     int count;
-    SandsDataStore *dataStore;
 }
 
-@property (strong, nonatomic) id<WaterTempStationDBDelegate> delegate;
+@property (weak) id<WaterTempStationDBDelegate> delegate;
+@property (strong, nonatomic) SandsParser *stationParser;
+@property (strong, nonatomic) SandsDataStore *dataStore;
+@property bool databaseBuilt;
 
 -(id)initWithDelegate:(id<WaterTempStationDBDelegate>)del;
 -(WaterTempStation *)closestStationTo:(CLPlacemark *)placemark;

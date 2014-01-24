@@ -11,26 +11,24 @@
 #import "SandsParser.h"
 
 @protocol UVIndexDelegate <NSObject>
-
 -(void)foundUVIndex;
-
+-(void)handleError:(SandsError)error;
 @end
 
 
 @interface UVIndex : NSObject<SandsParserDelegate>{
-    id<UVIndexDelegate> delegate;
     CLPlacemark *placemark;
     bool uvAlert;
     NSDate *forecastDate;
     NSNumber *index;
     
-    SandsParser *indexParser;
+    
     NSArray *fieldElements;
 }
 
-@property (strong, nonatomic) id<UVIndexDelegate> delegate;
+@property (weak) id<UVIndexDelegate> delegate;
+@property (strong, nonatomic) SandsParser *indexParser;
 @property (strong, nonatomic) CLPlacemark *placemark;
-
 @property bool uvAlert;
 @property (strong, nonatomic) NSDate *forecastDate;
 @property (strong, nonatomic) NSNumber *index;

@@ -11,34 +11,24 @@
 #import "SandsParser.h"
 #import "WaterTemperature.h"
 
-@protocol weatherDelegate
+@protocol WeatherDelegate
 -(void)foundWeather;
+-(void)handleError:(SandsError)error;
 @end
 
 @interface Weather : NSObject<SandsParserDelegate, WaterTemperatureDelegate>{
-    id<weatherDelegate> delegate;
-    
-    WaterTemperature *waterTemp;
     
     NSArray * containerElements;
     NSArray * fieldElements;
-    
-    NSMutableDictionary *forecastInfo;
-    NSMutableDictionary *currentConditions;
-    NSMutableArray *forecastConditions;
-    
-    SandsParser *weatherParser;
 }
 
-@property (strong, nonatomic) id<weatherDelegate> delegate;
+@property (weak) id<WeatherDelegate> delegate;
 @property (strong, nonatomic) SandsParser *weatherParser;
 
 @property (strong, nonatomic) WaterTemperature *waterTemp;
 
-@property (strong, nonatomic) NSMutableDictionary *forecastInfo;
 @property (strong, nonatomic) NSMutableDictionary *currentConditions;
-@property (strong, nonatomic) NSMutableArray *forecastConditions;
 
--(id)initWithPlacemark:(CLPlacemark *)placemark;
+-(id)initWithPlacemark:(CLPlacemark *)placemark andDelegate:(id<WeatherDelegate>)del;
 
 @end

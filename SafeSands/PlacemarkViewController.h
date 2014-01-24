@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "AdWhirlView.h"
 
-@interface PlacemarkViewController : UIViewController
+@interface PlacemarkViewController : UIViewController<MKAnnotation>
 
 @property (strong, nonatomic) CLPlacemark *placemark;
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) AdWhirlView *adWhirlView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *directionsButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *locationLabel;
 
+- (IBAction)getDirections:(id)sender;
 @end

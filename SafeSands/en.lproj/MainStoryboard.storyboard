@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2182" systemVersion="11D50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="bfV-dJ-OyZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="bfV-dJ-OyZ">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development version="4300" defaultVersion="4200" identifier="xcode"/>
@@ -9,13 +9,22 @@
         <!--Location Selector View Controller - Location Selector-->
         <scene sceneID="aGs-SH-0L2">
             <objects>
+                <searchDisplayController id="gnV-Cb-KUO">
+                    <connections>
+                        <outlet property="delegate" destination="pdO-Sp-yNI" id="WA6-8c-2tQ"/>
+                        <outlet property="searchBar" destination="zon-wH-gFt" id="V0J-bb-DGI"/>
+                        <outlet property="searchContentsController" destination="pdO-Sp-yNI" id="lGH-gg-qeZ"/>
+                        <outlet property="searchResultsDataSource" destination="pdO-Sp-yNI" id="Cms-Am-REG"/>
+                        <outlet property="searchResultsDelegate" destination="pdO-Sp-yNI" id="HCf-DA-lBc"/>
+                    </connections>
+                </searchDisplayController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kX6-qq-ufQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController title="Location Selector" id="pdO-Sp-yNI" customClass="LocationSelectorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Location Selector" title="Location Selector" id="pdO-Sp-yNI" customClass="LocationSelectorViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MV9-5k-byg">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VA2-jS-dSs">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="VA2-jS-dSs">
                                 <rect key="frame" x="71" y="226" width="178" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -28,229 +37,158 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Z6h-Qu-Bu2" kind="push" identifier="currentLocationSegue" id="yKL-Z4-gqE"/>
+                                    <action selector="useCurrentLocation:" destination="pdO-Sp-yNI" eventType="touchUpInside" id="pPo-6I-JdT"/>
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" placeholder="Enter City, State or Zip Code" id="zon-wH-gFt">
-                                <rect key="frame" x="30" y="154" width="260" height="44"/>
+                                <rect key="frame" x="30" y="155" width="260" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.11511375933668284" green="0.30466593412174925" blue="0.61025191326530615" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="pdO-Sp-yNI" id="EWN-vx-tzh"/>
                                 </connections>
                             </searchBar>
+                            <button hidden="YES" opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rqg-Fa-xyd">
+                                <rect key="frame" x="60" y="297" width="200" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelSearch:" destination="pdO-Sp-yNI" eventType="touchUpInside" id="pnb-Vc-MhK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kjo-ih-xY8">
+                                <rect key="frame" x="110" y="127" width="100" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Go Pro!">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="MBt-wq-nyK" kind="modal" modalTransitionStyle="flipHorizontal" id="9JO-aS-XQZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U18-6Z-XvW">
+                                <rect key="frame" x="85" y="127" width="150" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Recent Locations">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ntf-Xx-u8h" kind="push" id="9jt-TX-WT7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select a Location" id="mKi-mn-wlZ"/>
+                    <navigationItem key="navigationItem" title="Select Location" id="mKi-mn-wlZ"/>
                     <connections>
+                        <outlet property="cancelButton" destination="Rqg-Fa-xyd" id="mqC-AM-V4Q"/>
+                        <outlet property="goProButton" destination="kjo-ih-xY8" id="ecZ-ch-9ih"/>
                         <outlet property="locationSearchBar" destination="zon-wH-gFt" id="4rx-Eu-sjg"/>
                         <outlet property="locationSearchController" destination="gnV-Cb-KUO" id="4mT-uz-gqk"/>
+                        <outlet property="recentLocationsButton" destination="U18-6Z-XvW" id="ZZi-i0-QCX"/>
                         <outlet property="searchDisplayController" destination="gnV-Cb-KUO" id="g3J-iP-9Oj"/>
                         <outlet property="useCurrentLocationButton" destination="VA2-jS-dSs" id="fM8-zx-05z"/>
+                        <segue destination="z1Z-G4-ZFo" kind="push" identifier="tabControllerSegue" id="zKb-nP-MaK"/>
                     </connections>
                 </viewController>
-                <searchDisplayController id="gnV-Cb-KUO">
-                    <connections>
-                        <outlet property="delegate" destination="pdO-Sp-yNI" id="WA6-8c-2tQ"/>
-                        <outlet property="searchBar" destination="zon-wH-gFt" id="V0J-bb-DGI"/>
-                        <outlet property="searchContentsController" destination="pdO-Sp-yNI" id="lGH-gg-qeZ"/>
-                        <outlet property="searchResultsDataSource" destination="pdO-Sp-yNI" id="Cms-Am-REG"/>
-                        <outlet property="searchResultsDelegate" destination="pdO-Sp-yNI" id="HCf-DA-lBc"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="557" y="-5"/>
+            <point key="canvasLocation" x="-201" y="-5"/>
         </scene>
-        <!--Main View Controller - Summary-->
-        <scene sceneID="j7F-QI-Au2">
+        <!--Recent View Controller - Recent-->
+        <scene sceneID="7M5-rY-8kr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jRW-iH-QhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="mainViewController" id="Z6h-Qu-Bu2" customClass="MainViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ia2-wg-0BQ">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wMw-KO-ZvB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="ntf-Xx-u8h" customClass="RecentViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aSE-hl-uoO">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Placemark" id="fGJ-QM-iY1">
-                                <rect key="frame" x="20" y="10" width="280" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" button="YES"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" calendarEvent="YES"/>
-                            </textView>
-                            <button opaque="NO" alpha="0.60000000000000009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hVT-0j-xIl">
-                                <rect key="frame" x="20" y="10" width="280" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="clickPlacemarkButton:" destination="Z6h-Qu-Bu2" eventType="touchUpInside" id="DaJ-L7-qYD"/>
-                                    <segue destination="68I-I2-Ejv" kind="push" identifier="placemarkSegue" id="IfK-Qd-gPq"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Weather" id="Uxt-kJ-Cgf">
-                                <rect key="frame" x="20" y="55" width="280" height="108"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" alpha="0.60000000000000009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="o91-ab-X3K">
-                                <rect key="frame" x="20" y="55" width="280" height="108"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="buj-4Z-9Vg" kind="push" identifier="weatherSegue" id="apw-lj-7sb"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Tidal Readings" id="vXq-R6-yYI">
-                                <rect key="frame" x="20" y="171" width="280" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" alpha="0.60000000000000009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AM3-dl-TlG">
-                                <rect key="frame" x="20" y="171" width="280" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ap2-wf-vY9" kind="push" identifier="tidalSegue" id="pHx-Hs-DkV"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Alerts" id="7te-Gu-iBA">
-                                <rect key="frame" x="20" y="239" width="280" height="157"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textView>
-                            <button opaque="NO" alpha="0.60000000000000009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gPb-da-79W">
-                                <rect key="frame" x="20" y="239" width="280" height="157"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="dAY-J2-h28" kind="push" identifier="alertsSegue" id="87x-1Q-De8"/>
-                                </connections>
-                            </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="yOY-p9-ZLD">
-                                <rect key="frame" x="253" y="82" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="oni-a3-3JS">
-                                <rect key="frame" x="253" y="10" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="uoe-SE-LP2">
-                                <rect key="frame" x="253" y="182" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="VBA-nN-xWe">
-                                <rect key="frame" x="253" y="299" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Paf-9z-CJo">
-                                <rect key="frame" x="226" y="61" width="64" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Summary" id="86V-lQ-RPo"/>
-                    <connections>
-                        <outlet property="placemarkActivityIndicator" destination="oni-a3-3JS" id="vXc-mf-qry"/>
-                        <outlet property="placemarkButton" destination="hVT-0j-xIl" id="TOm-U3-9AP"/>
-                        <outlet property="placemarkDisplay" destination="fGJ-QM-iY1" id="wsh-eU-gqd"/>
-                        <outlet property="ripTideActivityIndicator" destination="VBA-nN-xWe" id="TXn-c0-PN0"/>
-                        <outlet property="ripTideButton" destination="gPb-da-79W" id="vir-rf-JVH"/>
-                        <outlet property="ripTideDisplay" destination="7te-Gu-iBA" id="Pad-QC-Ij0"/>
-                        <outlet property="tidalActivityIndicator" destination="uoe-SE-LP2" id="SIJ-GJ-GiF"/>
-                        <outlet property="tidalButton" destination="AM3-dl-TlG" id="bgE-8d-DeQ"/>
-                        <outlet property="tidalDisplay" destination="vXq-R6-yYI" id="UHN-pT-V0u"/>
-                        <outlet property="weatherActivityIndicator" destination="yOY-p9-ZLD" id="Nqx-zA-6EK"/>
-                        <outlet property="weatherButton" destination="o91-ab-X3K" id="daf-Ji-v3I"/>
-                        <outlet property="weatherDisplay" destination="Uxt-kJ-Cgf" id="eWO-go-DFY"/>
-                        <outlet property="weatherImageView" destination="Paf-9z-CJo" id="sgf-qc-btq"/>
-                    </connections>
-                </viewController>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="uNp-rW-KJM">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ntf-Xx-u8h" id="mQL-eV-Xnd"/>
+                            <outlet property="delegate" destination="ntf-Xx-u8h" id="3nj-5u-ROk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Recent" id="mx3-i9-nAo"/>
+                </tableViewController>
             </objects>
-            <point key="canvasLocation" x="959" y="-5"/>
+            <point key="canvasLocation" x="-201" y="681"/>
         </scene>
-        <!--Placemark View Controller - Placemark-->
+        <!--Placemark View Controller - Map-->
         <scene sceneID="G3b-EG-6yI">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNq-bl-Lx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="placeMarkViewController" id="68I-I2-Ejv" customClass="PlacemarkViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HLF-dN-VUx">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="HJq-6D-JLW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Noh-lK-eUn">
+                                <rect key="frame" x="20" y="307" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Get Directions">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getDirections:" destination="68I-I2-Ejv" eventType="touchUpInside" id="JAT-X9-zXs"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" id="9Cc-r6-Xfd">
+                                <rect key="frame" x="20" y="15" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="26"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Placemark" id="ke6-gG-Ygx"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_blog.png" id="AHl-Pj-dXM"/>
+                    <navigationItem key="navigationItem" title="Map" id="ke6-gG-Ygx"/>
                     <connections>
-                        <outlet property="mapView" destination="HJq-6D-JLW" id="4xg-zV-Uyc"/>
+                        <outlet property="directionsButton" destination="Noh-lK-eUn" id="1r6-LL-lM4"/>
+                        <outlet property="locationLabel" destination="9Cc-r6-Xfd" id="NFO-DA-pom"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1305" y="-688"/>
+            <point key="canvasLocation" x="1675" y="-214"/>
         </scene>
         <!--Weather View Controller - Weather-->
         <scene sceneID="8Gb-V2-5ih">
@@ -258,14 +196,167 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-ch-TyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="weatherViewController" id="buj-4Z-9Vg" customClass="WeatherViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9bs-Ls-atx">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Weather" image="Cloud.png" id="e4j-oR-47q"/>
                     <navigationItem key="navigationItem" title="Weather" id="UtG-RO-2CO"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1659" y="-285"/>
+            <point key="canvasLocation" x="1273" y="-531"/>
+        </scene>
+        <!--Store View Controller-->
+        <scene sceneID="9vI-CZ-vHi">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9me-h4-cCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="MBt-wq-nyK" customClass="StoreViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nmU-kR-poa">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Kcv-6W-BtY">
+                                <rect key="frame" x="20" y="320" width="163" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Buy SafeSands Pro">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="makePurchase:" destination="MBt-wq-nyK" eventType="touchUpInside" id="CKE-KB-mLU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qW2-RH-WfF">
+                                <rect key="frame" x="190" y="320" width="110" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelPurchase:" destination="MBt-wq-nyK" eventType="touchUpInside" id="KPR-01-ByR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xrG-Q1-9De">
+                                <rect key="frame" x="20" y="365" width="280" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Restore Previous Purchase">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restorePurchase:" destination="MBt-wq-nyK" eventType="touchUpInside" id="rVT-RV-MHv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="buyButton" destination="Kcv-6W-BtY" id="Dqj-xA-peE"/>
+                        <outlet property="cancelButton" destination="qW2-RH-WfF" id="JKQ-BV-256"/>
+                        <outlet property="restoreButton" destination="xrG-Q1-9De" id="ntY-5A-Xor"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-201" y="-668"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="Y2L-Il-TBl">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fGE-h4-kqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Egk-iE-8Sz" customClass="InfoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HC4-5C-Kgo">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zQ2-pK-TCF">
+                                <rect key="frame" x="228" y="403" width="72" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss:" destination="Egk-iE-8Sz" eventType="touchUpInside" id="usr-BH-ua6"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" minimumFontSize="10" id="9Sz-Wy-Iax">
+                                <rect key="frame" x="20" y="20" width="280" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="zQ2-pK-TCF" id="JQe-kI-Ge0"/>
+                        <outlet property="infoLabel" destination="9Sz-Wy-Iax" id="ypt-Vi-U9C"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="356" y="-668"/>
+        </scene>
+        <!--Sands Tab Bar Controller-->
+        <scene sceneID="Nr5-AJ-hNd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cgk-DT-RWE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController storyboardIdentifier="mainTabController" definesPresentationContext="YES" id="z1Z-G4-ZFo" customClass="SandsTabBarController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="0fQ-Bx-9qR">
+                        <barButtonItem key="backBarButtonItem" title="Home" id="fxn-dS-Wlu"/>
+                        <barButtonItem key="rightBarButtonItem" id="aXQ-vX-IoZ">
+                            <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="SSL-w3-tgo">
+                                <rect key="frame" x="297" y="12" width="18" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Egk-iE-8Sz" kind="modal" modalTransitionStyle="coverVertical" id="dYM-aj-OMZ"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="NjA-rM-afM">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="tintColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="buj-4Z-9Vg" kind="relationship" relationship="viewControllers" id="ONu-EQ-3b5"/>
+                        <segue destination="68I-I2-Ejv" kind="relationship" relationship="viewControllers" id="niE-X8-zTR"/>
+                        <segue destination="ap2-wf-vY9" kind="relationship" relationship="viewControllers" id="sIx-hV-cS2"/>
+                        <segue destination="dAY-J2-h28" kind="relationship" relationship="viewControllers" id="4TK-AH-4lW"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="356" y="-5"/>
         </scene>
         <!--Alert View Controller - Weather Alerts-->
         <scene sceneID="mGu-VI-PAv">
@@ -273,23 +364,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1J-ve-qIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ripTideViewController" id="dAY-J2-h28" customClass="AlertViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dji-12-PS6">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="1TK-lB-46v">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" id="wuO-4N-c1Z">
+                                <rect key="frame" x="141" y="-10" width="38" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Alerts" image="icon_bell.png" id="MLD-NR-Uhx"/>
                     <navigationItem key="navigationItem" title="Weather Alerts" id="Nax-B8-yQb"/>
                     <connections>
+                        <outlet property="pageControl" destination="wuO-4N-c1Z" id="KX0-27-4Ol"/>
                         <outlet property="scrollView" destination="1TK-lB-46v" id="jtL-N4-4Li"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1305" y="641"/>
+            <point key="canvasLocation" x="1273" y="639"/>
         </scene>
         <!--Tidal Clock View Controller - Tidal Clock-->
         <scene sceneID="Q2m-jr-bfp">
@@ -297,94 +394,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EpO-Ci-amm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="ap2-wf-vY9" customClass="TidalClockViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="79v-tE-14C">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" id="BKD-b7-Lwr" customClass="TidalClockView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Tides" image="Clock.png" id="YGn-Hn-pUS"/>
                     <navigationItem key="navigationItem" title="Tidal Clock" id="1ib-Ti-j3Q"/>
-                    <connections>
-                        <outlet property="clock" destination="BKD-b7-Lwr" id="4Eb-5u-sKk"/>
-                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1682" y="294"/>
+            <point key="canvasLocation" x="1675" y="361"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oGK-4Y-UqU">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7T-Qv-i8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="bfV-dJ-OyZ" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="H9N-kM-PO8">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pdO-Sp-yNI" kind="relationship" relationship="rootViewController" id="ncQ-39-37I"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="23" y="-5"/>
+            <point key="canvasLocation" x="-728" y="-5"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AlertViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AlertViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="LocationSelectorViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationSelectorViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="locationSearchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="locationSearchController" candidateClass="UISearchDisplayController"/>
-                <relationship kind="outlet" name="useCurrentLocationButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="MainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clickPlacemarkButton:"/>
-                <relationship kind="outlet" name="placemarkActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="placemarkButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="placemarkDisplay" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="ripTideActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="ripTideButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="ripTideDisplay" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="tidalActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="tidalButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tidalDisplay" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="weatherActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="weatherButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="weatherDisplay" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="weatherImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PlacemarkViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacemarkViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="TidalClockView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TidalClockView.h"/>
-        </class>
-        <class className="TidalClockViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TidalClockViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="clock" candidateClass="TidalClockView"/>
-            </relationships>
-        </class>
-        <class className="WeatherViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WeatherViewController.h"/>
-        </class>
-    </classes>
+    <resources>
+        <image name="Clock.png" width="30" height="30"/>
+        <image name="Cloud.png" width="30" height="30"/>
+        <image name="icon_bell.png" width="30" height="30"/>
+        <image name="icon_blog.png" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -19,7 +19,6 @@
 @end
 
 @interface WaterTempStation : NSManagedObject{
-    id<WaterTempStationDelegate> delegate;
     NSString *name;
     NSNumber * latitude;
     CLLocation *location;
@@ -30,7 +29,7 @@
     CLGeocoder *geocoder;
 }
 
-@property (strong, nonatomic) id<WaterTempStationDelegate> delegate;
+@property (weak) id<WaterTempStationDelegate> delegate;
 @property (strong, nonatomic) NSString * name;
 @property (strong, nonatomic) NSNumber * latitude;
 @property (strong, nonatomic) CLLocation *location;

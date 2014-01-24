@@ -14,36 +14,37 @@
 #import "Alerts.h"
 #import "UVIndex.h"
 
-@protocol beachDelegate
--(void)foundPlacemark:(NSString *)newText;
--(void)foundWeather:(NSString *)newText andImage:(UIImage *)theImage;
--(void)foundTides:(NSString *)newText;
--(void)foundAlerts:(NSString *)newText;
--(void)foundUVIndex:(NSString *)newText;
+@protocol BeachDelegate
+-(void)foundData;
+-(void)foundTides;
+-(void)foundAlerts;
+-(void)handleError:(SandsError)error;
+-(void)changeLoadingText:(NSString *)newText;
 @end
 
-@interface Beach : NSObject<CLLocationManagerDelegate, weatherDelegate, tidalDelegate, AlertsDelegate, UVIndexDelegate> 
-{
-    id<beachDelegate> delegate;
-    CLPlacemark *placemark;
-    Weather *weather;
-    WaterTemperature *waterTemp;
-    TidalReading *reading;
-    Alerts *alerts;
-    UVIndex *uvIndex;
-    
-    CLGeocoder *geocoder;
-    CLLocationManager *locationManager;
+@interface Beach : NSObject<CLLocationManagerDelegate, WeatherDelegate, TidalDelegate, AlertsDelegate, UVIndexDelegate> 
+{   
+    bool haveWeather;
+    bool haveWaterTemp;
+    bool hasTidalReading;
+    bool hasAlerts;
+    bool haveUVIndex;
 }
 
-@property (strong, nonatomic) id<beachDelegate> delegate;
+@property (weak) id<BeachDelegate> delegate;
+
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) Weather *weather;
-@property (strong, nonatomic) WaterTemperature *waterTemp;
 @property (strong, nonatomic) TidalReading *reading;
 @property (strong, nonatomic) Alerts *alerts;
 @property (strong, nonatomic) UVIndex *uvIndex;
 
-- (id)initWithString:(NSString *)locationString andDelegate:(id<beachDelegate>)del;
+@property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSString *locationInput;
 
+@property bool hasTidalReading;
+@property bool hasAlerts;
+
+- (id)initWithString:(NSString *)locationString andDelegate:(id<BeachDelegate>)del;
 @end

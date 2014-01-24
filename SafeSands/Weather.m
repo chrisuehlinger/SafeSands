@@ -13,27 +13,28 @@
 @synthesize delegate;
 @synthesize weatherParser;
 @synthesize waterTemp;
-@synthesize forecastInfo, currentConditions, forecastConditions;
+@synthesize currentConditions;
 
 SandsParser *imageParser;
 bool waterTempFound;
 bool imagesLoaded;
 
--(id)initWithPlacemark:(CLPlacemark *)placemark
+-(id)initWithPlacemark:(CLPlacemark *)placemark andDelegate:(id<WeatherDelegate>)del
 {
+    delegate = del;
     waterTempFound = NO;
     imagesLoaded = NO;
     waterTemp = [[WaterTemperature alloc] initWithPlacemark:placemark andDelegate:self];
-    forecastConditions = [[NSMutableArray alloc] init];
-    containerElements = [NSArray arrayWithObjects: @"forecast_information", @"current_conditions", @"forecast_conditions", nil];
-    fieldElements = [NSArray arrayWithObjects: @"city", @"postal_code", @"current_date_time", 
-                               @"condition", @"temp_f", @"temp_c", @"humidity", @"icon", @"wind_condition", 
-                               @"day_of_week", @"low", @"high", nil];
+    containerElements = [NSArray arrayWithObjects: @"current_observation", nil];
+    fieldElements = [NSArray arrayWithObjects: 
+                               @"weather", @"temp_f", @"temp_c", @"feelslike_f", @"feelslike_c", @"relative_humidity", @"wind_mph", 
+                               @"wind_kph", @"low", @"high", nil];
     
-    weatherParser = [[SandsParser alloc] initWithPath:[NSString stringWithFormat: @"http://www.google.com/ig/api?weather=%@", [placemark postalCode]]
-                                          andDelegate:self
-                                            andFields:fieldElements
-                                        andContainers:containerElements];
+    //NSLog(@"%@", [NSString stringWithFormat: @"http://www.google.com/ig/api?weather=%@", [placemark postalCode]]);
+    weatherParser = [[SandsParser alloc] initWithPath: [NSString stringWithFormat: @"http://api.wunderground.com/api/0be862001bb6f5f5/conditions/q/%@.xml", [placemark postalCode]]
+                                          andDelegate: self
+                                            andFields: fieldElements
+                                        andContainers: containerElements];
     return self;
 }
 
@@ -48,47 +49,31 @@ bool imagesLoaded;
 -(void)elementParsed:(NSMutableDictionary *)element
 {
     //NSLog(@"Element parsed!");
-    if (!forecastInfo)
-        forecastInfo = [[NSMutableDictionary alloc] initWithDictionary: element copyItems:YES];
-    else if (!currentConditions){
+    if (!currentConditions){
         currentConditions = [[NSMutableDictionary alloc] initWithDictionary: element copyItems:YES];
         //NSLog(@"%@ %@", @"temp_f", [element objectForKey:@"temp_f"]);
-    }else
-        [forecastConditions addObject: [[NSMutableDictionary alloc] initWithDictionary: element copyItems:YES]];
+    }
 }
 
 -(void)parseComplete
 {
     BOOL corrupt = NO;
     NSString *outText = [NSString stringWithFormat:@"Weather\n"];
-    outText = [outText stringByAppendingFormat:@"\tforecastInfo\n"];
-    for (NSString *key in forecastInfo) {
-        if (![forecastInfo objectForKey:key])
-            corrupt = YES;
-        outText = [outText stringByAppendingFormat:@"\t\t%@\t%@\n", key, [forecastInfo objectForKey:key]];
-    }
     outText = [outText stringByAppendingFormat:@"\tcurrentConditions\n"];
     for (NSString *key in currentConditions) {
         if (![currentConditions objectForKey:key])
             corrupt = YES;
         outText = [outText stringByAppendingFormat:@"\t\t%@\t%@\n", key, [currentConditions objectForKey:key]];
     }
-    for (NSDictionary *foreCond in forecastConditions) {
-        outText = [outText stringByAppendingFormat:@"\tforecastConditions\n"];
-        //if ([foreCond count] < 5)
-        //    corrupt = YES;
-        for (NSString *key in foreCond) {
-            if (![foreCond objectForKey:key])
-                corrupt = YES;
-            outText = [outText stringByAppendingFormat:@"\t\t%@\t%@\n", key, [foreCond objectForKey:key]];
-        }
-    }
+
     //NSLog(@"%@", outText);
     if (corrupt) {
         [weatherParser repeatOperations];
-    }else
-        imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
-        
+    }
+    imagesLoaded = YES;
+    
+    if(imagesLoaded && waterTempFound)
+        dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
 }
 
 -(void)retrievedData:(NSData *)data
@@ -98,18 +83,8 @@ bool imagesLoaded;
         [currentConditions setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
         imageUsed = YES;
     }
-    for (NSMutableDictionary *foreCond in forecastConditions)
-        if (![foreCond objectForKey:@"image"])
-            if (!imageUsed) {
-                [foreCond setObject:[[UIImage alloc] initWithData:data] forKey:@"image"];
-                imageUsed = YES;
-            }else {
-                imageParser = [[SandsParser alloc] initWithDataPath:[@"http://www.google.com" stringByAppendingString:[currentConditions objectForKey:@"icon"]] andDelegate:self];
-                break;
-            }
     
-    if ([[forecastConditions lastObject] objectForKey:@"image"])
-        imagesLoaded = YES;
+    imagesLoaded = YES;
     
     if(imagesLoaded && waterTempFound)
         dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
@@ -120,6 +95,13 @@ bool imagesLoaded;
     waterTempFound = YES;
     if(imagesLoaded && waterTempFound)
         dispatch_async(dispatch_get_main_queue(), ^{[delegate foundWeather];});
+}
+
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kWeatherError];
+    else 
+        [delegate handleError:error];
 }
 
 @end

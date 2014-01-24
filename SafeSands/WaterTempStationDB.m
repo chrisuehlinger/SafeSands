@@ -11,15 +11,18 @@
 @implementation WaterTempStationDB
 
 @synthesize delegate;
+@synthesize databaseBuilt;
+@synthesize stationParser, dataStore;
 
 static NSString * const nodcURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.xml";
 
 -(id)initWithDelegate:(id<WaterTempStationDBDelegate>)del
 {
+    databaseBuilt = NO;
     delegate = del;
     count=0;
     
-    dataStore = [[SandsDataStore alloc] initWithDelegate:self andStoreName:@"/waterTempStations.data" andDataType:@"WaterTempStation"];
+    dataStore = [[SandsDataStore alloc] initWithDelegate:self andStoreName:@"waterTempStations" andDataType:@"WaterTempStation"];
     if([dataStore databaseBuilt])
         [NSThread detachNewThreadSelector:@selector(databaseAlreadyBuilt) toTarget:self withObject:nil];
     else{
@@ -35,6 +38,8 @@ static NSString * const nodcURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.x
 
 -(void)databaseAlreadyBuilt
 {
+    databaseBuilt=YES;
+    [dataStore fetchItemsIfNecessary];
     dispatch_async(dispatch_get_main_queue(),
                    ^{[delegate databaseBuilt];});
 }
@@ -93,9 +98,15 @@ static NSString * const nodcURL = @"http://www.nodc.noaa.gov/dsdt/cwtg/rss/all.x
     if(count == [dataStore count]) {
         [dataStore databaseComplete];
         NSLog(@"WaterTempStationDB built.");
-        [delegate databaseBuilt];
+        [self databaseAlreadyBuilt];
     }
 }
 
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kWaterTempDBError];
+    else 
+        [delegate handleError:error];
+}
 
 @end

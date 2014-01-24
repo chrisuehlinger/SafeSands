@@ -8,13 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MainViewController.h"
+#import "AdWhirlView.h"
 #import "Beach.h"
+#import "SandsAppDelegate.h"
 
-@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate>
+@interface LocationSelectorViewController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate>{
+    AdWhirlView *adWhirlView;
+    bool bannerIsVisible, adIsLoaded, bannerShouldShow;
+    SandsAppDelegate *delegate;
+}
 
-@property (weak, nonatomic) IBOutlet UIButton *useCurrentLocationButton;
-@property (weak, nonatomic) IBOutlet UISearchBar *locationSearchBar;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *useCurrentLocationButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UISearchBar *locationSearchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *locationSearchController;
+@property (strong, nonatomic) AdWhirlView *adWhirlView;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *goProButton;
+@property (weak, nonatomic) IBOutlet UIButton *recentLocationsButton;
+
+-(void)performSearch:(NSString *)searchString;
+- (IBAction)useCurrentLocation:(id)sender;
+- (IBAction)cancelSearch:(id)sender;
+-(void)changeLoadingTextTo:(NSString *)newText;
+
 
 @end

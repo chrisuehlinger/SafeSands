@@ -12,22 +12,19 @@
 #import "SandsParser.h"
 
 @protocol WaterTemperatureDelegate <NSObject>
-
 -(void)foundWaterTemperature;
-
+-(void)handleError:(SandsError)error;
 @end
 
-@interface WaterTemperature : NSObject<SandsParserDelegate, WaterTempStationDBDelegate>{
-    id<WaterTemperatureDelegate> delegate;
-    WaterTempStationDB *stationDB;
-    WaterTempStation *station;
-}
+@interface WaterTemperature : NSObject<SandsParserDelegate, WaterTempStationDBDelegate>
 
-@property (strong, nonatomic) id<WaterTemperatureDelegate> delegate;
+@property (weak) id<WaterTemperatureDelegate> delegate;
 
+@property (strong, nonatomic) WaterTempStationDB *stationDB;
 @property (strong, nonatomic) NSNumber *tempF;
 @property (strong, nonatomic) NSNumber *tempC;
 @property (strong, nonatomic) SandsParser *waterTempParser;
+@property (strong, nonatomic) WaterTempStation *station;
 
 -(id)initWithPlacemark:(CLPlacemark *)p andDelegate:(id<WaterTemperatureDelegate>)del;
 

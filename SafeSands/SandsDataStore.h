@@ -14,7 +14,6 @@
 @end
 
 @interface SandsDataStore : NSObject{
-    id<SandsDataStoreDelegate> delegate;
     
     NSString *datatype;
     
@@ -22,11 +21,13 @@
     int count;
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
+    
+    NSArray *items;
 }
 
 @property int count;
 @property BOOL databaseBuilt;
-@property (strong, nonatomic) id<SandsDataStoreDelegate> delegate;
+@property (weak) id<SandsDataStoreDelegate> delegate;
 @property (strong, nonatomic) NSString *datatype;
 
 -(id)initWithDelegate:(id<SandsDataStoreDelegate>)del andStoreName:(NSString *)name andDataType:(NSString *)type;

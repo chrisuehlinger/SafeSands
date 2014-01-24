@@ -11,23 +11,20 @@
 #import "SandsParser.h"
 
 @protocol AlertsDelegate <NSObject>
-
 -(void)foundAlerts;
-
+-(void)handleError:(SandsError)error;
 @end
 
 @interface Alerts : NSObject<SandsParserDelegate>{
-    id<AlertsDelegate> delegate;
     NSMutableArray *alerts;
     CLPlacemark *placemark;
-    
-    SandsParser *alertParser;
     NSArray *fieldElements;
     NSString *headlines;
 }
 
-@property (strong, nonatomic) id<AlertsDelegate> delegate;
+@property (weak) id<AlertsDelegate> delegate;
 
+@property (strong, nonatomic) SandsParser *alertParser;
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) NSMutableArray *alerts;
 @property (strong, nonatomic) NSString *headlines;

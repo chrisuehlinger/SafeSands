@@ -10,7 +10,7 @@
 
 @implementation UVIndex
 
-@synthesize delegate, placemark;
+@synthesize delegate, placemark, indexParser;
 @synthesize uvAlert, forecastDate, index;
 
 NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort?method=getUVIndexAlertByZipCode&in0=";
@@ -39,7 +39,7 @@ NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort
     forecastDate = [dateFormatter dateFromString:[element objectForKey:@"forecastDate"]];
     
     index = [NSNumber numberWithInt:[[element objectForKey:@"index"] intValue]];
-    NSLog(@"Index = %d", [index intValue]);
+    NSLog(@"UV Index = %d", [index intValue]);
 }
 
 -(void)parseComplete
@@ -50,6 +50,13 @@ NSString *uvURL = @"http://iaspub.epa.gov/uvindexalert/services/UVIndexAlertPort
 -(void)retrievedData:(NSData *)data
 {
     NSLog(@"This shouldn't happen: UVIndex");
+}
+
+-(void)handleError:(SandsError)error{
+    if(error == kOtherError)
+        [delegate handleError:kUVError];
+    else 
+        [delegate handleError:error];
 }
 
 @end
