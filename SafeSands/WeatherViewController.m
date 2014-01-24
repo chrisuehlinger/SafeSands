@@ -137,7 +137,7 @@ NSString *displayCondition;
     CALayer *forecastLayer = [CALayer layer];
     forecastLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
     forecastLayer.shadowOffset = CGSizeMake(0, 3);
-    forecastLayer.frame = CGRectMake(175, 100, 120, 40);
+    forecastLayer.frame = CGRectMake(160, 100, 140, 40);
     forecastLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:forecastLayer];
     
@@ -155,8 +155,13 @@ NSString *displayCondition;
     uvIndexLayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:uvIndexLayer];
     
+    // In accordance with the guidelines provided at:
+    // http://www.wunderground.com/weather/api/d/docs?d=resources/logo-usage-guide
     CALayer *wuIconLayer = [CALayer layer];
-    wuIconLayer.frame = CGRectMake((320-126)/2, 367-(25+50), 126, 17);
+    int wuIconHeight=17+1*5;
+    int wuIconWidth=126+7.41176470588*5;
+    //wuIconLayer.frame = CGRectMake((320-wuIconWidth)/2, 367-(25+50), wuIconWidth, wuIconHeight);
+    wuIconLayer.frame = CGRectMake(320-(wuIconWidth+(wuIconHeight/4)), 367-((5*wuIconHeight/4)+50), wuIconWidth, wuIconHeight);
     UIImage *wuIcon = [UIImage imageNamed:@"wundergroundLogo_black_horz.png"];
     wuIconLayer.contents = (id) wuIcon.CGImage;
     [wuIconLayer setContentsScale:[[UIScreen mainScreen] scale]];
@@ -273,7 +278,7 @@ NSString *displayCondition;
     CATextLayer *weatherTextLayer = [CATextLayer layer];
     [weatherTextLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
     [weatherTextLayer setString:weatherText];
-    [weatherTextLayer setFrame:CGRectMake(180, 105, 110, 40)];
+    [weatherTextLayer setFrame:CGRectMake(161, 105, 138, 40)];
     [weatherTextLayer setAlignmentMode:kCAAlignmentCenter];
     [weatherTextLayer setFont:@"Helvetica"];
     [weatherTextLayer setFontSize:18];

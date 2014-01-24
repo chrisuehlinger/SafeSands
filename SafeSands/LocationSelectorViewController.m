@@ -118,7 +118,6 @@ SpinnerView *spinner;
         [recentLocationsButton setEnabled:NO];
     }
     
-    
 }
 
 - (void)viewDidUnload

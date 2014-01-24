@@ -1,0 +1,679 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8318443B15251964005FF862 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318443A15251964005FF862 /* Alerts.m */; };
+		8359FC4515263F4D00B243F3 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8359FC4415263F4B00B243F3 /* AlertViewController.m */; };
+		837304F5153BDBDF006B33E6 /* UVIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 837304F4153BDBDF006B33E6 /* UVIndex.m */; };
+		837304F8153C0763006B33E6 /* sandBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 837304F7153C0763006B33E6 /* sandBackground.jpg */; };
+		837304FB153C0F47006B33E6 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837304FA153C0F46006B33E6 /* MainView.m */; };
+		83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */; };
+		83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFF4A41519075900E44C2C /* PlacemarkViewController.m */; };
+		83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AA151908CB00E44C2C /* iAd.framework */; };
+		83AFF4AD151908E600E44C2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFF4AC151908E600E44C2C /* MapKit.framework */; };
+		83B1E849150FC4A300B1664F /* Beach.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E848150FC4A300B1664F /* Beach.m */; };
+		83B1E84E150FC4D500B1664F /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E84D150FC4D500B1664F /* Weather.m */; };
+		83B1E852150FEE5800B1664F /* TidalStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E851150FEE5800B1664F /* TidalStation.m */; };
+		83B1E856150FF1A900B1664F /* TidalStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1E855150FF1A900B1664F /* TidalStationDB.m */; };
+		83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8B4641517F69C000C8F3F /* SandsParser.m */; };
+		83CB24801523731900514100 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CB247F1523731900514100 /* QuartzCore.framework */; };
+		83CB248415241ACF00514100 /* WaterTemperature.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB248315241ACF00514100 /* WaterTemperature.m */; };
+		83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB94F2150A8C0B005014BC /* CoreLocation.framework */; };
+		83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1741522EB0B005422D9 /* TidalClockView.m */; };
+		83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E3F1771522EE0D005422D9 /* TidalClockViewController.m */; };
+		83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
+		83E409011509EE0100F9222C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409001509EE0100F9222C /* Foundation.framework */; };
+		83E409031509EE0100F9222C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409021509EE0100F9222C /* CoreGraphics.framework */; };
+		83E409091509EE0100F9222C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83E409071509EE0100F9222C /* InfoPlist.strings */; };
+		83E4090B1509EE0100F9222C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4090A1509EE0100F9222C /* main.m */; };
+		83E4090F1509EE0200F9222C /* SandsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4090E1509EE0200F9222C /* SandsAppDelegate.m */; };
+		83E409121509EE0300F9222C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E409101509EE0300F9222C /* MainStoryboard.storyboard */; };
+		83E4091D1509EE0600F9222C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E4091C1509EE0600F9222C /* SenTestingKit.framework */; };
+		83E4091E1509EE0600F9222C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E408FE1509EE0100F9222C /* UIKit.framework */; };
+		83E4091F1509EE0600F9222C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E409001509EE0100F9222C /* Foundation.framework */; };
+		83E409271509EE0600F9222C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83E409251509EE0600F9222C /* InfoPlist.strings */; };
+		83E4092A1509EE0600F9222C /* SafeSandsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409291509EE0600F9222C /* SafeSandsTests.m */; };
+		83E409351509EF2D00F9222C /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409341509EF2D00F9222C /* LocationSelectorViewController.m */; };
+		83E409391509F1DD00F9222C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E409381509F1DD00F9222C /* MainViewController.m */; };
+		83ED625F15101FF600368777 /* TidalReading.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ED625E15101FF600368777 /* TidalReading.m */; };
+		83ED626D1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */; };
+		83ED62701512A59600368777 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83ED626F1512A59600368777 /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		83F290A6152457160030FC09 /* SandsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290A5152457160030FC09 /* SandsDataStore.m */; };
+		83F290AC152457BF0030FC09 /* WaterTempStationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */; };
+		83F290AF1524590E0030FC09 /* WaterTempStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290AE1524590D0030FC09 /* WaterTempStation.m */; };
+		83F290B21524700B0030FC09 /* WaterTempStationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F290B11524700A0030FC09 /* WaterTempStationDB.m */; };
+		C010FFA61549EEE6007628F7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C010FFA51549EEE6007628F7 /* Default.png */; };
+		C010FFAD1549F6BF007628F7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C010FFAC1549F6BF007628F7 /* Default@2x.png */; };
+		C010FFBA154A9316007628F7 /* Clock.png in Resources */ = {isa = PBXBuildFile; fileRef = C010FFB8154A9316007628F7 /* Clock.png */; };
+		C010FFBB154A9316007628F7 /* Cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = C010FFB9154A9316007628F7 /* Cloud.png */; };
+		C010FFBD154A9397007628F7 /* icon_bell.png in Resources */ = {isa = PBXBuildFile; fileRef = C010FFBC154A9397007628F7 /* icon_bell.png */; };
+		C010FFBF154A940D007628F7 /* icon_blog.png in Resources */ = {isa = PBXBuildFile; fileRef = C010FFBE154A940D007628F7 /* icon_blog.png */; };
+		C0646E461558F03D00D8E44A /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = C0646E451558F03D00D8E44A /* pred.kml */; };
+		C0F0FA6A153CE65500C967C0 /* pred.kml in Resources */ = {isa = PBXBuildFile; fileRef = C0F0FA69153CE65500C967C0 /* pred.kml */; };
+		C0F0FA6D153CFCA500C967C0 /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0FA6C153CFCA500C967C0 /* SpinnerView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		83E409201509EE0600F9222C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83E408F11509EDEB00F9222C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83E408F91509EDFE00F9222C;
+			remoteInfo = SafeSands;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8318443915251964005FF862 /* Alerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alerts.h; sourceTree = "<group>"; };
+		8318443A15251964005FF862 /* Alerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alerts.m; sourceTree = "<group>"; };
+		8359FC4315263F4B00B243F3 /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
+		8359FC4415263F4B00B243F3 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
+		837304F3153BDBDF006B33E6 /* UVIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVIndex.h; sourceTree = "<group>"; };
+		837304F4153BDBDF006B33E6 /* UVIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UVIndex.m; sourceTree = "<group>"; };
+		837304F7153C0763006B33E6 /* sandBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sandBackground.jpg; sourceTree = "<group>"; };
+		837304F9153C0F46006B33E6 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
+		837304FA153C0F46006B33E6 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
+		83AFF4A31519075900E44C2C /* PlacemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacemarkViewController.h; sourceTree = "<group>"; };
+		83AFF4A41519075900E44C2C /* PlacemarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacemarkViewController.m; sourceTree = "<group>"; };
+		83AFF4AA151908CB00E44C2C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		83AFF4AC151908E600E44C2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		83B1E847150FC4A300B1664F /* Beach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Beach.h; path = ../Beach.h; sourceTree = "<group>"; };
+		83B1E848150FC4A300B1664F /* Beach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Beach.m; path = ../Beach.m; sourceTree = "<group>"; };
+		83B1E84C150FC4D500B1664F /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		83B1E84D150FC4D500B1664F /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		83B1E850150FEE5800B1664F /* TidalStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalStation.h; sourceTree = "<group>"; };
+		83B1E851150FEE5800B1664F /* TidalStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalStation.m; sourceTree = "<group>"; };
+		83B1E854150FF1A900B1664F /* TidalStationDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalStationDB.h; sourceTree = "<group>"; };
+		83B1E855150FF1A900B1664F /* TidalStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalStationDB.m; sourceTree = "<group>"; };
+		83C8B4631517F69C000C8F3F /* SandsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsParser.h; sourceTree = "<group>"; };
+		83C8B4641517F69C000C8F3F /* SandsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsParser.m; sourceTree = "<group>"; };
+		83CB247F1523731900514100 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		83CB248215241ACF00514100 /* WaterTemperature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTemperature.h; sourceTree = "<group>"; };
+		83CB248315241ACF00514100 /* WaterTemperature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTemperature.m; sourceTree = "<group>"; };
+		83DB94F2150A8C0B005014BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		83E3F1731522EB0B005422D9 /* TidalClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockView.h; sourceTree = "<group>"; };
+		83E3F1741522EB0B005422D9 /* TidalClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockView.m; sourceTree = "<group>"; };
+		83E3F1761522EE0D005422D9 /* TidalClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalClockViewController.h; sourceTree = "<group>"; };
+		83E3F1771522EE0D005422D9 /* TidalClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalClockViewController.m; sourceTree = "<group>"; };
+		83E408FA1509EDFF00F9222C /* SafeSands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeSands.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83E408FE1509EE0100F9222C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		83E409001509EE0100F9222C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		83E409021509EE0100F9222C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		83E409061509EE0100F9222C /* SafeSands-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeSands-Info.plist"; sourceTree = "<group>"; };
+		83E409081509EE0100F9222C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		83E4090A1509EE0100F9222C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		83E4090C1509EE0100F9222C /* SafeSands-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SafeSands-Prefix.pch"; sourceTree = "<group>"; };
+		83E4090D1509EE0200F9222C /* SandsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandsAppDelegate.h; sourceTree = "<group>"; };
+		83E4090E1509EE0200F9222C /* SandsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandsAppDelegate.m; sourceTree = "<group>"; };
+		83E409111509EE0300F9222C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		83E4091B1509EE0600F9222C /* SafeSandsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeSandsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83E4091C1509EE0600F9222C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		83E409241509EE0600F9222C /* SafeSandsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeSandsTests-Info.plist"; sourceTree = "<group>"; };
+		83E409261509EE0600F9222C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		83E409281509EE0600F9222C /* SafeSandsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeSandsTests.h; sourceTree = "<group>"; };
+		83E409291509EE0600F9222C /* SafeSandsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeSandsTests.m; sourceTree = "<group>"; };
+		83E409331509EF2D00F9222C /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
+		83E409341509EF2D00F9222C /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
+		83E409371509F1DD00F9222C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		83E409381509F1DD00F9222C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		83ED625D15101FF600368777 /* TidalReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TidalReading.h; sourceTree = "<group>"; };
+		83ED625E15101FF600368777 /* TidalReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidalReading.m; sourceTree = "<group>"; };
+		83ED626C1512A43700368777 /* TidalStationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TidalStationModel.xcdatamodel; sourceTree = "<group>"; };
+		83ED626F1512A59600368777 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		83F290A4152457160030FC09 /* SandsDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandsDataStore.h; sourceTree = "<group>"; };
+		83F290A5152457160030FC09 /* SandsDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandsDataStore.m; sourceTree = "<group>"; };
+		83F290AB152457BE0030FC09 /* WaterTempStationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WaterTempStationModel.xcdatamodel; sourceTree = "<group>"; };
+		83F290AD1524590D0030FC09 /* WaterTempStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTempStation.h; sourceTree = "<group>"; };
+		83F290AE1524590D0030FC09 /* WaterTempStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempStation.m; sourceTree = "<group>"; };
+		83F290B0152470090030FC09 /* WaterTempStationDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterTempStationDB.h; sourceTree = "<group>"; };
+		83F290B11524700A0030FC09 /* WaterTempStationDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempStationDB.m; sourceTree = "<group>"; };
+		C010FFA51549EEE6007628F7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		C010FFAC1549F6BF007628F7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		C010FFB8154A9316007628F7 /* Clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Clock.png; path = ../Clock.png; sourceTree = "<group>"; };
+		C010FFB9154A9316007628F7 /* Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cloud.png; path = ../Cloud.png; sourceTree = "<group>"; };
+		C010FFBC154A9397007628F7 /* icon_bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_bell.png; path = ../icon_bell.png; sourceTree = "<group>"; };
+		C010FFBE154A940D007628F7 /* icon_blog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_blog.png; path = ../icon_blog.png; sourceTree = "<group>"; };
+		C0646E451558F03D00D8E44A /* pred.kml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = pred.kml; sourceTree = "<group>"; };
+		C0F0FA69153CE65500C967C0 /* pred.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pred.kml; path = ../../pred.kml; sourceTree = "<group>"; };
+		C0F0FA6B153CFCA500C967C0 /* SpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
+		C0F0FA6C153CFCA500C967C0 /* SpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83E408F71509EDFE00F9222C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83CB24801523731900514100 /* QuartzCore.framework in Frameworks */,
+				83AFF4AD151908E600E44C2C /* MapKit.framework in Frameworks */,
+				83AFF4AB151908CC00E44C2C /* iAd.framework in Frameworks */,
+				83ED62701512A59600368777 /* CoreData.framework in Frameworks */,
+				83DB94F3150A8C0B005014BC /* CoreLocation.framework in Frameworks */,
+				83E408FF1509EE0100F9222C /* UIKit.framework in Frameworks */,
+				83E409011509EE0100F9222C /* Foundation.framework in Frameworks */,
+				83E409031509EE0100F9222C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83E409171509EE0600F9222C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83E4091D1509EE0600F9222C /* SenTestingKit.framework in Frameworks */,
+				83E4091E1509EE0600F9222C /* UIKit.framework in Frameworks */,
+				83E4091F1509EE0600F9222C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		83E408EF1509EDEA00F9222C = {
+			isa = PBXGroup;
+			children = (
+				C0646E451558F03D00D8E44A /* pred.kml */,
+				83E409041509EE0100F9222C /* SafeSands */,
+				83E409221509EE0600F9222C /* SafeSandsTests */,
+				83E408FD1509EE0000F9222C /* Frameworks */,
+				83E408FB1509EDFF00F9222C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83E408FB1509EDFF00F9222C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83E408FA1509EDFF00F9222C /* SafeSands.app */,
+				83E4091B1509EE0600F9222C /* SafeSandsTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		83E408FD1509EE0000F9222C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83CB247F1523731900514100 /* QuartzCore.framework */,
+				83AFF4AC151908E600E44C2C /* MapKit.framework */,
+				83AFF4AA151908CB00E44C2C /* iAd.framework */,
+				83ED626F1512A59600368777 /* CoreData.framework */,
+				83DB94F2150A8C0B005014BC /* CoreLocation.framework */,
+				83E408FE1509EE0100F9222C /* UIKit.framework */,
+				83E409001509EE0100F9222C /* Foundation.framework */,
+				83E409021509EE0100F9222C /* CoreGraphics.framework */,
+				83E4091C1509EE0600F9222C /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83E409041509EE0100F9222C /* SafeSands */ = {
+			isa = PBXGroup;
+			children = (
+				83E409101509EE0300F9222C /* MainStoryboard.storyboard */,
+				C0F0FA6B153CFCA500C967C0 /* SpinnerView.h */,
+				C0F0FA6C153CFCA500C967C0 /* SpinnerView.m */,
+				83E3F1731522EB0B005422D9 /* TidalClockView.h */,
+				83E3F1741522EB0B005422D9 /* TidalClockView.m */,
+				83E4090D1509EE0200F9222C /* SandsAppDelegate.h */,
+				83E4090E1509EE0200F9222C /* SandsAppDelegate.m */,
+				C010FFAF154A63DA007628F7 /* Beach */,
+				83F290A91524576C0030FC09 /* Data Related */,
+				83F290A81524573C0030FC09 /* ViewControllers */,
+				83E409051509EE0100F9222C /* Supporting Files */,
+			);
+			path = SafeSands;
+			sourceTree = "<group>";
+		};
+		83E409051509EE0100F9222C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C010FFA51549EEE6007628F7 /* Default.png */,
+				C010FFAC1549F6BF007628F7 /* Default@2x.png */,
+				C010FFBE154A940D007628F7 /* icon_blog.png */,
+				C010FFBC154A9397007628F7 /* icon_bell.png */,
+				C010FFB8154A9316007628F7 /* Clock.png */,
+				C010FFB9154A9316007628F7 /* Cloud.png */,
+				C0F0FA69153CE65500C967C0 /* pred.kml */,
+				83E409061509EE0100F9222C /* SafeSands-Info.plist */,
+				83E409071509EE0100F9222C /* InfoPlist.strings */,
+				83E4090A1509EE0100F9222C /* main.m */,
+				83E4090C1509EE0100F9222C /* SafeSands-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83E409221509EE0600F9222C /* SafeSandsTests */ = {
+			isa = PBXGroup;
+			children = (
+				83E409281509EE0600F9222C /* SafeSandsTests.h */,
+				83E409291509EE0600F9222C /* SafeSandsTests.m */,
+				83E409231509EE0600F9222C /* Supporting Files */,
+			);
+			path = SafeSandsTests;
+			sourceTree = "<group>";
+		};
+		83E409231509EE0600F9222C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				83E409241509EE0600F9222C /* SafeSandsTests-Info.plist */,
+				83E409251509EE0600F9222C /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83F290A81524573C0030FC09 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8359FC4315263F4B00B243F3 /* AlertViewController.h */,
+				8359FC4415263F4B00B243F3 /* AlertViewController.m */,
+				83E3F1761522EE0D005422D9 /* TidalClockViewController.h */,
+				83E3F1771522EE0D005422D9 /* TidalClockViewController.m */,
+				83E409331509EF2D00F9222C /* LocationSelectorViewController.h */,
+				83E409341509EF2D00F9222C /* LocationSelectorViewController.m */,
+				83AFF4A31519075900E44C2C /* PlacemarkViewController.h */,
+				83AFF4A41519075900E44C2C /* PlacemarkViewController.m */,
+				83E409371509F1DD00F9222C /* MainViewController.h */,
+				83E409381509F1DD00F9222C /* MainViewController.m */,
+				837304F9153C0F46006B33E6 /* MainView.h */,
+				837304FA153C0F46006B33E6 /* MainView.m */,
+				837304F7153C0763006B33E6 /* sandBackground.jpg */,
+				83AFF49F1518FF1A00E44C2C /* WeatherViewController.h */,
+				83AFF4A01518FF1A00E44C2C /* WeatherViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		83F290A91524576C0030FC09 /* Data Related */ = {
+			isa = PBXGroup;
+			children = (
+				83C8B4631517F69C000C8F3F /* SandsParser.h */,
+				83C8B4641517F69C000C8F3F /* SandsParser.m */,
+				83F290A4152457160030FC09 /* SandsDataStore.h */,
+				83F290A5152457160030FC09 /* SandsDataStore.m */,
+				83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */,
+				83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */,
+				83F290AD1524590D0030FC09 /* WaterTempStation.h */,
+				83F290AE1524590D0030FC09 /* WaterTempStation.m */,
+				83F290B0152470090030FC09 /* WaterTempStationDB.h */,
+				83F290B11524700A0030FC09 /* WaterTempStationDB.m */,
+				83B1E850150FEE5800B1664F /* TidalStation.h */,
+				83B1E851150FEE5800B1664F /* TidalStation.m */,
+				83B1E854150FF1A900B1664F /* TidalStationDB.h */,
+				83B1E855150FF1A900B1664F /* TidalStationDB.m */,
+			);
+			name = "Data Related";
+			sourceTree = "<group>";
+		};
+		C010FFAF154A63DA007628F7 /* Beach */ = {
+			isa = PBXGroup;
+			children = (
+				8318443915251964005FF862 /* Alerts.h */,
+				8318443A15251964005FF862 /* Alerts.m */,
+				837304F3153BDBDF006B33E6 /* UVIndex.h */,
+				837304F4153BDBDF006B33E6 /* UVIndex.m */,
+				83B1E847150FC4A300B1664F /* Beach.h */,
+				83B1E848150FC4A300B1664F /* Beach.m */,
+				83CB248215241ACF00514100 /* WaterTemperature.h */,
+				83CB248315241ACF00514100 /* WaterTemperature.m */,
+				83ED625D15101FF600368777 /* TidalReading.h */,
+				83ED625E15101FF600368777 /* TidalReading.m */,
+				83B1E84C150FC4D500B1664F /* Weather.h */,
+				83B1E84D150FC4D500B1664F /* Weather.m */,
+			);
+			name = Beach;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83E408F91509EDFE00F9222C /* SafeSands */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83E4092D1509EE0600F9222C /* Build configuration list for PBXNativeTarget "SafeSands" */;
+			buildPhases = (
+				83E408F61509EDFE00F9222C /* Sources */,
+				83E408F71509EDFE00F9222C /* Frameworks */,
+				83E408F81509EDFE00F9222C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SafeSands;
+			productName = SafeSands;
+			productReference = 83E408FA1509EDFF00F9222C /* SafeSands.app */;
+			productType = "com.apple.product-type.application";
+		};
+		83E4091A1509EE0600F9222C /* SafeSandsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83E409301509EE0600F9222C /* Build configuration list for PBXNativeTarget "SafeSandsTests" */;
+			buildPhases = (
+				83E409161509EE0600F9222C /* Sources */,
+				83E409171509EE0600F9222C /* Frameworks */,
+				83E409181509EE0600F9222C /* Resources */,
+				83E409191509EE0600F9222C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83E409211509EE0600F9222C /* PBXTargetDependency */,
+			);
+			name = SafeSandsTests;
+			productName = SafeSandsTests;
+			productReference = 83E4091B1509EE0600F9222C /* SafeSandsTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83E408F11509EDEB00F9222C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Loyola University Maryland";
+			};
+			buildConfigurationList = 83E408F41509EDEB00F9222C /* Build configuration list for PBXProject "SafeSands" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 83E408EF1509EDEA00F9222C;
+			productRefGroup = 83E408FB1509EDFF00F9222C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83E408F91509EDFE00F9222C /* SafeSands */,
+				83E4091A1509EE0600F9222C /* SafeSandsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		83E408F81509EDFE00F9222C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83E409091509EE0100F9222C /* InfoPlist.strings in Resources */,
+				83E409121509EE0300F9222C /* MainStoryboard.storyboard in Resources */,
+				837304F8153C0763006B33E6 /* sandBackground.jpg in Resources */,
+				C0646E461558F03D00D8E44A /* pred.kml in Resources */,
+				C0F0FA6A153CE65500C967C0 /* pred.kml in Resources */,
+				C010FFA61549EEE6007628F7 /* Default.png in Resources */,
+				C010FFAD1549F6BF007628F7 /* Default@2x.png in Resources */,
+				C010FFBA154A9316007628F7 /* Clock.png in Resources */,
+				C010FFBB154A9316007628F7 /* Cloud.png in Resources */,
+				C010FFBD154A9397007628F7 /* icon_bell.png in Resources */,
+				C010FFBF154A940D007628F7 /* icon_blog.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83E409181509EE0600F9222C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83E409271509EE0600F9222C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		83E409191509EE0600F9222C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83E408F61509EDFE00F9222C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83E4090B1509EE0100F9222C /* main.m in Sources */,
+				83E4090F1509EE0200F9222C /* SandsAppDelegate.m in Sources */,
+				83E409351509EF2D00F9222C /* LocationSelectorViewController.m in Sources */,
+				83E409391509F1DD00F9222C /* MainViewController.m in Sources */,
+				83B1E849150FC4A300B1664F /* Beach.m in Sources */,
+				83B1E84E150FC4D500B1664F /* Weather.m in Sources */,
+				83B1E852150FEE5800B1664F /* TidalStation.m in Sources */,
+				83B1E856150FF1A900B1664F /* TidalStationDB.m in Sources */,
+				83ED625F15101FF600368777 /* TidalReading.m in Sources */,
+				83ED626D1512A43800368777 /* TidalStationModel.xcdatamodeld in Sources */,
+				83C8B4651517F69C000C8F3F /* SandsParser.m in Sources */,
+				83AFF4A11518FF1A00E44C2C /* WeatherViewController.m in Sources */,
+				83AFF4A51519075A00E44C2C /* PlacemarkViewController.m in Sources */,
+				83E3F1751522EB0B005422D9 /* TidalClockView.m in Sources */,
+				83E3F1781522EE0D005422D9 /* TidalClockViewController.m in Sources */,
+				83CB248415241ACF00514100 /* WaterTemperature.m in Sources */,
+				83F290A6152457160030FC09 /* SandsDataStore.m in Sources */,
+				83F290AC152457BF0030FC09 /* WaterTempStationModel.xcdatamodeld in Sources */,
+				83F290AF1524590E0030FC09 /* WaterTempStation.m in Sources */,
+				83F290B21524700B0030FC09 /* WaterTempStationDB.m in Sources */,
+				8318443B15251964005FF862 /* Alerts.m in Sources */,
+				8359FC4515263F4D00B243F3 /* AlertViewController.m in Sources */,
+				837304F5153BDBDF006B33E6 /* UVIndex.m in Sources */,
+				837304FB153C0F47006B33E6 /* MainView.m in Sources */,
+				C0F0FA6D153CFCA500C967C0 /* SpinnerView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83E409161509EE0600F9222C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83E4092A1509EE0600F9222C /* SafeSandsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		83E409211509EE0600F9222C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83E408F91509EDFE00F9222C /* SafeSands */;
+			targetProxy = 83E409201509EE0600F9222C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		83E409071509EE0100F9222C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83E409081509EE0100F9222C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		83E409101509EE0300F9222C /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83E409111509EE0300F9222C /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		83E409251509EE0600F9222C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83E409261509EE0600F9222C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		83E4092B1509EE0600F9222C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83E4092C1509EE0600F9222C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		83E4092E1509EE0600F9222C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
+				INFOPLIST_FILE = "SafeSands/SafeSands-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		83E4092F1509EE0600F9222C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
+				INFOPLIST_FILE = "SafeSands/SafeSands-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		83E409311509EE0600F9222C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeSands.app/SafeSands";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
+				INFOPLIST_FILE = "SafeSandsTests/SafeSandsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		83E409321509EE0600F9222C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeSands.app/SafeSands";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeSands/SafeSands-Prefix.pch";
+				INFOPLIST_FILE = "SafeSandsTests/SafeSandsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83E408F41509EDEB00F9222C /* Build configuration list for PBXProject "SafeSands" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83E4092B1509EE0600F9222C /* Debug */,
+				83E4092C1509EE0600F9222C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83E4092D1509EE0600F9222C /* Build configuration list for PBXNativeTarget "SafeSands" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83E4092E1509EE0600F9222C /* Debug */,
+				83E4092F1509EE0600F9222C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83E409301509EE0600F9222C /* Build configuration list for PBXNativeTarget "SafeSandsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83E409311509EE0600F9222C /* Debug */,
+				83E409321509EE0600F9222C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		83ED626B1512A43700368777 /* TidalStationModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83ED626C1512A43700368777 /* TidalStationModel.xcdatamodel */,
+			);
+			currentVersion = 83ED626C1512A43700368777 /* TidalStationModel.xcdatamodel */;
+			path = TidalStationModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		83F290AA152457BE0030FC09 /* WaterTempStationModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83F290AB152457BE0030FC09 /* WaterTempStationModel.xcdatamodel */,
+			);
+			currentVersion = 83F290AB152457BE0030FC09 /* WaterTempStationModel.xcdatamodel */;
+			name = WaterTempStationModel.xcdatamodeld;
+			path = ../WaterTempStationModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 83E408F11509EDEB00F9222C /* Project object */;
+}
